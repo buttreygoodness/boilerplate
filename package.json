@@ -1,0 +1,21 @@
+{
+  "name": "course_boilerplate",
+  "version": "0.0.0",
+  "description": "Boilerplate for a course.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AutomaticManual",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "bower": "~1.2.7",
+    "grunt-cli": "~0.1.9",
+    "grunt": "~0.4.1",
+    "chai": "~1.8.1",
+    "mocha": "~1.13.0",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-simple-mocha": "~0.4.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "course_boilerplate",
+  "version": "0.0.0",
+  "authors": [
+    "Buttreygoodness <jeff@readypress.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ]
+}
