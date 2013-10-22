@@ -1,17 +1,20 @@
 {
-  "name": "course_boilerplate",
+  "name": "boilerplate",
   "version": "0.0.0",
-  "authors": [
-    "Buttreygoodness <jeff@readypress.com>"
-  ],
+  "homepage": "https://github.com/buttreygoodness/boilerplate",
+  "main": "app/auto-man.js",
   "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "app/bower_components",
+    "app/components",
     "test",
     "tests"
-  ]
+  ],
+  "directory": "my_components",
+  "devDependencies": {
+    "closure-library": "https://code.google.com/p/closure-library.git"
+  }
 }

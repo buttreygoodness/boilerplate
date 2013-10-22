@@ -15,10 +15,6 @@ module.exports = function(grunt) {
       },
     },
 
-    build: {
-
-    },
-
     simplemocha: {
       options: {
         globals: ['should'],
@@ -29,6 +25,17 @@ module.exports = function(grunt) {
       },
 
       all: { src: ['test/**/*-test.js'] }
+    },
+
+    'closure-compiler': {
+      frontend: {
+       closurePath: 'closurePath',
+       js: 'app/auto-man.js',
+       jsOutputFile: 'bin/auto-man.min.js',
+       options: {
+         language_in: 'ECMASCRIPT5_STRICT'
+       }
+      }
     },
 
     jshint: {
@@ -42,9 +49,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-simple-mocha');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-closure-compiler');
 
   // Default task(s).
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('test', ['simplemocha']);
-
+  grunt.registerTask('build', ['closure-compiler']);
 };
