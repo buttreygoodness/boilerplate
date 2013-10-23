@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 
       'deps': {
         command: [
-          'python app/bower_components/closure-library/closure/bin/calcdeps.py -i app/auto-man.js -p app/bower_components/closure-library -p app/components -o script > bin/deps.js' 
+          'python app/components/closure-library/closure/bin/calcdeps.py -i app/auto-man.js -p app/components/closure-library -p app/components -o script > bin/deps.js' 
         ].join('&&'),
         options: {
           callback: function(err, stdout, stderr) {
