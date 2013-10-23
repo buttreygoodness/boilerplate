@@ -8,29 +8,17 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['{app,test}/**/*.js'],
-        tasks: ['jshint', 'deps', 'simplemocha'],
+        tasks: ['jshint', 'deps', 'test'],
         options: {
           spawn: true,
         },
       },
     },
 
-    simplemocha: {
-      options: {
-        globals: ['should'],
-        timeout: 3000,
-        ignoreLeaks: false,
-        ui: 'bdd',
-        reporter: 'tap'
-      },
-
-      all: { src: ['test/**/*-test.js'] }
-    },
-
     'closure-compiler': {
       frontend: {
        closurePath: 'bin/closure-compiler',
-       js: 'bin/deps.js',
+       js: 'bin/auto-man.js',
        jsOutputFile: 'bin/auto-man.min.js',
        options: {
          language_in: 'ECMASCRIPT5_STRICT'
@@ -41,6 +29,16 @@ module.exports = function(grunt) {
     jshint: {
       files: ['app/*.js'],
       options: {}
+    },
+
+    nodestatic: {
+      server: {
+        options: {
+          dev: true,
+          keepalive: true,
+          base: '.'
+        }
+      }
     },
 
     shell: {
@@ -57,31 +55,53 @@ module.exports = function(grunt) {
         }
       },
 
-      'deps': {
-        command: [
-          'python app/components/closure-library/closure/bin/calcdeps.py -i app/auto-man.js -p app/components/closure-library -p app/components -o script > bin/deps.js' 
+      'link': {
+        command: [  
+          'python app/lib/closure-library/closure/bin/build/closurebuilder.py --root=app --namespace=AutoMan.start --output_mode=script --output_file=bin/auto-man.js' 
         ].join('&&'),
         options: {
           callback: function(err, stdout, stderr) {
             console.log(stderr);
           }
         }
+      },
+
+      'deps': {
+        command:[
+          'python app/lib/closure-library/closure/bin/build/depswriter.py --root=./app/ > app/deps.js' 
+        ].join('&&'),
+        options: {
+          callback: function(err, stdout, stderr) {
+            console.log(stderr);
+          }
+        }
+      },
+
+      'mocha-phantomjs': {
+        command: 'mocha-phantomjs -R list http://127.0.0.1:8080/test-runner.html',
+        options: {
+          stdout: true,
+          stderr: true
+        }
       }
     }
   });
     
   // Load the plugin that provides the "jshint" task.
-  grunt.loadNpmTasks('grunt-simple-mocha');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-nodestatic');
 
 
   // Default task(s).
-  grunt.registerTask('setup', ['shell']);
-  grunt.registerTask('default', ['watch']);
-  grunt.registerTask('test', ['simplemocha']);
+  grunt.registerTask('setup', ['shell:resolve-build-deps']);
   grunt.registerTask('deps', ['shell:deps']);
-  grunt.registerTask('build', ['deps', 'closure-compiler']);
+  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('link', ['shell:link']);
+  grunt.registerTask('build', ['link', 'closure-compiler']);
+  grunt.registerTask('test', ['shell:mocha-phantomjs']);
+  grunt.registerTask('dev', ['nodestatic']);
 };
