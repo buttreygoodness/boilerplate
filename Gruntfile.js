@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 
       'deps': {
         command: [
-          'python app/components/closure-library/closure/bin/calcdeps.py -i app/auto-man.js -p app/components/closure-library -o script > bin/deps.js' 
+          'python app/bower_components/closure-library/closure/bin/calcdeps.py -i app/auto-man.js -p app/bower_components/closure-library -p app/components -o script > bin/deps.js' 
         ].join('&&'),
         options: {
           callback: function(err, stdout, stderr) {
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 
 
   // Default task(s).
-  grunt.registerTask('setupt', ['shell']);
+  grunt.registerTask('setup', ['shell']);
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('test', ['simplemocha']);
   grunt.registerTask('deps', ['shell:deps']);
