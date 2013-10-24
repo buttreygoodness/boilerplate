@@ -92,7 +92,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-nodestatic');
 
 

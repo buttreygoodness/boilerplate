@@ -1,4 +1,4 @@
 node_modules
 app/lib
 app/deps.js
-bin/*
+bin/*.*
