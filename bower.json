@@ -15,6 +15,7 @@
   ],
   "directory": "my_components",
   "devDependencies": {
-    "closure-library": "https://code.google.com/p/closure-library.git"
+    "closure-library": "https://code.google.com/p/closure-library.git",
+    "jquery": "~2.0.3"
   }
 }

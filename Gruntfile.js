@@ -86,7 +86,14 @@ module.exports = function(grunt) {
       }
     },
 
-    'spec-glob' : {}
+    'spec-glob' : {
+      onComplete: function(specs) {
+        require('fs').writeFileSync('tests/tests.js', JSON.stringify(specs));
+      },
+      map: function(file) {
+        return "./"+file;
+      }
+    }
   });
     
   // Load the plugin that provides the "jshint" task.

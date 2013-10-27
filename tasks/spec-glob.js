@@ -47,7 +47,7 @@ SpecGlobber.defaultOptions = {
 	grep: /.*-test\.js/,
 	recursive: true,
   map: function(value) {return value;},
-  onComplete: function(value) {console.log(value);}
+  onComplete: function(glob) {console.log(glob);}
 };
 
 /**
