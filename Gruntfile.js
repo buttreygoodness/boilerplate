@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['{app,test}/**/*.js'],
-        tasks: ['jshint', 'deps', 'test'],
+        tasks: ['jshint', 'deps', 'spec-glob', 'test'],
         options: {
           spawn: true,
         },
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: ['app/*.js'],
+      all: ['Gruntfile.js', 'app/**/*.js', 'tests/**/*.js', 'tasks'],
       options: {}
     },
 
@@ -84,7 +84,9 @@ module.exports = function(grunt) {
           stderr: true
         }
       }
-    }
+    },
+
+    'spec-glob' : {}
   });
     
   // Load the plugin that provides the "jshint" task.
@@ -103,4 +105,6 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['link', 'closure-compiler']);
   grunt.registerTask('test', ['shell:mocha-phantomjs']);
   grunt.registerTask('dev', ['nodestatic']);
+
+  grunt.registerTask('spec-glob', require('./tasks/spec-glob.js')(grunt));
 };

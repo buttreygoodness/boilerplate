@@ -7,7 +7,7 @@ AutoMan.components.Factory = function(options) {
 	this.registery_ = {};
 
 	this.options_ = options || {};
-}
+};
 
 /**
  * Registers a component if its type isnt already registered.
@@ -25,7 +25,7 @@ AutoMan.component.Factory.prototype.register = function(component) {
 	this.registery_[supportedContent] = component;
 
 	return true;
-}
+};
 
 /**
  * Removes a component from registry.
@@ -43,7 +43,7 @@ AutoMan.component.Factory.prototype.unregister = function(component) {
 	}
 	
 	return false;
-}
+};
 
 /**
  * Unregisters a component by its type.
@@ -56,8 +56,8 @@ AutoMan.component.Factory.prototype.unregisterType = function(type) {
 		return false;
 	}
 
-	return this.unregister(this.registery_['type']);
-}
+	return this.unregister(this.registery_[type]);
+};
 
 /**
  * Determines if a component is registered.
@@ -69,7 +69,7 @@ AutoMan.component.Factory.prototype.isRegistered = function(component) {
 	var supportedContent = component.supportedContent();
 
 	return goog.isdefandnotnull(registery_[supportedContent]);
-}
+};
 
 /**
  * Determines if a media type is supported by this factory.
@@ -79,7 +79,7 @@ AutoMan.component.Factory.prototype.isRegistered = function(component) {
  */
 AutoMan.component.Factory.prototype.isTypeSupported = function(type) {
 	return goog.isdefandnotnull(this.registery_[type]);
-}
+};
 
 /**
  * Creates a component if its type is registered.
@@ -94,4 +94,4 @@ AutoMan.component.Factory.prototype.create = function(type, options) {
 	}
 
 	return new this.registery_[type](options || {});
-}
+};
