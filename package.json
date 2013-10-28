@@ -20,6 +20,7 @@
     "grunt-nodestatic": "~0.1.2",
     "underscore": "~1.5.2",
     "mocha": "~1.13.0",
-    "grunt-mocha-phantomjs": "~0.3.0"
+    "grunt-mocha-phantomjs": "~0.3.0",
+    "mustache": "~0.7.2"
   }
 }

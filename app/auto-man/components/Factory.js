@@ -68,7 +68,7 @@ AutoMan.components.Factory.prototype.unregisterType = function(type) {
 AutoMan.components.Factory.prototype.isRegistered = function(component) {
 	var supportedContent = component.supportedContent();
 
-	return goog.isdefandnotnull(registery_[supportedContent]);
+	return goog.isDefAndNotNull(this.registery_[supportedContent]);
 };
 
 /**
@@ -78,7 +78,7 @@ AutoMan.components.Factory.prototype.isRegistered = function(component) {
  * @return {!Boolean}	True if supported, false if not.
  */
 AutoMan.components.Factory.prototype.isTypeSupported = function(type) {
-	return goog.isdefandnotnull(this.registery_[type]);
+	return goog.isDefAndNotNull(this.registery_[type]);
 };
 
 /**
