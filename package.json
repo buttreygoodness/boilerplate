@@ -13,14 +13,13 @@
     "grunt-cli": "~0.1.9",
     "grunt": "~0.4.1",
     "chai": "~1.8.1",
-    "mocha": "~1.13.0",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-closure-compiler": "0.0.21",
     "grunt-shell": "~0.5.0",
-    "mocha-phantomjs": "~3.1.5",
-    "phantomjs": "~1.9.2-2",
     "grunt-nodestatic": "~0.1.2",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "mocha": "~1.13.0",
+    "grunt-mocha-phantomjs": "~0.3.0"
   }
 }

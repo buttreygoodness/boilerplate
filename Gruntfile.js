@@ -1,3 +1,6 @@
+var fs = require('fs');
+var Mustache = require('mustache');
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -7,10 +10,10 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['{app,test}/**/*.js'],
-        tasks: ['jshint', 'deps', 'spec-glob', 'test'],
+        files: ['{app,tests}/**/*.js', 'tasks/**/*.js', '!app/deps.js'],
+        tasks: ['jshint', 'deps' ,'tests'],
         options: {
-          spawn: true,
+          spawn: true
         },
       },
     },
@@ -27,7 +30,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      all: ['Gruntfile.js', 'app/**/*.js', 'tests/**/*.js', 'tasks'],
+      all: ['app/(!lib)**/*.js', 'Gruntfile.js', 'tests/**/*.js', 'tasks'],
       options: {}
     },
 
@@ -38,6 +41,19 @@ module.exports = function(grunt) {
           keepalive: true,
           base: '.'
         }
+      }
+    },
+
+    'spec-glob': {
+      map: function(script) {
+        return '/' + script;        
+      },
+      onComplete: function(scripts) {
+        var template = fs.readFileSync('tasks/test-runner-template.html').toString();
+        
+        var view = {'scripts' : scripts};
+
+        fs.writeFileSync('tests/test-runner.html', Mustache.render(template, view));
       }
     },
 
@@ -75,23 +91,14 @@ module.exports = function(grunt) {
             console.log(stderr);
           }
         }
-      },
-
-      'mocha-phantomjs': {
-        command: 'mocha-phantomjs -R list http://127.0.0.1:8080/test-runner.html',
-        options: {
-          stdout: true,
-          stderr: true
-        }
       }
     },
 
-    'spec-glob' : {
-      onComplete: function(specs) {
-        require('fs').writeFileSync('tests/tests.js', JSON.stringify(specs));
-      },
-      map: function(file) {
-        return "./"+file;
+    mocha_phantomjs: {
+      all: {
+        options: {
+          urls: ['http://localhost:8080/tests/test-runner.html']
+        }
       }
     }
   });
@@ -102,16 +109,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodestatic');
+  grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
-
-  // Default task(s).
   grunt.registerTask('setup', ['shell:resolve-build-deps']);
   grunt.registerTask('deps', ['shell:deps']);
-  grunt.registerTask('default', ['watch']);
   grunt.registerTask('link', ['shell:link']);
   grunt.registerTask('build', ['link', 'closure-compiler']);
-  grunt.registerTask('test', ['shell:mocha-phantomjs']);
   grunt.registerTask('dev', ['nodestatic']);
+  grunt.registerTask('test', ['mocha_phantomjs']);
 
   grunt.registerTask('spec-glob', require('./tasks/spec-glob.js')(grunt));
+
+  grunt.registerTask('default', ['watch']);
 };

@@ -15,7 +15,7 @@ AutoMan.components.Factory = function(options) {
  * @param  {!AutoMan.components.AbstractComponent} component This is the constructor of the component.
  * @return {!Boolean}	Returns true if registers, false otherwise.
  */
-AutoMan.component.Factory.prototype.register = function(component) {
+AutoMan.components.Factory.prototype.register = function(component) {
 	var supportedContent = component.supportedContent();
 
 	if(this.isRegistered(component)) {
@@ -33,7 +33,7 @@ AutoMan.component.Factory.prototype.register = function(component) {
  * @param  {!AutoMan.components.AbstractComponent} component This is the constructor of the component.
  * @return {!Boolean}	Returns true if unregisters, false otherwise.
  */
-AutoMan.component.Factory.prototype.unregister = function(component) {
+AutoMan.components.Factory.prototype.unregister = function(component) {
 	var supportedContent = component.supportedContent();
 
 	if(this.isRegistered(component)) {
@@ -51,7 +51,7 @@ AutoMan.component.Factory.prototype.unregister = function(component) {
  * @param  {!String} type
  * @return {!Boolean} Returns true if unregisters, false otherwise.
  */
-AutoMan.component.Factory.prototype.unregisterType = function(type) {
+AutoMan.components.Factory.prototype.unregisterType = function(type) {
 	if(!this.isTypeSupported(type)) {
 		return false;
 	}
@@ -65,7 +65,7 @@ AutoMan.component.Factory.prototype.unregisterType = function(type) {
  * @param  {!AutoMan.components.AbstractComponent}  component This is the constructor of the component.
  * @return {!Boolean}	True if registered, false otherwise.
  */
-AutoMan.component.Factory.prototype.isRegistered = function(component) {
+AutoMan.components.Factory.prototype.isRegistered = function(component) {
 	var supportedContent = component.supportedContent();
 
 	return goog.isdefandnotnull(registery_[supportedContent]);
@@ -77,7 +77,7 @@ AutoMan.component.Factory.prototype.isRegistered = function(component) {
  * @param  {!String}  type 
  * @return {!Boolean}	True if supported, false if not.
  */
-AutoMan.component.Factory.prototype.isTypeSupported = function(type) {
+AutoMan.components.Factory.prototype.isTypeSupported = function(type) {
 	return goog.isdefandnotnull(this.registery_[type]);
 };
 
@@ -88,7 +88,7 @@ AutoMan.component.Factory.prototype.isTypeSupported = function(type) {
  * @param  {!Object=} options
  * @return {?AutoMan.components.AbstractComponent}
  */
-AutoMan.component.Factory.prototype.create = function(type, options) {
+AutoMan.components.Factory.prototype.create = function(type, options) {
 	if(!this.isTypeSupported(type)) {
 		return;
 	}
