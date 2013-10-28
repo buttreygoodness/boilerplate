@@ -1,4 +1,6 @@
+var _ = require('underscore');
 var fs = require('fs');
+var path = require('path');
 var Mustache = require('mustache');
 
 module.exports = function(grunt) {
@@ -52,6 +54,12 @@ module.exports = function(grunt) {
         var template = fs.readFileSync('tasks/test-runner-template.html').toString();
         
         var view = {'scripts' : scripts};
+
+        _.each(scripts, function(script) {
+          var out = path.dirname('./' + script) + '/' + path.basename(script, path.extname(script)) + '.html';
+          
+          fs.writeFileSync(out, Mustache.render(template, {'scripts': [script]}));
+        });
 
         fs.writeFileSync('tests/test-runner.html', Mustache.render(template, view));
       }
