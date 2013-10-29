@@ -1,0 +1,13 @@
+body{
+  padding-top: 50px;
+}
+
+.am-header {
+  font-size: 21px;
+  text-align: left;
+  padding: 30px 15px 40px;
+}
+
+.am-header .container {
+  position: relative;
+}

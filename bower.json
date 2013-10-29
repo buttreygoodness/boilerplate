@@ -17,5 +17,8 @@
   "devDependencies": {
     "closure-library": "https://code.google.com/p/closure-library.git",
     "jquery": "~2.0.3"
+  },
+  "dependencies": {
+    "bootstrap": "~3.0.0"
   }
 }
