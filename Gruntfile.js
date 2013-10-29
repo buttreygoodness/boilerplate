@@ -79,6 +79,17 @@ module.exports = function(grunt) {
         }
       },
 
+      'bower': {
+        command: [
+          'bower install'
+        ].join('&&'),
+        options: {
+          callback: function(err, stdout) {
+            console.log(stdout);
+          }
+        }
+      },
+
       'link': {
         command: [  
           'python app/lib/closure-library/closure/bin/build/closurebuilder.py --root=app --namespace=AutoMan.start --output_mode=script --output_file=bin/auto-man.js' 
@@ -119,7 +130,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodestatic');
   grunt.loadNpmTasks('grunt-mocha-phantomjs');
 
-  grunt.registerTask('setup', ['shell:resolve-build-deps']);
+  grunt.registerTask('setup', ['shell:resolve-build-deps', 'shell:bower']);
   grunt.registerTask('deps', ['shell:deps']);
   grunt.registerTask('link', ['shell:link']);
   grunt.registerTask('build', ['link', 'closure-compiler']);
