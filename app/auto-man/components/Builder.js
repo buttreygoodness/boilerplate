@@ -14,8 +14,6 @@ AutoMan.Builder = function(content, factory) {
 	this.parseing_ = false;
 
 	this.components_ = [];
-
-	this.bindEvents_();
 }
 
 goog.inherits(AutoMan.Builder, goog.events.EventTarget);
@@ -23,6 +21,8 @@ goog.inherits(AutoMan.Builder, goog.events.EventTarget);
 AutoMan.Builder.prototype.parse = function() {
 	if(!this.parseing_) {
 		this.parseing_ = true;
+
+		this.bindEvents_();
 
 		setTimeout(this.parse_.bind(this), 0);
 	}
