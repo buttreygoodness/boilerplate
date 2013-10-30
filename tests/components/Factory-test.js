@@ -1,24 +1,24 @@
-goog.require('AutoMan.components.Factory');
-goog.require('AutoMan.components.AbstractComponent');
+goog.require('AutoMan.ui.components.Factory');
+goog.require('AutoMan.ui.components.AbstractComponent');
 
 var TestComponent = function(options) {
 	goog.base(this);
 };
 
-goog.inherits(TestComponent, AutoMan.components.AbstractComponent);
+goog.inherits(TestComponent, AutoMan.ui.components.AbstractComponent);
 
-goog.object.extend(TestComponent, AutoMan.components.AbstractComponent);
+goog.object.extend(TestComponent, AutoMan.ui.components.AbstractComponent);
 
 TestComponent.supportedContent = function() {
 	return 'text';
 }
 
-describe('AutoMan.components.Factory', function() {
+describe('AutoMan.ui.components.Factory', function() {
 
 	var factory;
 
 	beforeEach(function() {
-		factory = new AutoMan.components.Factory();
+		factory = new AutoMan.ui.components.Factory();
 	});
 
 	describe('#register', function() {

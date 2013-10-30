@@ -1,4 +1,4 @@
-goog.provide('AutoMan.components.AbstractComponent');
+goog.provide('AutoMan.ui.components.AbstractComponent');
 
 goog.require('goog.ui.Component');
 
@@ -8,11 +8,11 @@ goog.require('goog.ui.Component');
  * @param {?Object} options
  * @param {?goog.dom.DomHelper} domHelper
  */
-AutoMan.components.AbstractComponent = function(options, domHelper) {
+AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
 	goog.base(this, domHelper);
 };
 
-goog.inherits(AutoMan.components.AbstractComponent, goog.ui.Component);
+goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Component);
 
 /**
  * Determines what content type is supported by this component.
@@ -20,4 +20,4 @@ goog.inherits(AutoMan.components.AbstractComponent, goog.ui.Component);
  * @static
  * @return {!String}
  */
-AutoMan.components.AbstractComponent.supportedContent = goog.abstractMethod;
+AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
