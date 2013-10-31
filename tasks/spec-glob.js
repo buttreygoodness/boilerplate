@@ -1,7 +1,6 @@
 
 var _ = require('underscore');
 var fs = require('fs');
-var EventEmitter = require('events').EventEmitter;
 
 /**
  * @param {!Object} grunt Grunt global object.

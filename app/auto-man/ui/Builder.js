@@ -1,7 +1,6 @@
 goog.provide('AutoMan.ui.Builder');
 
 goog.require('goog.events.EventTarget');
-goog.require('goog.structs.TreeNode');
 goog.require('goog.array');
 
 AutoMan.ui.Builder = function(content, factory) {
@@ -24,7 +23,7 @@ AutoMan.ui.Builder.prototype.parse = function() {
 
 		this.bindEvents_();
 
-		setTimeout(this.parse_.bind(this), 0);
+		setTimeout(this.parse_.bind(this), 1);
 	}
 }
 
