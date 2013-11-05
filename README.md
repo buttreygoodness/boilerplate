@@ -10,4 +10,4 @@ git clone https://code.google.com/p/closure-compiler/
 cd closure-compiler
 ant
 
-downloading binaries will also work.\r\ntest
+downloading binaries will also work.

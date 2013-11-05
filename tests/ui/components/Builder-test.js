@@ -90,36 +90,40 @@ var content = [
   }];
 
 var P = function(options) {
-	goog.base(this);
+	goog.base(this, options);
 };
 
-goog.inherits(P, AutoMan.ui.components.AbstractComponent);
-
 goog.object.extend(P, AutoMan.ui.components.AbstractComponent);
+
+goog.inherits(P, AutoMan.ui.components.AbstractComponent);
 
 P.supportedContent = function() {
 	return 'p';
 }
 
 var H2 = function(options) {
-	goog.base(this);
+	goog.base(this, options);
 };
 
-goog.inherits(H2, AutoMan.ui.components.AbstractComponent);
-
 goog.object.extend(H2, AutoMan.ui.components.AbstractComponent);
+
+goog.inherits(H2, AutoMan.ui.components.AbstractComponent);
 
 H2.supportedContent = function() {
 	return 'h2';
 }
 
-var Section = function(options) {
-	goog.base(this);
+H2.prototype.createDom = function() {
+  this.decorateInternal(this.dom_.createElement('h2'));
 };
 
-goog.inherits(Section, AutoMan.ui.components.AbstractComponent);
+var Section = function(options) {
+	goog.base(this, options);
+};
 
 goog.object.extend(Section, AutoMan.ui.components.AbstractComponent);
+
+goog.inherits(Section, AutoMan.ui.components.AbstractComponent);
 
 Section.supportedContent = function() {
 	return 'section';
