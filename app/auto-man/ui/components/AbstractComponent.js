@@ -19,7 +19,7 @@ AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
 
   this.attributes_ = this.options_.attributes || {};
 
-  this.style_ = this.options_.style || {};
+  this.style_ = this.options_.styles || {};
 };
 
 goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Component);
@@ -49,8 +49,37 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(el
   this.decorateInternalStyles_();
 }
 
+/**
+ * Render self and all of my children.
+ * 
+ * @param  {?Element} element optional element to render to.
+ */
+AutoMan.ui.components.AbstractComponent.prototype.render = function(element) {
+  goog.base(this, 'render', element);
+
+  this.renderChildren_(this, this.getElement());
+}
+
+/**
+ * Recursivly renders child elements.
+ *
+ * @private
+ * @param  {!AutoMan.ui.components.AbstractWidget} node
+ * @param  {?DomElement} element
+ */
+AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(node, element) {
+  node.forEachChild(function(child) {
+    child.render(element);
+  });
+}
+
+/**
+ * Decorates content.
+ * 
+ * @private
+ */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
-  this.getElement().innerText = this.content_;
+  this.getElement().innerText = this.content_.text || '';
 }
 
 /**
@@ -70,7 +99,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalClasses_ = fun
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = function() {
-  goog.object.forEach(this.attributes_, goog.bind(function(key, value) {
+  goog.object.forEach(this.attributes_, goog.bind(function(value, key) {
     this.getElement().setAttribute(key, value);
   }, this));
 }

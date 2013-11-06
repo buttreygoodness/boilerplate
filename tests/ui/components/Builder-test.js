@@ -10,7 +10,7 @@ var content = [
         "content": {
           "text": "Scenario"
         },
-        "id": "scenario",
+        "attributes": {'id': "scenario"},
         "type": "h2"
       },
       {
@@ -23,7 +23,7 @@ var content = [
         "content": {
           "text": "Welcome One, Welcome All"
         },
-        "id": "welcome_one_welcome_all",
+        "attributes" :{ "id": "welcome_one_welcome_all" },
         "type": "h2"
       },
       {
@@ -36,7 +36,7 @@ var content = [
         "content": {
           "text": "Diversity"
         },
-        "id": "diversity",
+        "attributes" :{ "id": "diversity" },
         "type": "h2"
       },
       {
@@ -49,7 +49,7 @@ var content = [
         "content": {
           "text": "Equality Opportunity Employer"
         },
-        "id": "equality_opportunity_employer",
+        "attributes" :{ "id": "equality_opportunity_employer" },
         "type": "h2"
       },
       {
@@ -62,7 +62,7 @@ var content = [
         "content": {
           "text": "Apply Knowledge"
         },
-        "id": "apply_knowledge",
+        "attributes" :{ "id": "apply_knowledge" },
         "type": "h2"
       },
       {
@@ -75,17 +75,17 @@ var content = [
         "content": {
           "text": "Additional Resources"
         },
-        "id": "additional_resources",
+        "attributes" :{ "id": "additional_resources" },
         "type": "h2"
       },
       {
         "content": {
           "text": "Links to resources and policies"
         },
-        "type": "p"
+        "type": "p",
       }
     ],
-    "id": "workplace_issues",
+    "attributes": {"id": "workplace_issues"},
     "type": "section"
   }];
 
@@ -99,6 +99,10 @@ goog.inherits(P, AutoMan.ui.components.AbstractComponent);
 
 P.supportedContent = function() {
 	return 'p';
+}
+
+P.prototype.createDom = function() {
+  this.decorateInternal(this.dom_.createElement('p'));
 }
 
 var H2 = function(options) {
@@ -128,6 +132,10 @@ goog.inherits(Section, AutoMan.ui.components.AbstractComponent);
 Section.supportedContent = function() {
 	return 'section';
 }
+
+Section.prototype.createDom = function() {
+  this.decorateInternal(this.dom_.createElement('div'));
+};
 
 goog.require('AutoMan.ui.components.Root');
 
