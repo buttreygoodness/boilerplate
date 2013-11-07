@@ -8,7 +8,7 @@ AutoMan.ui.Builder = function(content, factory) {
 
 	this.factory_ = factory;
 
-	this.content_ = content || [];
+	this.content_ = content || {};
 
 	this.parseing_ = false;
 
@@ -27,12 +27,30 @@ AutoMan.ui.Builder.prototype.parse = function() {
 	}
 }
 
+AutoMan.ui.Builder.prototype.getComponents = function() {
+	return this.components_;
+}
+
 AutoMan.ui.Builder.prototype.parse_ = function() {
+	var initial = this.factory_.create(this.content_.type, this.content_);
 
-	var recursiveParser = function(content, factory, current) {
+	if(!initial) {
+		this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseError);
 
-		goog.array.forEach(content, function(element) {
+		return;
+	}
 
+	if(this.content_.content) {
+		this.components_ = this.parseChildren_(this.content_.content, this.factory_, initial); //move this out... root should be defined in markup
+	}
+
+	this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseComplete);
+}
+
+AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current) {
+	var self = this;
+
+	goog.array.forEach(content, function(element) {
 			var component = factory.create(element.type, element);
 
 			if(!component) {
@@ -42,16 +60,11 @@ AutoMan.ui.Builder.prototype.parse_ = function() {
 			current.addChild(component);
 
 			if(goog.isArray(element.content)) {
-				recursiveParser(element.content, factory, component);
+				self.parseChildren_.bind(self)(element.content, factory, component);
 			}
 		});
 
-		return current;
-	}
-
-	this.components_ = recursiveParser(this.content_, this.factory_, this.factory_.create('root')); //move this out... root should be defined in markup
-
-	this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseComplete);
+	return current;
 }
 
 AutoMan.ui.Builder.prototype.bindEvents_ = function() {
@@ -65,14 +78,6 @@ AutoMan.ui.Builder.prototype.handleParseComplete_ = function() {
 
 AutoMan.ui.Builder.prototype.handleParseError_ = function() {
 	this.parseing_ = false;
-}
-
-AutoMan.ui.Builder.prototype.isParsing = function() {
-	return this.parseing_;
-}
-
-AutoMan.ui.Builder.prototype.getComponents = function() {
-	return this.components_;
 }
 
 AutoMan.ui.Builder.EventTypes = {

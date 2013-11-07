@@ -16,6 +16,10 @@ AutoMan.ui.components.Factory = function(options) {
  * @return {!Boolean}	Returns true if registers, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.register = function(component) {
+	if(!component.supportedContent) {
+		return false;
+	}
+	
 	var supportedContent = component.supportedContent();
 
 	if(this.isRegistered(component)) {

@@ -1,6 +1,6 @@
 goog.provide('AutoMan.ui.components.AbstractComponent');
 
-goog.require('goog.ui.Component');
+goog.require('goog.ui.Control');
 
 /**
  * Abstract Component that all components must implement.
@@ -22,7 +22,7 @@ AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
   this.style_ = this.options_.styles || {};
 };
 
-goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Component);
+goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
 
 /**
  * Determines what content type is supported by this component.

@@ -3,8 +3,7 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 
 goog.require('AutoMan.ui.Builder');
 
-var content = [
-  {
+var content = {
     "content": [
       {
         "content": {
@@ -86,77 +85,11 @@ var content = [
       }
     ],
     "attributes": {"id": "workplace_issues"},
-    "type": "section"
-  }];
+    "type": "section",
+    "classes": ["blars", "tacoman"],
+    "styles": { "width": "20%" }
+  };
 
-var P = function(options) {
-	goog.base(this, options);
-};
+goog.require('AutoMan.ui.components');  
 
-goog.object.extend(P, AutoMan.ui.components.AbstractComponent);
-
-goog.inherits(P, AutoMan.ui.components.AbstractComponent);
-
-P.supportedContent = function() {
-	return 'p';
-}
-
-P.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('p'));
-}
-
-var H2 = function(options) {
-	goog.base(this, options);
-};
-
-goog.object.extend(H2, AutoMan.ui.components.AbstractComponent);
-
-goog.inherits(H2, AutoMan.ui.components.AbstractComponent);
-
-H2.supportedContent = function() {
-	return 'h2';
-}
-
-H2.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h2'));
-};
-
-var Section = function(options) {
-	goog.base(this, options);
-};
-
-goog.object.extend(Section, AutoMan.ui.components.AbstractComponent);
-
-goog.inherits(Section, AutoMan.ui.components.AbstractComponent);
-
-Section.supportedContent = function() {
-	return 'section';
-}
-
-Section.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
-};
-
-goog.require('AutoMan.ui.components.Root');
-
-describe('AutoMan.ui.Builder', function() {
-
-	beforeEach(function() {
-		var factory = new AutoMan.ui.components.Factory();
-
-		builder = new AutoMan.ui.Builder(content, factory);
-
-		factory.register(P);
-		factory.register(H2);
-		factory.register(Section);
-		factory.register(AutoMan.ui.components.Root);	
-	});
-
-	describe('asdas', function() {
-		it('do stuff', function() {
-			builder.parse();
-
-		});
-	});
-});
-
+var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
