@@ -1,4 +1,3 @@
-
 var _ = require('underscore');
 var fs = require('fs');
 
@@ -6,12 +5,12 @@ var fs = require('fs');
  * @param {!Object} grunt Grunt global object.
  * @param {String=} optionsKey Object key for find config data in grunt config.
  */
-var SpecGlobber = function(grunt, optionsKey) {
+var TestBuilder = function(grunt, optionsKey) {
   this.grunt_ = grunt;
 
-	this.optionsKey_ = optionsKey || SpecGlobber.defaultOptionsKey;
+	this.optionsKey_ = optionsKey || TestBuilder.defaultOptionsKey;
 
-	this.options_ = SpecGlobber.defaultOptions;
+	this.options_ = TestBuilder.defaultOptions;
 
   this.globs_ = [];
 
@@ -24,7 +23,7 @@ var SpecGlobber = function(grunt, optionsKey) {
  * @static
  * @type {String}
  */
-SpecGlobber.defaultOptionsKey = 'spec-glob';
+TestBuilder.defaultOptionsKey = 'test-builder';
 
 /**
  * Default config options.
@@ -32,7 +31,7 @@ SpecGlobber.defaultOptionsKey = 'spec-glob';
  * @static
  * @type {Object}
  */
-SpecGlobber.defaultOptions = {
+TestBuilder.defaultOptions = {
 	location: 'tests',
 	grep: /.*-test\.js/,
 	recursive: true,
@@ -45,7 +44,7 @@ SpecGlobber.defaultOptions = {
  * 
  * @public
  */
-SpecGlobber.prototype.task = function() {
+TestBuilder.prototype.task = function() {
   this.glob_(this.options_.location);
 
   this.options_.onComplete(_.map(this.globs_, this.options_.map));
@@ -58,7 +57,7 @@ SpecGlobber.prototype.task = function() {
  * @private
  * @param  {!String}   path
  */
-SpecGlobber.prototype.glob_ = function(path) {
+TestBuilder.prototype.glob_ = function(path) {
   var self = this;
 
   var options = self.options_;
@@ -80,6 +79,6 @@ SpecGlobber.prototype.glob_ = function(path) {
 
 module.exports = function(grunt, optionsKey) {
   return function() {
-    (new SpecGlobber(grunt, optionsKey)).task();
+    (new TestBuilder(grunt, optionsKey)).task();
   };
 };

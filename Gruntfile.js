@@ -46,7 +46,7 @@ module.exports = function(grunt) {
       }
     },
 
-    'spec-glob': {
+    'test-builder': {
       map: function(script) {
         return '/' + script;        
       },
@@ -137,7 +137,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['nodestatic']);
   grunt.registerTask('test', ['mocha_phantomjs']);
 
-  grunt.registerTask('spec-glob', require('./tasks/spec-glob.js')(grunt));
+  grunt.registerTask('test-builder', require('./tasks/test-builder/test-builder.js')(grunt));
 
   grunt.registerTask('default', ['watch']);
 };
