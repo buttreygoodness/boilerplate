@@ -16,9 +16,9 @@ goog.object.extend(AutoMan.ui.components.Heading2, AutoMan.ui.components.Abstrac
 goog.inherits(AutoMan.ui.components.Heading2, AutoMan.ui.components.AbstractComponent);
 
 AutoMan.ui.components.Heading2.supportedContent = function() {
-  return 'h2';
+  return 'heading2';
 };
 
 AutoMan.ui.components.Heading2.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('Heading'));
+  this.decorateInternal(this.dom_.createElement('h2'));
 };
