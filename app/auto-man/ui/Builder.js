@@ -18,6 +18,10 @@ AutoMan.ui.Builder = function(content, factory) {
 
 goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
 
+/*
+ * Parses the json content that was passed into the Builder constructor
+ * and invokes the private parse_ function asynchronously
+ */
 AutoMan.ui.Builder.prototype.parse = function() {
 	if(!this.parseing_) {
 		this.parseing_ = true;
@@ -28,10 +32,18 @@ AutoMan.ui.Builder.prototype.parse = function() {
 	}
 }
 
+/*
+ * Returns components that have been created
+ *
+ * @return {Object}
+ */
 AutoMan.ui.Builder.prototype.getComponents = function() {
 	return this.components_;
 }
 
+/*
+ * Private function to parse the internal json content
+ */
 AutoMan.ui.Builder.prototype.parse_ = function() {
 	this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseStart);
 
@@ -50,6 +62,14 @@ AutoMan.ui.Builder.prototype.parse_ = function() {
 	this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseComplete);
 }
 
+/*
+ * Private function that recursively parses internal json content
+ *
+ * @param {Object} content
+ * @param {Object} factory
+ * @param {!Object} current
+ * @return {?AutoMan.ui.components.Component}
+ */
 AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current) {
 	var self = this;
 
@@ -67,22 +87,35 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
 		}
 	});
 
+	console.log(current);
 	return current;
 }
 
+/*
+ * Private internal function that binds events to the asynchronous parser
+ */
 AutoMan.ui.Builder.prototype.bindEvents_ = function() {
 	this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseComplete, this.handleParseComplete_.bind(this));
 	this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseError, this.handleParseError_.bind(this));
 }
 
+/*
+ * Handles ParseComplete event type
+ */
 AutoMan.ui.Builder.prototype.handleParseComplete_ = function() {
 	this.parseing_ = false;
 }
 
+/*
+ * Handles ParseError event type
+ */
 AutoMan.ui.Builder.prototype.handleParseError_ = function() {
 	this.parseing_ = false;
 }
 
+/*
+ * Enum of event types for the parser function
+ */
 AutoMan.ui.Builder.EventTypes = {
 	'ParseComplete'	: 'ParseComplete',
 	'ParseError' 	: 'ParseError',

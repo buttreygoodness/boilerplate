@@ -99,3 +99,34 @@ AutoMan.ui.components.Factory.prototype.create = function(type, options) {
 
 	return new this.registery_[type](options || {});
 };
+
+/*
+ * Handle registration errors
+ */
+AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function () {
+	console.log(arguments);
+}
+
+/*
+ * Handle unregistration errors
+ */
+AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function () {
+	console.log(arguments);
+}
+
+/*
+ * Handle creation errors
+ */
+AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {
+	console.log(arguments);
+}
+
+/*
+ * Eventypes for handling errors in the Factory
+ */
+AutoMan.ui.components.Factory.EventTypes = {
+	"RegistrationError": 	this.handleRegistrationError_,
+	"UnegistrationError": this.handleUnregistrationError_,
+	"CreationError" 		: this.handleCreationError_
+
+}
