@@ -20,5 +20,5 @@ AutoMan.ui.components.Section.supportedContent = function() {
 };
 
 AutoMan.ui.components.Section.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
+  this.decorateInternal(this.dom_.createElement('section'));
 };

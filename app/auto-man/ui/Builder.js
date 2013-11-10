@@ -1,5 +1,6 @@
 goog.provide('AutoMan.ui.Builder');
 
+goog.require('goog.net.XhrIo')
 goog.require('goog.events.EventTarget');
 goog.require('goog.array');
 
@@ -8,7 +9,7 @@ AutoMan.ui.Builder = function(content, factory) {
 
 	this.factory_ = factory;
 
-	this.content_ = content || {};
+	this.content_ = content.content || {};
 
 	this.parseing_ = false;
 
@@ -32,6 +33,8 @@ AutoMan.ui.Builder.prototype.getComponents = function() {
 }
 
 AutoMan.ui.Builder.prototype.parse_ = function() {
+	this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseStart);
+
 	var initial = this.factory_.create(this.content_.type, this.content_);
 
 	if(!initial) {
@@ -40,8 +43,8 @@ AutoMan.ui.Builder.prototype.parse_ = function() {
 		return;
 	}
 
-	if(this.content_.content) {
-		this.components_ = this.parseChildren_(this.content_.content, this.factory_, initial); //move this out... root should be defined in markup
+	if(this.content_.children) {
+		this.components_ = this.parseChildren_(this.content_.children, this.factory_, initial); //move this out... root should be defined in markup
 	}
 
 	this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseComplete);
@@ -51,18 +54,18 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
 	var self = this;
 
 	goog.array.forEach(content, function(element) {
-			var component = factory.create(element.type, element);
+		var component = factory.create(element.type, element);
 
-			if(!component) {
-				console.log(element);
-			}
+		if(!component) {
+			console.log('error', element);
+		}
 
-			current.addChild(component);
+		current.addChild(component);
 
-			if(goog.isArray(element.content)) {
-				self.parseChildren_.bind(self)(element.content, factory, component);
-			}
-		});
+		if(goog.isArray(element.children)) {
+			self.parseChildren_.bind(self)(element.children, factory, component);
+		}
+	});
 
 	return current;
 }

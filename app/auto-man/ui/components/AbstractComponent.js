@@ -11,9 +11,9 @@ goog.require('goog.ui.Control');
 AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
   goog.base(this, domHelper);
 
-  this.options_ = options || {};
+  this.options_ = options.data || {};
 
-  this.content_ = this.options_.content || "";
+  this.content_ = this.options_ || "";
 
   this.classes_ = this.options_.classes || [];
 
@@ -79,6 +79,7 @@ AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(nod
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
+  console.log(this.content_);
   this.getElement().innerText = this.content_.text || '';
 }
 
