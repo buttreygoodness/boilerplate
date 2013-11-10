@@ -29,7 +29,9 @@
             var should = chai.should();
         </script>
 
-        {{#scripts}}<script src="{{{.}}}"></script>{{/scripts}}
+        {{#scripts}}
+        <script src="{{{.}}}"></script>
+        {{/scripts}}
 
         <script type="text/javascript">
             if(window.mochaPhantomJS) {
