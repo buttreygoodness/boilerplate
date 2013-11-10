@@ -2,7 +2,11 @@
   "content": {
     "type": "page",
     "data": {
-      "text": "Codde of Business Conduct"
+      "text": "Code of Business Conduct",
+      "classes": ["blars", "tacoman"],
+      "styles": {
+        "width": "500px"
+      }
     },
     "children": [
       {

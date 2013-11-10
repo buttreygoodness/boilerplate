@@ -87,7 +87,6 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
 		}
 	});
 
-	console.log(current);
 	return current;
 }
 
