@@ -24,25 +24,26 @@ describe('AutoMan.ui.Builder', function () {
     });
     
     it('Should broadcast a ParseStart event.', function (done) {
-      builder.parse();
       goog.events.listen(builder, AutoMan.ui.Builder.EventTypes.ParseStart, function (e) {
         done();
       });
-    });
-
-    it('Should not broadcast a ParseError event.', function (done){
       builder.parse();
-      goog.events.listen(builder, AutoMan.ui.Builder.EventTypes.ParseError, function (e) {
-        done(e);
-      });
     });
     
     it('Should broadcast a ParseComplete event.', function (done) {
-      builder.parse();
       goog.events.listen(builder, AutoMan.ui.Builder.EventTypes.ParseComplete, function (e) {
         done();
       });
+      builder.parse();
     });
 
   });
+
+  describe("#getCompnents", function () {
+    it('Should return an object', function () {
+      var comps = builder.getComponents();
+      comps.should.be.an('object');
+    });
+  });
+
 });

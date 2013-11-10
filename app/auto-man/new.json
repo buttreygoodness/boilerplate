@@ -2,16 +2,16 @@
   "content": {
     "type": "page",
     "data": {
-      "text": "Code of Conduct"
+      "text": "Codde of Business Conduct"
     },
     "children": [
       {
         "type": "section",
         "data": {
           "text": ""
-        },
-        "children": [
-          {
+      },
+      "children": [
+        {
             "type": "heading",
             "data": {
               "text": "Workplace Issues"
