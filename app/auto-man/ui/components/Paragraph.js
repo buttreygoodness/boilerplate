@@ -15,6 +15,12 @@ goog.object.extend(AutoMan.ui.components.Paragraph, AutoMan.ui.components.Abstra
 
 goog.inherits(AutoMan.ui.components.Paragraph, AutoMan.ui.components.AbstractComponent);
 
+/**
+ * Returns 'paragraph'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.Paragraph.supportedContent = function() {
   return 'paragraph';
 };

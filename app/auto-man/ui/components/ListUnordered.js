@@ -3,7 +3,7 @@ goog.provide('AutoMan.ui.components.ListUnordered');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Heading Component
+ * ListUnordered Component
  * 
  * @param {!Object} options
  */
@@ -15,6 +15,12 @@ goog.object.extend(AutoMan.ui.components.ListUnordered, AutoMan.ui.components.Ab
 
 goog.inherits(AutoMan.ui.components.ListUnordered, AutoMan.ui.components.AbstractComponent);
 
+/**
+ * Returns 'list-unordered'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.ListUnordered.supportedContent = function() {
   return 'list-unordered';
 };

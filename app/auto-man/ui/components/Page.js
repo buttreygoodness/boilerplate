@@ -3,7 +3,7 @@ goog.provide('AutoMan.ui.components.Page');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Heading Component
+ * Page Component
  * 
  * @param {!Object} options
  */
@@ -15,6 +15,12 @@ goog.object.extend(AutoMan.ui.components.Page, AutoMan.ui.components.AbstractCom
 
 goog.inherits(AutoMan.ui.components.Page, AutoMan.ui.components.AbstractComponent);
 
+/**
+ * Returns 'page'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.Page.supportedContent = function() {
   return 'page';
 };

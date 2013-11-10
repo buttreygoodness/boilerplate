@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         return '/' + script;        
       },
       onComplete: function(scripts) {
-        var template = fs.readFileSync('tasks/test-runner-template.html').toString();
+        var template = fs.readFileSync('tasks/test-builder/test-runner-template.html').toString();
         
         var view = {'scripts' : scripts};
 

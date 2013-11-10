@@ -4,6 +4,9 @@ goog.require('goog.net.XhrIo')
 goog.require('goog.events.EventTarget');
 goog.require('goog.array');
 
+/**
+ * [Builder description]
+ */
 AutoMan.ui.Builder = function(content, factory) {
 	goog.base(this);
 

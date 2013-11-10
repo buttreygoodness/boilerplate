@@ -15,6 +15,12 @@ goog.object.extend(AutoMan.ui.components.Section, AutoMan.ui.components.Abstract
 
 goog.inherits(AutoMan.ui.components.Section, AutoMan.ui.components.AbstractComponent);
 
+/**
+ * Returns 'section'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.Section.supportedContent = function() {
   return 'section';
 };
