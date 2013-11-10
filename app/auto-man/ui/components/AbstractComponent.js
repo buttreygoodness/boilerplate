@@ -79,7 +79,6 @@ AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(nod
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
-  console.log(this.content_);
   this.getElement().innerText = this.content_.text || '';
 }
 
