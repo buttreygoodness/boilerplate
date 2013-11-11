@@ -57,10 +57,6 @@ AutoMan.ui.components.Factory.prototype.unregister = function(component) {
 
     return true;
   }
-
-  this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.UnregistrationError({
-    component: component
-  }, this));
   
   return false;
 };
@@ -110,11 +106,12 @@ AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
  */
 AutoMan.ui.components.Factory.prototype.create = function(type, options) {
   if(!this.isTypeSupported(type)) {
-    this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.UnregistrationError({
+    this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.CreationError({
+      granularEventType: AutoMan.ui.components.Factory.GranularEvents.TypeUnsupported,
       type: type,
       options: options
     }, this));
-    
+
     return;
   }
 
@@ -149,4 +146,13 @@ AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function (e
  */
 AutoMan.ui.components.Factory.prototype.handleCreationError_ = function (e) {
   console.log(e);
+};
+
+/**
+ * Granular Events.
+ * 
+ * @type {Object}
+ */
+AutoMan.ui.components.Factory.GranularEvents = {
+  TypeUnsupported: 'Type.Unsupported'
 };
