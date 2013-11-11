@@ -75,7 +75,7 @@ AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(nod
 
 /**
  * Decorates content.
- * 
+ *
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
