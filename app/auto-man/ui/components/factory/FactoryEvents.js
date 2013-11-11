@@ -6,7 +6,7 @@ goog.require('AutoMan.ui.components.FactoryEvents.UnregistrationError');
 goog.require('AutoMan.ui.components.FactoryEvents.RegistrationError');
 
 AutoMan.ui.components.FactoryEvents.types = {
-	'CreationError'			: AutoMan.ui.components.FactoryEvents.CreationError.getType(),
-	'UnregistrationError'	: AutoMan.ui.components.FactoryEvents.UnregistrationError.getType(),
-	'RegistrationError'		: AutoMan.ui.components.FactoryEvents.RegistrationError.getType()
-} 
+  'CreationError'       : AutoMan.ui.components.FactoryEvents.CreationError.getType(),
+  'UnregistrationError' : AutoMan.ui.components.FactoryEvents.UnregistrationError.getType(),
+  'RegistrationError'   : AutoMan.ui.components.FactoryEvents.RegistrationError.getType()
+};
