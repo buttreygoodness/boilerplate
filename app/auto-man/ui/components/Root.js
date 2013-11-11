@@ -24,4 +24,4 @@ goog.inherits(AutoMan.ui.components.Root, AutoMan.ui.components.AbstractComponen
  */
 AutoMan.ui.components.Root.supportedContent = function() {
 	return 'root';
-}
+};

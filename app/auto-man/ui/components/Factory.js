@@ -4,49 +4,49 @@ goog.provide('AutoMan.ui.components.Factory');
  * [Factory description]
  */
 AutoMan.ui.components.Factory = function(options) {
-	this.registery_ = {};
+  this.registery_ = {};
 
-	this.options_ = options || {};
+  this.options_ = options || {};
 };
 
 /**
  * Registers a component if its type isnt already registered.
  * 
  * @param  {!AutoMan.ui.components.AbstractComponent} component This is the constructor of the component.
- * @return {!Boolean}	Returns true if registers, false otherwise.
+ * @return {!Boolean} Returns true if registers, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.register = function(component) {
-	if(!component.supportedContent) {
-		return false;
-	}
-	
-	var supportedContent = component.supportedContent();
+  if(!component.supportedContent) {
+    return false;
+  }
+  
+  var supportedContent = component.supportedContent();
 
-	if(this.isRegistered(component)) {
-		return false;
-	}
+  if(this.isRegistered(component)) {
+    return false;
+  }
 
-	this.registery_[supportedContent] = component;
+  this.registery_[supportedContent] = component;
 
-	return true;
+  return true;
 };
 
 /**
  * Removes a component from registry.
  * 
  * @param  {!AutoMan.ui.components.AbstractComponent} component This is the constructor of the component.
- * @return {!Boolean}	Returns true if unregisters, false otherwise.
+ * @return {!Boolean} Returns true if unregisters, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.unregister = function(component) {
-	var supportedContent = component.supportedContent();
+  var supportedContent = component.supportedContent();
 
-	if(this.isRegistered(component)) {
-		delete this.registery_[supportedContent];
+  if(this.isRegistered(component)) {
+    delete this.registery_[supportedContent];
 
-		return true;
-	}
-	
-	return false;
+    return true;
+  }
+  
+  return false;
 };
 
 /**
@@ -56,33 +56,33 @@ AutoMan.ui.components.Factory.prototype.unregister = function(component) {
  * @return {!Boolean} Returns true if unregisters, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.unregisterType = function(type) {
-	if(!this.isTypeSupported(type)) {
-		return false;
-	}
+  if(!this.isTypeSupported(type)) {
+    return false;
+  }
 
-	return this.unregister(this.registery_[type]);
+  return this.unregister(this.registery_[type]);
 };
 
 /**
  * Determines if a component is registered.
  * 
  * @param  {!AutoMan.ui.components.AbstractComponent}  component This is the constructor of the component.
- * @return {!Boolean}	True if registered, false otherwise.
+ * @return {!Boolean} True if registered, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.isRegistered = function(component) {
-	var supportedContent = component.supportedContent();
+  var supportedContent = component.supportedContent();
 
-	return goog.isDefAndNotNull(this.registery_[supportedContent]);
+  return goog.isDefAndNotNull(this.registery_[supportedContent]);
 };
 
 /**
  * Determines if a media type is supported by this factory.
  * 
  * @param  {!String}  type 
- * @return {!Boolean}	True if supported, false if not.
+ * @return {!Boolean} True if supported, false if not.
  */
 AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
-	return goog.isDefAndNotNull(this.registery_[type]);
+  return goog.isDefAndNotNull(this.registery_[type]);
 };
 
 /**
@@ -93,40 +93,41 @@ AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
  * @return {?AutoMan.ui.components.AbstractComponent}
  */
 AutoMan.ui.components.Factory.prototype.create = function(type, options) {
-	if(!this.isTypeSupported(type)) {
-		return;
-	}
+  if(!this.isTypeSupported(type)) {
+    return;
+  }
 
-	return new this.registery_[type](options || {});
+  return new this.registery_[type](options || {});
 };
 
 /*
  * Handle registration errors
  */
 AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function () {
-	console.log(arguments);
-}
+  console.log(arguments);
+};
 
 /*
  * Handle unregistration errors
  */
 AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function () {
-	console.log(arguments);
-}
+  console.log(arguments);
+};
 
 /*
  * Handle creation errors
  */
 AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {
-	console.log(arguments);
-}
+  console.log(arguments);
+};
 
 /*
  * Eventypes for handling errors in the Factory
+ *
+ * @enum
  */
 AutoMan.ui.components.Factory.EventTypes = {
-	"RegistrationError": 	this.handleRegistrationError_,
-	"UnegistrationError": this.handleUnregistrationError_,
-	"CreationError" 		: this.handleCreationError_
-
-}
+  "RegistrationError"   : this.handleRegistrationError_,
+  "UnegistrationError"  : this.handleUnregistrationError_,
+  "CreationError"       : this.handleCreationError_
+};

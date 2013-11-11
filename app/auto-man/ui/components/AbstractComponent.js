@@ -47,7 +47,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(el
   this.decorateInternalAttributes_();
 
   this.decorateInternalStyles_();
-}
+};
 
 /**
  * Render self and all of my children.
@@ -58,7 +58,7 @@ AutoMan.ui.components.AbstractComponent.prototype.render = function(element) {
   goog.base(this, 'render', element);
 
   this.renderChildren_(this, this.getElement());
-}
+};
 
 /**
  * Recursivly renders child elements.
@@ -71,7 +71,7 @@ AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(nod
   node.forEachChild(function(child) {
     child.render(element);
   });
-}
+};
 
 /**
  * Decorates content.
@@ -80,7 +80,7 @@ AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(nod
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
   this.getElement().innerText = this.content_.text || '';
-}
+};
 
 /**
  * Decoractes a elemenets classes.
@@ -91,7 +91,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalClasses_ = fun
   goog.array.forEach(this.classes_, goog.bind(function(class_) {
     this.getElement().classList.add(class_);
   }, this));
-}
+};
 
 /**
  * Decorates internal attributes of element.
@@ -102,7 +102,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = 
   goog.object.forEach(this.attributes_, goog.bind(function(value, key) {
     this.getElement().setAttribute(key, value);
   }, this));
-}
+};
 
 /**
  * Decoractes inline styles of element.
@@ -113,4 +113,4 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalStyles_ = func
   goog.object.forEach(this.style_, goog.bind(function(value, key) {
     this.getElement().style.setProperty(key, value);
   }, this));
-}
+};

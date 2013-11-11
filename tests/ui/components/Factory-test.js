@@ -11,7 +11,7 @@ goog.object.extend(TestComponent, AutoMan.ui.components.AbstractComponent);
 
 TestComponent.supportedContent = function() {
 	return 'text';
-}
+};
 
 describe('AutoMan.ui.components.Factory', function() {
 

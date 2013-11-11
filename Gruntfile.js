@@ -32,8 +32,10 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      all: ['app/(!lib)**/*.js', 'Gruntfile.js', 'tests/**/*.js', 'tasks'],
-      options: {}
+      all: ['app/auto-man/**/*.js', 'Gruntfile.js', 'tests/**/*.js', 'tasks'],
+      options: {
+        expr: true
+      }
     },
 
     nodestatic: {

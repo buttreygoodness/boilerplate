@@ -12,7 +12,7 @@ var fixtureJson = {
       "width": "200px"
     }
   }
-}
+};
 
 var section = new AutoMan.ui.components.Section(fixtureJson);
 
