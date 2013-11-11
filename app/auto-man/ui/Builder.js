@@ -73,7 +73,7 @@ AutoMan.ui.Builder.prototype.parse_ = function() {
  * @param {Object} content
  * @param {Object} factory
  * @param {!Object} current
- * @return {?AutoMan.ui.components.Component}
+ * @return {?AutoMan.ui.components.AbstractComponent}
  */
 AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current) {
   var self = this;
@@ -99,7 +99,7 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
  * Binds internal events.
  */
 AutoMan.ui.Builder.prototype.bindEvents_ = function() {
-  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseComplete, goog.bind(this.handleParseComplete, this));
+  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseComplete, goog.bind(this.handleParseComplete_, this));
   this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseError, goog.bind(this.handleParseError_, this));
 };
 

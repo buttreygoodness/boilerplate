@@ -1,6 +1,10 @@
 goog.provide('AutoMan.ui.components.Factory');
 
+goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
+
+goog.require('AutoMan.ui.components.FactoryEvents');
+goog.require('AutoMan.ui.components.FactoryEvents.types');
 
 /**
  * [Factory description]
@@ -53,6 +57,10 @@ AutoMan.ui.components.Factory.prototype.unregister = function(component) {
 
     return true;
   }
+
+  this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.UnregistrationError({
+    component: component
+  }, this));
   
   return false;
 };
@@ -102,6 +110,11 @@ AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
  */
 AutoMan.ui.components.Factory.prototype.create = function(type, options) {
   if(!this.isTypeSupported(type)) {
+    this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.UnregistrationError({
+      type: type,
+      options: options
+    }, this));
+    
     return;
   }
 
@@ -112,39 +125,28 @@ AutoMan.ui.components.Factory.prototype.create = function(type, options) {
  * Binds internal events.
  */
 AutoMan.ui.components.Factory.prototype.bindEvents_ = function() {
-  this.addEventHandler(AutoMan.ui.components.Factory.EventTypes.RegistrationError, goog.bind(this.handleRegistrationError_, this));
-  this.addEventHandler(AutoMan.ui.components.Factory.EventTypes.UnregistrationError, goog.bind(this.handleUnregistrationError_, this));
-  this.addEventHandler(AutoMan.ui.components.Factory.EventTypes.CreationError, goog.bind(this.handleCreationError_, this));
+  this.addEventListener(AutoMan.ui.components.FactoryEvents.types.RegistrationError, goog.bind(this.handleRegistrationError_, this));
+  this.addEventListener(AutoMan.ui.components.FactoryEvents.types.UnregistrationError, goog.bind(this.handleUnregistrationError_, this));
+  this.addEventListener(AutoMan.ui.components.FactoryEvents.types.CreationError, goog.bind(this.handleCreationError_, this));
 };
 
 /*
  * Handle registration errors
  */
-AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function () {
-  console.log(arguments);
+AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function (e) {
+  console.log(e);
 };
 
 /*
  * Handle unregistration errors
  */
-AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function () {
-  console.log(arguments);
+AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function (e) {
+  console.log(e);
 };
 
 /*
  * Handle creation errors
  */
-AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {
-  console.log(arguments);
-};
-
-/*
- * Eventypes for handling errors in the Factory
- *
- * @enum
- */
-AutoMan.ui.components.Factory.EventTypes = {
-  'RegistrationError'   : 'Registration.Error',
-  'UnegistrationError'  : 'Unregistration.Error',
-  'CreationError'       : 'Creation.Error'
+AutoMan.ui.components.Factory.prototype.handleCreationError_ = function (e) {
+  console.log(e);
 };

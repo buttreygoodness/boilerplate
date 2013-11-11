@@ -14,10 +14,22 @@
     <script type="text/javascript" src="/app/lib/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="/app/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/app/auto-man/css/auto-man.css">
+
+    <script src="/app/lib/closure-library/closure/goog/base.js"></script>
+
+    <script src="/app/auto-man/deps.js"></script>
+
+    <script>
+      goog.basePath = '/app/';
+    </script>
+
 </head>
 <body>
-  <script src="/bin/auto-man.js"></script>
 
+  <script>
+    goog.require('AutoMan');
+
+  </script>
   <script>
     /**
      * This will all need to moved into clousure code after the tracer period is complete.
@@ -36,12 +48,14 @@
         content = {};
       }
 
-      var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
+      builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
 
-      builder.addEventListener('ParseComplete', function(e) {
+      builder.addEventListener('Parse.Complete', function(e) {
         var div = document.createElement('div');
 
         e.target.getComponents().render(div);
+
+        console.log(e);
         
         $('body').append(div);
       });
