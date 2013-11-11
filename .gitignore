@@ -1,4 +1,5 @@
 node_modules
 app/lib
 app/auto-man/deps.js
+app/deps.js
 bin/*
