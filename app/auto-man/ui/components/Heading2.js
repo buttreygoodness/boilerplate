@@ -26,5 +26,5 @@ AutoMan.ui.components.Heading2.supportedContent = function() {
 };
 
 AutoMan.ui.components.Heading2.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h2'));
+  this.decorateInternal(this.dom_.createElement('h3'));
 };

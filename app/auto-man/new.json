@@ -2,13 +2,20 @@
   "content": {
     "type": "page",
     "data": {
-      "text": "Code of Business Conduct",
-      "classes": ["blars", "tacoman"],
-      "styles": {
-        "width": "500px"
+      "text": "",
+      "classes": ["container"],
+      "styles": {},
+      "attributes": {
+        "id": "course-wrapper"
       }
     },
     "children": [
+      {
+        "type": "title",
+        "data": {
+          "text": "Code of Conduct"
+        }
+      },
       {
         "type": "section",
         "data": {
@@ -30,7 +37,7 @@
           {
             "type": "paragraph",
             "data": {
-              "text": "Keeping up with online news and passing on relevant stories to his team was part of Frank\u2019s job at Target headquarters. From time to time he also included funny stories to promote a Fast, Fun and Friendly environment. One morning, Frank received a joke from a friend and was getting ready to forward it to his team when he realized that it made fun of immigrants. Frank knew it wasn\u2019t right for him to pass on that kind of content, so he deleted the email. By doing so, he avoided an investigation into whether he had violated our Harassment-Free Workplace Policy."
+              "text": "Keeping up with online news and passing on relevant stories to his team was part of Frank's job at Target headquarters. From time to time he also included funny stories to promote a Fast, Fun and Friendly environment. One morning, Frank received a joke from a friend and was getting ready to forward it to his team when he realized that it made fun of immigrants. Frank knew it wasn\u2019t right for him to pass on that kind of content, so he deleted the email. By doing so, he avoided an investigation into whether he had violated our Harassment-Free Workplace Policy."
             }
           },
           {
@@ -322,25 +329,25 @@
             "data": { "text": "" },
             "children": [
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Contact your supervisor to notify them of the inspection. Be sure to follow the inspection procedures for your area and report the request to other partners who need to know."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Provide the appropriate information requested quickly and accurately. Do not provide the inspector with any original documents to take with them, but you can let them look at the documents or make copies. If you don't have the information at hand or you are uncomfortable with the request, it's okay to let the inspectors know you'll get back to them."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Quickly handle any action items the inspector leaves with you. That builds trust with the agencies that regulate us and shows them that we're serious about our compliance obligations. Work with our partners before completing any agency follow-up."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Refer non-routine information requests (e.g., subpoenas and search warrants) by government entities to our Law Department."
                 }
@@ -418,49 +425,49 @@
             "data": { "text": "" },
             "children": [
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Have a substantial financial interest in any company that does business with us, wants to do business or competes with us."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Perform any services (e.g., consulting or serving on the board of directors) for any company that does business with us, wants to do business with us or competes with us."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Represent us in a transaction with any company in which you or a member of your family have an interest."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Compete with us in the sale or purchase of property."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Solicit, accept or be reimbursed for any personal gifts, favors, travel, housing, services, excessive meals or entertainment, or anything else of value from any company that does business with us, wants to do business with us or competes with us. (There are some exceptions; for instance, you can accept a vendor's invitation to a meal if the purpose is business-related and the cost is reasonable.)"
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Participate with a vendor in any activity that could result in personal gain."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Take merchandise samples for non-business use."
                 }
               },
               {
-                "type": "paragraph",
+                "type": "lineitem",
                 "data": {
                   "text": "Misuse your position to make any purchases for personal use."
                 }

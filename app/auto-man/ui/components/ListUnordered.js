@@ -26,5 +26,5 @@ AutoMan.ui.components.ListUnordered.supportedContent = function() {
 };
 
 AutoMan.ui.components.ListUnordered.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
+  this.decorateInternal(this.dom_.createElement('ul'));
 };

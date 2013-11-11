@@ -31,5 +31,5 @@ AutoMan.ui.components.Heading.supportedContent = function() {
  * @override
  */
 AutoMan.ui.components.Heading.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h1'));
+  this.decorateInternal(this.dom_.createElement('h2'));
 };
