@@ -33,7 +33,7 @@ AutoMan.ui.Builder.prototype.parse = function() {
 
     this.bindEvents_();
 
-    setTimeout(this.parse_.bind(this), 1);
+    setTimeout(goog.bind(this.parse_, this), 1);
   }
 };
 
@@ -88,7 +88,7 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
     current.addChild(component);
 
     if(goog.isArray(element.children)) {
-      self.parseChildren_.bind(self)(element.children, factory, component);
+      goog.bind(self.parseChildren_, self)(element.children, factory, component);
     }
   });
 
@@ -96,11 +96,11 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
 };
 
 /*
- * Private internal function that binds events to the asynchronous parser
+ * Binds internal events.
  */
 AutoMan.ui.Builder.prototype.bindEvents_ = function() {
-  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseComplete, this.handleParseComplete_.bind(this));
-  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseError, this.handleParseError_.bind(this));
+  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseComplete, goog.bind(this.handleParseComplete, this));
+  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseError, goog.bind(this.handleParseError_, this));
 };
 
 /*
@@ -121,7 +121,7 @@ AutoMan.ui.Builder.prototype.handleParseError_ = function() {
  * Enum of event types for the parser function
  */
 AutoMan.ui.Builder.EventTypes = {
-  'ParseComplete' : 'ParseComplete',
-  'ParseError'    : 'ParseError',
-  'ParseStart'    : 'ParseStart'
+  'ParseComplete' : 'Parse.Complete',
+  'ParseError'    : 'Parse.Error',
+  'ParseStart'    : 'Parse.Start'
 };

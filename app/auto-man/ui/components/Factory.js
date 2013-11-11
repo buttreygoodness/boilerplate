@@ -1,13 +1,21 @@
 goog.provide('AutoMan.ui.components.Factory');
 
+goog.require('goog.events.EventTarget');
+
 /**
  * [Factory description]
  */
 AutoMan.ui.components.Factory = function(options) {
+  goog.base(this);
+
   this.registery_ = {};
 
   this.options_ = options || {};
+
+  this.bindEvents_();
 };
+
+goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
 
 /**
  * Registers a component if its type isnt already registered.
@@ -100,6 +108,15 @@ AutoMan.ui.components.Factory.prototype.create = function(type, options) {
   return new this.registery_[type](options || {});
 };
 
+/**
+ * Binds internal events.
+ */
+AutoMan.ui.components.Factory.prototype.bindEvents_ = function() {
+  this.addEventHandler(AutoMan.ui.components.Factory.EventTypes.RegistrationError, goog.bind(this.handleRegistrationError_, this));
+  this.addEventHandler(AutoMan.ui.components.Factory.EventTypes.UnregistrationError, goog.bind(this.handleUnregistrationError_, this));
+  this.addEventHandler(AutoMan.ui.components.Factory.EventTypes.CreationError, goog.bind(this.handleCreationError_, this));
+};
+
 /*
  * Handle registration errors
  */
@@ -127,7 +144,7 @@ AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {
  * @enum
  */
 AutoMan.ui.components.Factory.EventTypes = {
-  "RegistrationError"   : this.handleRegistrationError_,
-  "UnegistrationError"  : this.handleUnregistrationError_,
-  "CreationError"       : this.handleCreationError_
+  'RegistrationError'   : 'Registration.Error',
+  'UnegistrationError'  : 'Unregistration.Error',
+  'CreationError'       : 'Creation.Error'
 };
