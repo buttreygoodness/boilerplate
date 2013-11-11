@@ -1,6 +1,7 @@
 goog.provide('AutoMan');
 goog.provide('AutoMan.start');
 
+goog.require('AutoMan.boot');
 goog.require('AutoMan.ui');
 
 var module = module || {};

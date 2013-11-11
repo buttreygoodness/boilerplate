@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: ['{app,tests}/**/*.js', 'tasks/**/*.js', '!app/deps.js'],
+        files: ['{app,tests}/**/*.js', 'tasks/**/*.js', '!app/auto-man/deps.js'],
         tasks: ['jshint', 'deps'],
         options: {
           spawn: true
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
 
       'deps': {
         command:[
-          'python app/lib/closure-library/closure/bin/build/depswriter.py --root=./app/ > app/deps.js' 
+          'python app/lib/closure-library/closure/bin/build/depswriter.py --root=./app/ > app/auto-man/deps.js' 
         ].join('&&'),
         options: {
           callback: function(err, stdout, stderr) {
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
   grunt.registerTask('setup', ['shell:resolve-build-deps', 'shell:bower']);
   grunt.registerTask('deps', ['shell:deps']);
   grunt.registerTask('link', ['shell:link']);
-  grunt.registerTask('build', ['link', 'closure-compiler']);
+  grunt.registerTask('build', ['deps', 'link', 'closure-compiler']);
   grunt.registerTask('dev', ['nodestatic']);
   grunt.registerTask('test', ['mocha_phantomjs']);
 
