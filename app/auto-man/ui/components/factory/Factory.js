@@ -30,15 +30,11 @@ goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
 AutoMan.ui.components.Factory.prototype.register = function(component) {
   if(!component.supportedContent) {
     return false;
-  }
-  
-  var supportedContent = component.supportedContent();
-
-  if(this.isRegistered(component)) {
+  } else if(this.isRegistered(component)) {
     return false;
   }
 
-  this.registery_[supportedContent] = component;
+  this.registery_[component.supportedContent()] = component;
 
   return true;
 };
@@ -50,10 +46,8 @@ AutoMan.ui.components.Factory.prototype.register = function(component) {
  * @return {!Boolean} Returns true if unregisters, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.unregister = function(component) {
-  var supportedContent = component.supportedContent();
-
   if(this.isRegistered(component)) {
-    delete this.registery_[supportedContent];
+    delete this.registery_[component.supportedContent()];
 
     return true;
   }
