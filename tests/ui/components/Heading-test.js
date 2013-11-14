@@ -23,32 +23,15 @@ describe('AutoMan.ui.components.Heading', function () {
   });
 
   describe('#constructor', function () {
-    
     it('Should return an object that is an instance of AutoMan.ui.components.Heading', function () {
       heading.should.be.an.instanceof(AutoMan.ui.components.Heading);
     });
-
   });
 
-  describe('#render', function () {
-    
-    before(function () {
-      heading.render();
+  describe('#supportedContent', function () {
+    it('Should return a value of \'heading\'', function () {
+      AutoMan.ui.components.Heading.supportedContent().should.equal('heading');
     });
-
-    after(function () {
-      heading.dispose();
-    });
-
-    it('Should render an h1 element with the id of "test_id"', function () {
-      var head = document.getElementById('test_id');
-      head.nodeName.should.equal('H1');
-    });
-
-    it('Should have an innerHTML value of "TestText"', function () {
-      var head = document.getElementById('test_id');
-      head.innerHTML.should.equal('TestText');
-    });
-
   });
+
 });

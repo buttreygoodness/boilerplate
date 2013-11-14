@@ -6,6 +6,8 @@ goog.require('AutoMan.ui.Builder');
 
 goog.require('AutoMan.ui.components');
 
+goog.require('goog.net.XhrIo');
+
 var testJsonLocation = '../../app/auto-man/new.json';
 
 describe('AutoMan.ui.Builder', function () {
