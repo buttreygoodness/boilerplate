@@ -1,0 +1,101 @@
+{
+  "type": "div",
+  "data": {
+    "classes": ["jcarousel-wrapper"]
+  },
+  "children": [
+    {
+      "type": "carousel",
+      "data": {
+        "classes": ["jcarousel"],
+        "attributes": {
+          "data-jcarousel": "true"
+        }
+      },
+      "children": [
+        {
+          "type": "list-unordered",
+          "data": {
+            "classes": ["clearfix"],
+            "attributes": {},
+            "styles": {
+              "transition": "all 0s ease",
+              "-webkit-transition": "all 0s ease",
+              "-webkit-transform": "translate3d(0px, 0, 0)"
+            }
+          },
+          "children": [
+            {
+              "type": "lineitem",
+              "data": {
+                "text": "imageone"
+              },
+              "children": [
+                {
+                  "type": "image",
+                  "data": {
+                    "attributes": {
+                      "src": "http://sorgalla.com/jcarousel/assets/img/pic/img1.jpg"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "lineitem",
+              "data": {
+                "text": "imagetwo"
+              },
+              "children": [
+                {
+                  "type": "image",
+                  "data": {
+                    "attributes": {
+                      "src": "http://sorgalla.com/jcarousel/assets/img/pic/img2.jpg"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "lineitem",
+              "data": {
+                "text": "imagethree"
+              },
+              "children": [
+                {
+                  "type": "image",
+                  "data": {
+                    "attributes": {
+                      "src": "http://sorgalla.com/jcarousel/assets/img/pic/img3.jpg"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "data": {
+        "text": "<",
+        "classes": ["jcarousel-control-prev"],
+        "attributes": {
+          "data-jcarouselcontrol": "true"
+        }
+      }
+    },
+    {
+      "type": "div",
+      "data": {
+        "text": ">",
+        "classes": ["jcarousel-control-next"],
+        "attributes": {
+          "data-jcarouselcontrol": "true"
+        }
+      }
+    }
+  ]
+}

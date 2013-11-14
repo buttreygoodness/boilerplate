@@ -1,0 +1,32 @@
+goog.provide('AutoMan.ui.components.Image');
+
+goog.require('AutoMan.ui.components.AbstractComponent');
+
+/**
+ * Image Component
+ * 
+ * @param {!Object} options
+ */
+AutoMan.ui.components.Image = function(options) {
+  goog.base(this, options);
+};
+
+goog.object.extend(AutoMan.ui.components.Image, AutoMan.ui.components.AbstractComponent);
+
+goog.inherits(AutoMan.ui.components.Image, AutoMan.ui.components.AbstractComponent);
+
+/**
+ * Returns 'image'
+ * 
+ * @static
+ * @return {!String}
+ */
+AutoMan.ui.components.Image.supportedContent = function() {
+  return 'image';
+};
+
+AutoMan.ui.components.Image.prototype.createDom = function() {
+  this.decorateInternal(this.dom_.createElement('img'));
+};
+
+AutoMan.ui.components.Image.prototype.decorateInternalContent_ = function(options) {};

@@ -85,7 +85,11 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
       console.log('error', element);
     }
 
-    current.addChild(component);
+    if(!current) {
+      console.log('current does not exist');
+    }
+
+    current.addChild(component, true);
 
     if(goog.isArray(element.children)) {
       goog.bind(self.parseChildren_, self)(element.children, factory, component);

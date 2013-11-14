@@ -1,0 +1,185 @@
+{
+  "type": "carousel",
+  "data": {
+    "classes": ["carousel", "slide"],
+    "attributes": {
+      "id:": "carousel-example",
+      "data-ride": "carousel"
+    }
+  },
+  "children": [
+    {
+      "type": "list-ordered",
+      "data": {
+        "classes": "carousel-indicators"
+      },
+      "children": [
+        {
+          "type": "lineitem",
+          "data": {
+            "classes": ["active"],
+            "attributes": {
+              "data-target": "#carousel-example",
+              "data-slide-to": "0"
+            }
+          }
+        },
+        {
+          "type": "lineitem",
+          "data": {
+            "attributes": {
+              "data-target": "#carousel-example",
+              "data-slide-to": "1"
+            }
+          }
+        },
+        {
+          "type": "lineitem",
+          "data": {
+            "attributes": {
+              "data-target": "#carousel-example",
+              "data-slide-to": "2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "div",
+      "data": {
+        "classes": ["caraousel-inner"]
+      },
+      "children": [
+        {
+          "type": "div",
+          "data": {
+            "classes": "item active"
+          },
+          "children": [
+            {
+              "type": "image",
+              "data": {
+                "attributes": {
+                  "src": "http://sorgalla.com/jcarousel/assets/img/pic/img1.jpg",
+                  "alt": "image one"
+                }
+              }
+            },
+            {
+              "type": "div",
+              "data": {
+                "classes": ["carousel-caption"]
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "data": {
+                    "text": "Caption One"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "div",
+          "data": {
+            "classes": "item"
+          },
+          "children": [
+            {
+              "type": "image",
+              "data": {
+                "attributes": {
+                  "src": "http://sorgalla.com/jcarousel/assets/img/pic/img2.jpg",
+                  "alt": "image two"
+                }
+              }
+            },
+            {
+              "type": "div",
+              "data": {
+                "classes": ["carousel-caption"]
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "data": {
+                    "text": "Caption Two"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "div",
+          "data": {
+            "classes": "item"
+          },
+          "children": [
+            {
+              "type": "image",
+              "data": {
+                "attributes": {
+                  "src": "http://sorgalla.com/jcarousel/assets/img/pic/img3.jpg",
+                  "alt": "image three"
+                }
+              }
+            },
+            {
+              "type": "div",
+              "data": {
+                "classes": ["carousel-caption"]
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "data": {
+                    "text": "Caption Three"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "anchor",
+      "data": {
+        "classes": ["left", "carousel-control"],
+        "attributes": {
+          "href": "#carousel-example",
+          "data-slide": "prev"
+        },
+        "children": [
+          {
+            "type": "span",
+            "data": {
+              "classes": ["glyphicon", "glyphicon-chevron-left"]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "anchor",
+      "data": {
+        "classes": ["right", "carousel-control"],
+        "attributes": {
+          "href": "#carousel-example",
+          "data-slide": "next"
+        },
+        "children": [
+          {
+            "type": "span",
+            "data": {
+              "classes": ["glyphicon", "glyphicon-chevron-right"]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

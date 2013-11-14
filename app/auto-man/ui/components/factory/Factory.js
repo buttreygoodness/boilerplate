@@ -100,6 +100,7 @@ AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
  */
 AutoMan.ui.components.Factory.prototype.create = function(type, options) {
   if(!this.isTypeSupported(type)) {
+    console.log(type);
     this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.CreationError({
       granularEventType: AutoMan.ui.components.Factory.GranularEvents.TypeUnsupported,
       type: type,

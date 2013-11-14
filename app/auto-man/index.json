@@ -215,6 +215,191 @@
             }
           },
           {
+            "type": "carousel",
+            "data": {
+              "classes": ["carousel", "slide"],
+              "attributes": {
+                "id": "carousel-example",
+                "data-ride": "carousel"
+              }
+            },
+            "children": [
+              {
+                "type": "list-ordered",
+                "data": {
+                  "classes": ["carousel-indicators"]
+                },
+                "children": [
+                  {
+                    "type": "lineitem",
+                    "data": {
+                      "classes": ["active"],
+                      "attributes": {
+                        "data-target": "#carousel-example",
+                        "data-slide-to": "0"
+                      }
+                    }
+                  },
+                  {
+                    "type": "lineitem",
+                    "data": {
+                      "attributes": {
+                        "data-target": "#carousel-example",
+                        "data-slide-to": "1"
+                      }
+                    }
+                  },
+                  {
+                    "type": "lineitem",
+                    "data": {
+                      "attributes": {
+                        "data-target": "#carousel-example",
+                        "data-slide-to": "2"
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "div",
+                "data": {
+                  "classes": ["carousel-inner"]
+                },
+                "children": [
+                  {
+                    "type": "div",
+                    "data": {
+                      "classes": ["item", "active"]
+                    },
+                    "children": [
+                      {
+                        "type": "image",
+                        "data": {
+                          "attributes": {
+                            "src": "http://sorgalla.com/jcarousel/assets/img/pic/img1.jpg",
+                            "alt": "image one"
+                          }
+                        }
+                      },
+                      {
+                        "type": "div",
+                        "data": {
+                          "classes": ["carousel-caption"]
+                        },
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "data": {
+                              "text": "Caption One"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "div",
+                    "data": {
+                      "classes": ["item"]
+                    },
+                    "children": [
+                      {
+                        "type": "image",
+                        "data": {
+                          "attributes": {
+                            "src": "http://sorgalla.com/jcarousel/assets/img/pic/img2.jpg",
+                            "alt": "image two"
+                          }
+                        }
+                      },
+                      {
+                        "type": "div",
+                        "data": {
+                          "classes": ["carousel-caption"]
+                        },
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "data": {
+                              "text": "Caption Two"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "div",
+                    "data": {
+                      "classes": ["item"]
+                    },
+                    "children": [
+                      {
+                        "type": "image",
+                        "data": {
+                          "attributes": {
+                            "src": "http://sorgalla.com/jcarousel/assets/img/pic/img3.jpg",
+                            "alt": "image three"
+                          }
+                        }
+                      },
+                      {
+                        "type": "div",
+                        "data": {
+                          "classes": ["carousel-caption"]
+                        },
+                        "children": [
+                          {
+                            "type": "paragraph",
+                            "data": {
+                              "text": "Caption Three"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "anchor",
+                "data": {
+                  "classes": ["left", "carousel-control"],
+                  "attributes": {
+                    "href": "#carousel-example",
+                    "data-slide": "prev"
+                  },
+                  "children": [
+                    {
+                      "type": "span",
+                      "data": {
+                        "classes": ["glyphicon", "glyphicon-chevron-left"]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "anchor",
+                "data": {
+                  "classes": ["right", "carousel-control"],
+                  "attributes": {
+                    "href": "#carousel-example",
+                    "data-slide": "next"
+                  },
+                  "children": [
+                    {
+                      "type": "span",
+                      "data": {
+                        "classes": ["glyphicon", "glyphicon-chevron-right"]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
             "type": "paragraph",
             "data": "Amir works in warehousing. When his manager asked him to fill in for a team member who was out sick, Amir was eager to help. It didn't take long for him to realize that he was in way over his head because he hadn't been trained on the equiptment. He talked to his manager about the possible safety issues and found out that she didn't know Amir lacked the right training. His manager found a trained team member who could fill in, and worked with Human Resources to get Amir the training that would prepare him for the next time his help was needed."
           },

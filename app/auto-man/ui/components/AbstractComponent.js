@@ -20,6 +20,8 @@ AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
   this.attributes_ = this.options_.attributes || {};
 
   this.style_ = this.options_.styles || {};
+
+  this.setAutoStates(255, false);
 };
 
 goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
@@ -47,30 +49,6 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(el
   this.decorateInternalAttributes_();
 
   this.decorateInternalStyles_();
-};
-
-/**
- * Render self and all of my children.
- * 
- * @param  {?Element} element optional element to render to.
- */
-AutoMan.ui.components.AbstractComponent.prototype.render = function(element) {
-  goog.base(this, 'render', element);
-
-  this.renderChildren_(this, this.getElement());
-};
-
-/**
- * Recursivly renders child elements.
- *
- * @private
- * @param  {!AutoMan.ui.components.AbstractWidget} node
- * @param  {?DomElement} element
- */
-AutoMan.ui.components.AbstractComponent.prototype.renderChildren_ = function(node, element) {
-  node.forEachChild(function(child) {
-    child.render(element);
-  });
 };
 
 /**
