@@ -12,4 +12,4 @@ ant
 
 downloading binaries will also work.
 
-mittens-laptop ssh key test.
+mittens-laptop test
