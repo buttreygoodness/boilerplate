@@ -91,6 +91,8 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
 
     current.addChild(component, true);
 
+    console.log(element.children);
+
     if(goog.isArray(element.children)) {
       goog.bind(self.parseChildren_, self)(element.children, factory, component);
     }

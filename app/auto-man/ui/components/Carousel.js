@@ -30,5 +30,5 @@ AutoMan.ui.components.Carousel.prototype.createDom = function() {
 };
 
 AutoMan.ui.components.Carousel.prototype.enterDocument = function() {
-  $(this.element_).carousel();
+  $(this.element_).carousel({interval: false});
 };
