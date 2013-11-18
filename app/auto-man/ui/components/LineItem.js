@@ -25,6 +25,6 @@ AutoMan.ui.components.LineItem.supportedContent = function() {
   return 'lineitem';
 };
 
-AutoMan.ui.components.LineItem.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('li'));
+AutoMan.ui.components.LineItem.tag = function() {
+  return 'li';
 };

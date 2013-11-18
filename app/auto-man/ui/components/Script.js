@@ -30,6 +30,6 @@ AutoMan.ui.components.Script.supportedContent = function() {
  * 
  * @override
  */
-AutoMan.ui.components.Script.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('script'));
+AutoMan.ui.components.Script.type = function() {
+  return 'script';
 };

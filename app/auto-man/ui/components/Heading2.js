@@ -25,6 +25,6 @@ AutoMan.ui.components.Heading2.supportedContent = function() {
   return 'heading2';
 };
 
-AutoMan.ui.components.Heading2.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h3'));
+AutoMan.ui.components.Heading2.tag = function() {
+  return 'h3';
 };

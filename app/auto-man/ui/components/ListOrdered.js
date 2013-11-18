@@ -25,6 +25,6 @@ AutoMan.ui.components.ListOrdered.supportedContent = function() {
   return 'list-ordered';
 };
 
-AutoMan.ui.components.ListOrdered.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('ol'));
+AutoMan.ui.components.ListOrdered.tag = function() {
+  return 'ol';
 };

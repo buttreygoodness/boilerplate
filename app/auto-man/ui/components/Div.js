@@ -25,6 +25,6 @@ AutoMan.ui.components.Div.supportedContent = function() {
   return 'div';
 };
 
-AutoMan.ui.components.Div.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
+AutoMan.ui.components.Div.tag = function() {
+  return 'div';
 };

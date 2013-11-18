@@ -25,8 +25,8 @@ AutoMan.ui.components.Image.supportedContent = function() {
   return 'image';
 };
 
-AutoMan.ui.components.Image.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('img'));
+AutoMan.ui.components.Image.tag = function() {
+  return 'img';
 };
 
 AutoMan.ui.components.Image.prototype.decorateInternalContent_ = function(options) {};

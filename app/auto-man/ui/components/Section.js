@@ -25,6 +25,6 @@ AutoMan.ui.components.Section.supportedContent = function() {
   return 'section';
 };
 
-AutoMan.ui.components.Section.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('section'));
+AutoMan.ui.components.Section.tag = function() {
+  return 'section';
 };

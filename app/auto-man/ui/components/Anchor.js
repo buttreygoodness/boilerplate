@@ -25,6 +25,6 @@ AutoMan.ui.components.Anchor.supportedContent = function() {
   return 'anchor';
 };
 
-AutoMan.ui.components.Anchor.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('a'));
+AutoMan.ui.components.Anchor.tag = function() {
+  return 'a';
 };

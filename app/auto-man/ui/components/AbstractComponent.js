@@ -11,15 +11,17 @@ goog.require('goog.ui.Control');
 AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
   goog.base(this, domHelper);
 
-  this.options_ = options.data || {};
+  this.options_ = options || {};
 
-  this.content_ = this.options_ || "";
+  this.data_ = this.options_.data || {};
 
-  this.classes_ = this.options_.classes || [];
+  this.content_ = this.data_  || "";
 
-  this.attributes_ = this.options_.attributes || {};
+  this.classes_ = this.data_ .classes || [];
 
-  this.style_ = this.options_.styles || {};
+  this.attributes_ = this.data_ .attributes || {};
+
+  this.style_ = this.data_ .styles || {};
 
   this.setAutoStates(255, false);
 };
@@ -33,6 +35,42 @@ goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
  * @return {!String}
  */
 AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
+
+/**
+ * Determines tag supported by this element.
+ *
+ * @static
+ * @type {!String}
+ */
+AutoMan.ui.components.AbstractComponent.tag = goog.abstractMethod;
+
+/**
+ * Returns supported content type. Should be same as static.
+ * 
+ * @return {!String}
+ */
+AutoMan.ui.components.AbstractComponent.prototype.supportedContent = function() {
+  return this.constructor.supportedContent();
+};
+
+/**
+ * Returns element tag type that will be decorated.
+ *
+ * @override
+ * @type {!String}
+ */
+AutoMan.ui.components.AbstractComponent.prototype.tag = function() {
+  return this.constructor.tag();
+};
+
+/**
+ * Creates dom element of type {this.tag}
+ * 
+ * @override
+ */
+AutoMan.ui.components.AbstractComponent.prototype.createDom = function() {
+  this.decorateInternal(this.dom_.createElement(this.tag()));
+};
 
 /**
  * Sets internal states of element.

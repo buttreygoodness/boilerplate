@@ -30,6 +30,6 @@ AutoMan.ui.components.Title.supportedContent = function() {
  * 
  * @override
  */
-AutoMan.ui.components.Title.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h1'));
+AutoMan.ui.components.Title.tag = function() {
+  return 'h1';
 };

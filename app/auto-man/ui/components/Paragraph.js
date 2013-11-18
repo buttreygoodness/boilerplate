@@ -25,6 +25,6 @@ AutoMan.ui.components.Paragraph.supportedContent = function() {
   return 'paragraph';
 };
 
-AutoMan.ui.components.Paragraph.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('p'));
+AutoMan.ui.components.Paragraph.tag = function() {
+  return 'p';
 };

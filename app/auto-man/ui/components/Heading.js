@@ -25,11 +25,6 @@ AutoMan.ui.components.Heading.supportedContent = function() {
   return 'heading';
 };
 
-/**
- * Defines the createDom method for this component.
- * 
- * @override
- */
-AutoMan.ui.components.Heading.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h2'));
+AutoMan.ui.components.Heading.tag = function() {
+  return 'h2';
 };

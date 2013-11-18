@@ -25,8 +25,8 @@ AutoMan.ui.components.Carousel.supportedContent = function() {
   return 'carousel';
 };
 
-AutoMan.ui.components.Carousel.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
+AutoMan.ui.components.Carousel.tag = function() {
+  return "div";
 };
 
 AutoMan.ui.components.Carousel.prototype.enterDocument = function() {
