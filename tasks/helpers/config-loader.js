@@ -36,8 +36,6 @@ ConfigLoader.prototype.load = function(file) {
  */
 ConfigLoader.prototype.loadAll = function() {
   _.each(this.glob_(), this.load.bind(this));
-
-  console.log(this.grunt_.config());
 };
 
 /**

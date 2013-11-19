@@ -4,48 +4,193 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 
 goog.require('AutoMan.ui.Builder');
 
-goog.require('AutoMan.ui.components');
-
-goog.require('goog.net.XhrIo');
-
-var testJsonLocation = '../../app/auto-man/new.json';
-
 describe('AutoMan.ui.Builder', function () {
+  var badContentFixture = {
+    "type": "div",
+    "children": [{
+      "type":"blop",
+      "children": []
+    }]
+  };
 
-  describe('#parse', function () {
+  var contentFixture = {
+    "type": "div",
+    "data": {
+      "attributes": {
+        "id": "root"
+      }
+    },
+    "children": [
+      {
+        "type": "div",
+        "data": {
+          "attributes": {
+            "id": "no-child"
+          }
+        }
+      },
+      {
+        "type": "div", 
+        "data": {
+          "attributes": {
+          "id": "has-children"
+          }
+        },
+        "children": [
+          {
+            "type": "div",
+            "data": {
+              "attributes": {
+                "id": "child-1"
+              }
+            }
+          },
+          {
+            "type": "div",
+            "data": {
+              "attributes": {
+                "id": "child-2"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  };
 
-    var content = {},
-    builder = {};
+  var TestComponent = function(options) {
+    goog.base(this, options)
+  }
 
-    it('Should begin parsing', function (done) {
-      goog.net.XhrIo.send(testJsonLocation, function (xhrio) {
-        content = xhrio.target.getResponseJson();
-        window.builder = builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
-        done();
-      });
-    });
-    
-    it('Should broadcast a ParseStart event.', function (done) {
-      goog.events.listen(builder, AutoMan.ui.Builder.EventTypes.ParseStart, function (e) {
-        done();
-      });
-      builder.parse();
-    });
-    
-    it('Should broadcast a ParseComplete event.', function (done) {
-      goog.events.listen(builder, AutoMan.ui.Builder.EventTypes.ParseComplete, function (e) {
-        done();
-      });
-      builder.parse();
-    });
+  goog.object.extend(TestComponent, AutoMan.ui.components.AbstractComponent);
 
+  goog.inherits(TestComponent, AutoMan.ui.components.AbstractComponent);
+
+  TestComponent.supportedContent = function() {
+    return 'div';
+  };
+
+  TestComponent.tag = function() {
+    return 'div';
+  };
+
+  var factory = new AutoMan.ui.components.Factory();
+
+  factory.register(TestComponent);
+
+  //var builder;
+
+  beforeEach(function() {
+    builder = new AutoMan.ui.Builder(contentFixture, factory);
   });
 
-  describe("#getCompnents", function () {
-    it('Should return an object', function () {
-      var comps = builder.getComponents();
-      comps.should.be.an('object');
+  afterEach(function() {
+    builder.dispose();
+  });
+
+  describe('#parse', function() {
+    it('Should dispatch a ParseStart event on start.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseStart, function() {
+        done();
+      });
+
+      builder.parse();
+    });
+
+    it('Should dispatch a ParseError event on error.', function(done) {
+      var builder = new AutoMan.ui.Builder(badContentFixture, factory);
+
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseError, function() {
+        done();
+      });
+
+      builder.parse();
+    });
+
+    it('Should dispatch a ParseComplete event on complete.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function() {
+        done();
+      });
+
+      builder.parse();
     });
   });
 
+  describe('#getComponents', function() {
+    it('Should return no components before parse but should be an array.', function() {
+      builder.getComponents().should.be.an.array;
+
+      builder.getComponents().should.be.empty;
+    });
+
+    it('Should return no components on failed parse.', function(done) {
+      var builder = new AutoMan.ui.Builder(badContentFixture, factory);
+
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseError, function(e) {
+        e.target.getComponents().should.be.empty;
+
+        done();
+      });
+
+      builder.parse();
+    });
+
+    it('Should return components on parse complete.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function(e) {
+        e.target.getComponents().should.not.be.empty;
+
+        done();
+      });
+
+      builder.parse();
+    });
+
+    it('Should return a proper type.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function(e) {
+        e.target.getComponents().should.be.instanceOf(TestComponent);
+
+        done();
+      });
+
+      builder.parse();
+    });
+
+    it('Should return components in proper hierarchy.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function(e) {
+        components = e.target.getComponents();
+
+        components.getChildCount().should.equal(2);
+
+        components.getChildAt(0).should.be.instanceOf(TestComponent);
+
+        components.getChildAt(0).getElement().id.should.equal('no-child');
+
+        components.getChildAt(0).getChildCount().should.equal(0);
+
+        components.getChildAt(1).should.be.instanceOf(TestComponent);
+
+        components.getChildAt(1).getElement().id.should.equal('has-children');
+
+        components.getChildAt(1).getChildCount().should.equal(2);
+
+        components.getChildAt(1).getChildAt(0).should.be.instanceOf(TestComponent);
+
+        components.getChildAt(1).getChildAt(0).getElement().id.should.equal('child-1');
+
+        components.getChildAt(1).getChildAt(0).getChildCount().should.equal(0);
+
+        components.getChildAt(1).getChildAt(1).should.be.instanceOf(TestComponent);
+
+        components.getChildAt(1).getChildAt(1).should.be.instanceOf(TestComponent);
+
+        components.getChildAt(1).getChildAt(1).getElement().id.should.equal('child-2');
+
+        components.getChildAt(1).getChildAt(1).getChildCount().should.equal(0);
+
+        done();
+      });
+
+      builder.parse();
+    });
+  });
 });

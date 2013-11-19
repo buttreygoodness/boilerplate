@@ -48,7 +48,7 @@
         content = {};
       }
 
-      builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
+      builder = new AutoMan.ui.Builder(content.content, AutoMan.ui.components.factory);
 
       builder.addEventListener('Parse.Complete', function(e) {
         var div = document.createElement('div');

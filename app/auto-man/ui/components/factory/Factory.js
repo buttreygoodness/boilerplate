@@ -100,7 +100,6 @@ AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
  */
 AutoMan.ui.components.Factory.prototype.create = function(type, options) {
   if(!this.isTypeSupported(type)) {
-    console.log(type);
     this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.CreationError({
       granularEventType: AutoMan.ui.components.Factory.GranularEvents.TypeUnsupported,
       type: type,
@@ -125,23 +124,17 @@ AutoMan.ui.components.Factory.prototype.bindEvents_ = function() {
 /*
  * Handle registration errors
  */
-AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function (e) {
-  console.log(e);
-};
+AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function (e) {};
 
 /*
  * Handle unregistration errors
  */
-AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function (e) {
-  console.log(e);
-};
+AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function (e) {};
 
 /*
  * Handle creation errors
  */
-AutoMan.ui.components.Factory.prototype.handleCreationError_ = function (e) {
-  console.log(e);
-};
+AutoMan.ui.components.Factory.prototype.handleCreationError_ = function (e) {};
 
 /**
  * Granular Events.

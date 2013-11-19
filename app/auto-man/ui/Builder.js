@@ -14,7 +14,7 @@ AutoMan.ui.Builder = function(content, factory) {
 
   this.factory_ = factory;
 
-  this.content_ = content.content || {};
+  this.content_ = content || {};
 
   this.parseing_ = false;
 
@@ -61,7 +61,12 @@ AutoMan.ui.Builder.prototype.parse_ = function() {
   }
 
   if(this.content_.children) {
-    this.components_ = this.parseChildren_(this.content_.children, this.factory_, initial);
+    try {
+      this.components_ = this.parseChildren_(this.content_.children, this.factory_, initial);
+    } catch (e) {
+      this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseError);
+    }
+    
   }
 
   this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseComplete);
@@ -81,13 +86,9 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
   goog.array.forEach(content, function(element) {
     var component = factory.create(element.type, element);
 
-    if(!component) {
-      console.log('error', element);
-    }
-
-    if(!current) {
-      console.log('current does not exist');
-    }
+    self
+      .assert_(component)
+      .assert_(current);
 
     current.addChild(component, true);
 
@@ -120,6 +121,21 @@ AutoMan.ui.Builder.prototype.handleParseComplete_ = function() {
 AutoMan.ui.Builder.prototype.handleParseError_ = function() {
   this.parseing_ = false;
 };
+
+/**
+ * Asserts a condition or blows up. 
+ * 
+ * @param  {!Boolean} condition [description]
+ * @param  {Object?} options   Event arguments to pass.
+ * @return {?this} Used to chain assertions.
+ */
+AutoMan.ui.Builder.prototype.assert_ = function(condition, options) {
+  if(!condition) {
+    throw('Assertion Faild'); //create builder assertion types.
+  }
+
+  return this;
+}
 
 /*
  * Enum of event types for the parser function
