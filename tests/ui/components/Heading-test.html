@@ -9,14 +9,12 @@
 
         <script src="/app/lib/closure-library/closure/goog/base.js"></script>
 
-        <script>
-            goog.basePath = '/app/';
-        </script>
-
-        <script src="/app/auto-man/deps.js"></script>
+        <script src="/bin/automan-deps.js"></script>
+        <script src="/bin/fixture-deps.js"></script>
 
         <script type="text/javascript">
             goog.require('AutoMan');
+            goog.require('AutoMan.tests.fixtures');
         </script>
 
         <script src="/node_modules/mocha/mocha.js"></script>

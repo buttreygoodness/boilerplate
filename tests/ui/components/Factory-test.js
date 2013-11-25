@@ -1,18 +1,9 @@
 goog.require('AutoMan.ui.components.Factory');
-goog.require('AutoMan.ui.components.AbstractComponent');
+
+goog.require('AutoMan.tests.fixtures.ui.components.TestComponent');
 
 describe('AutoMan.ui.components.Factory', function() {
-	var TestComponent = function(options) {
-		goog.base(this);
-	};
-
-	goog.inherits(TestComponent, AutoMan.ui.components.AbstractComponent);
-
-	goog.object.extend(TestComponent, AutoMan.ui.components.AbstractComponent);
-
-	TestComponent.supportedContent = function() {
-		return 'text';
-	};
+	var TestComponent = AutoMan.tests.fixtures.ui.components.TestComponent;
 
 	var factory;
 

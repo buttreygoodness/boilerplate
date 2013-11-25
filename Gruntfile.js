@@ -35,13 +35,17 @@ module.exports = function(grunt) {
   grunt.registerTask('bower', 'shell:bower');
 
   grunt.registerTask('setup', ['shell:resolve-build-deps', 'bower']);
+
   grunt.registerTask('deps', ['shell:deps']);
   grunt.registerTask('link', ['shell:link']);
   grunt.registerTask('build', ['deps', 'link', 'closure-compiler']);
+  
   grunt.registerTask('dev', ['nodestatic']);
-  grunt.registerTask('test', ['mocha_phantomjs']);
 
-  grunt.registerTask('test-builder', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
+  grunt.registerTask('build-test-fixtures', ['shell:test-fixture-builder']);
+  grunt.registerTask('build-test-runners', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
+  grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runners']);
+  grunt.registerTask('test', ['build-tests','mocha_phantomjs']);
 
   grunt.registerTask('default', ['watch']);
 };

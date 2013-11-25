@@ -1,4 +1,5 @@
 goog.provide('AutoMan.ui.components');
+goog.provide('AutoMan.ui.components.factory');
 
 goog.require('AutoMan.ui.components.Factory');
 goog.require('AutoMan.ui.components.AbstractComponent');
