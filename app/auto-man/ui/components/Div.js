@@ -11,8 +11,6 @@ AutoMan.ui.components.Div = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Div, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Div, AutoMan.ui.components.AbstractComponent);
 
 /**

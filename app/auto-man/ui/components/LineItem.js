@@ -11,8 +11,6 @@ AutoMan.ui.components.LineItem = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.LineItem, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.LineItem, AutoMan.ui.components.AbstractComponent);
 
 /**

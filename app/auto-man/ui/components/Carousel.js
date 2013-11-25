@@ -11,8 +11,6 @@ AutoMan.ui.components.Carousel = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Carousel, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Carousel, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -30,5 +28,5 @@ AutoMan.ui.components.Carousel.tag = function() {
 };
 
 AutoMan.ui.components.Carousel.prototype.enterDocument = function() {
-  $(this.element_).carousel();
+  $(this.element_)['carousel']();
 };

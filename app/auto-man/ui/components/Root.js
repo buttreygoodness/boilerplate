@@ -12,8 +12,6 @@ AutoMan.ui.components.Root = function(options, domHelper) {
 	goog.base(this, domHelper);
 };
 
-goog.object.extend(AutoMan.ui.components.Root, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Root, AutoMan.ui.components.AbstractComponent);
 
 /**

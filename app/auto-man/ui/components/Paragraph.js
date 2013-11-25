@@ -11,8 +11,6 @@ AutoMan.ui.components.Paragraph = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Paragraph, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Paragraph, AutoMan.ui.components.AbstractComponent);
 
 /**
