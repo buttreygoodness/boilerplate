@@ -11,8 +11,6 @@ AutoMan.ui.components.Div = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Div, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Div, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -25,6 +23,6 @@ AutoMan.ui.components.Div.supportedContent = function() {
   return 'div';
 };
 
-AutoMan.ui.components.Div.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
+AutoMan.ui.components.Div.tag = function() {
+  return 'div';
 };

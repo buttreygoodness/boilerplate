@@ -11,8 +11,6 @@ AutoMan.ui.components.Script = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Script, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Script, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -30,6 +28,6 @@ AutoMan.ui.components.Script.supportedContent = function() {
  * 
  * @override
  */
-AutoMan.ui.components.Script.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('script'));
+AutoMan.ui.components.Script.type = function() {
+  return 'script';
 };

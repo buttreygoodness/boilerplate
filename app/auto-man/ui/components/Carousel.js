@@ -11,8 +11,6 @@ AutoMan.ui.components.Carousel = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Carousel, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Carousel, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -25,10 +23,10 @@ AutoMan.ui.components.Carousel.supportedContent = function() {
   return 'carousel';
 };
 
-AutoMan.ui.components.Carousel.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('div'));
+AutoMan.ui.components.Carousel.tag = function() {
+  return "div";
 };
 
 AutoMan.ui.components.Carousel.prototype.enterDocument = function() {
-  $(this.element_).carousel({interval: false});
+  $(this.element_)['carousel']();
 };

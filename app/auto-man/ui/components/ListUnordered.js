@@ -11,8 +11,6 @@ AutoMan.ui.components.ListUnordered = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.ListUnordered, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.ListUnordered, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -25,15 +23,6 @@ AutoMan.ui.components.ListUnordered.supportedContent = function() {
   return 'list-unordered';
 };
 
-AutoMan.ui.components.ListUnordered.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('ul'));
+AutoMan.ui.components.ListUnordered.tag = function() {
+  return 'ul';
 };
-
-// Exapmle override for childnodes. Ditch when understood.
-// AutoMan.ui.components.ListUnordered.prototype.addChild = function (child, opt_render) {
-//   if(!(child instanceof AutoMan.ui.components.LineItem) ) {
-//     console.log(child);
-//   } else {
-//     goog.base(this, 'addChild', child, opt_render);
-//   }
-// };

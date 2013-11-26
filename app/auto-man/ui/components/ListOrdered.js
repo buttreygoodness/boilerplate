@@ -11,8 +11,6 @@ AutoMan.ui.components.ListOrdered = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.ListOrdered, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.ListOrdered, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -25,6 +23,6 @@ AutoMan.ui.components.ListOrdered.supportedContent = function() {
   return 'list-ordered';
 };
 
-AutoMan.ui.components.ListOrdered.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('ol'));
+AutoMan.ui.components.ListOrdered.tag = function() {
+  return 'ol';
 };

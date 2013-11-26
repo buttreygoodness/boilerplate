@@ -11,8 +11,6 @@ AutoMan.ui.components.Heading = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Heading, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Heading, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -25,11 +23,6 @@ AutoMan.ui.components.Heading.supportedContent = function() {
   return 'heading';
 };
 
-/**
- * Defines the createDom method for this component.
- * 
- * @override
- */
-AutoMan.ui.components.Heading.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('h2'));
+AutoMan.ui.components.Heading.tag = function() {
+  return 'h2';
 };

@@ -11,8 +11,6 @@ AutoMan.ui.components.LineItem = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.LineItem, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.LineItem, AutoMan.ui.components.AbstractComponent);
 
 /**
@@ -25,6 +23,6 @@ AutoMan.ui.components.LineItem.supportedContent = function() {
   return 'lineitem';
 };
 
-AutoMan.ui.components.LineItem.prototype.createDom = function() {
-  this.decorateInternal(this.dom_.createElement('li'));
+AutoMan.ui.components.LineItem.tag = function() {
+  return 'li';
 };

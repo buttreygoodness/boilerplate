@@ -1,23 +1,22 @@
 goog.require('AutoMan.ui.components.Heading');
 
-var fixtureJson = {
-  "type": "heading",
-  "data": {
-    "text": "TestText",
-    "classes": ["test1", "test2"],
-    "attributes": {
-      "id": "test_id"
-    },
-    "styles": {
-      "width": "200px"
-    }
-  }
-};
-
-var heading;
-
 describe('AutoMan.ui.components.Heading', function () {
+  var fixtureJson = {
+    "type": "heading",
+    "data": {
+      "text": "TestText",
+      "classes": ["test1", "test2"],
+      "attributes": {
+        "id": "test_id"
+      },
+      "styles": {
+        "width": "200px"
+      }
+    }
+  };
 
+  var heading;
+  
   before(function () {
     heading = new AutoMan.ui.components.Heading(fixtureJson);
   });

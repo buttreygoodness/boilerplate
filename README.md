@@ -11,3 +11,5 @@ cd closure-compiler
 ant
 
 downloading binaries will also work.
+
+mittens-laptop test
