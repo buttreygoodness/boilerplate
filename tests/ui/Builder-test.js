@@ -70,75 +70,75 @@ describe('AutoMan.ui.Builder', function () {
     builder.dispose();
   });
 
-  describe('#parse', function() {
-    it('Should dispatch a ParseStart event on start.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseStart, function() {
+  describe('#build', function() {
+    it('Should dispatch a BuildStart event on start.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildStart, function() {
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
 
-    it('Should dispatch a ParseError event on error.', function(done) {
+    it('Should dispatch a BuildError event on error.', function(done) {
       var builder = new AutoMan.ui.Builder(badContentFixture, factory);
 
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseError, function() {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildError, function() {
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
 
-    it('Should dispatch a ParseComplete event on complete.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function() {
+    it('Should dispatch a BuildComplete event on complete.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function() {
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
   });
 
   describe('#getComponents', function() {
-    it('Should return no components before parse but should be an array.', function() {
+    it('Should return no components before build but should be an array.', function() {
       builder.getComponents().should.be.an.array;
 
       builder.getComponents().should.be.empty;
     });
 
-    it('Should return no components on failed parse.', function(done) {
+    it('Should return no components on failed build.', function(done) {
       var builder = new AutoMan.ui.Builder(badContentFixture, factory);
 
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseError, function(e) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildError, function(e) {
         e.target.getComponents().should.be.empty;
 
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
 
-    it('Should return components on parse complete.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function(e) {
+    it('Should return components on build complete.', function(done) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
         e.target.getComponents().should.not.be.empty;
 
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
 
     it('Should return a proper type.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function(e) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
         e.target.getComponents().should.be.instanceOf(TestComponent);
 
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
 
     it('Should return components in proper hierarchy.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.ParseComplete, function(e) {
+      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
         components = e.target.getComponents();
 
         components.getChildCount().should.equal(2);
@@ -172,7 +172,7 @@ describe('AutoMan.ui.Builder', function () {
         done();
       });
 
-      builder.parse();
+      builder.build();
     });
   });
 });
