@@ -11,8 +11,6 @@ AutoMan.ui.components.Title = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Title, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Title, AutoMan.ui.components.AbstractComponent);
 
 /**

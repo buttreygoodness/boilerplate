@@ -11,8 +11,6 @@ AutoMan.ui.components.ListOrdered = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.ListOrdered, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.ListOrdered, AutoMan.ui.components.AbstractComponent);
 
 /**

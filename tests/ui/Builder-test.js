@@ -1,8 +1,6 @@
-goog.require('AutoMan.ui.components.Factory');
-
-goog.require('AutoMan.ui.components.AbstractComponent');
-
 goog.require('AutoMan.ui.Builder');
+
+goog.require('AutoMan.tests.fixtures.ui.components');
 
 describe('AutoMan.ui.Builder', function () {
   var badContentFixture = {
@@ -58,25 +56,9 @@ describe('AutoMan.ui.Builder', function () {
     ]
   };
 
-  var TestComponent = function(options) {
-    goog.base(this, options)
-  }
+  var TestComponent = AutoMan.tests.fixtures.ui.components.TestComponent;
 
-  goog.object.extend(TestComponent, AutoMan.ui.components.AbstractComponent);
-
-  goog.inherits(TestComponent, AutoMan.ui.components.AbstractComponent);
-
-  TestComponent.supportedContent = function() {
-    return 'div';
-  };
-
-  TestComponent.tag = function() {
-    return 'div';
-  };
-
-  var factory = new AutoMan.ui.components.Factory();
-
-  factory.register(TestComponent);
+  var factory = AutoMan.tests.fixtures.ui.components.factory;
 
   //var builder;
 

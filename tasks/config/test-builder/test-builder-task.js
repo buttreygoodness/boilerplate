@@ -8,6 +8,8 @@ var options = {
 
   cwd: 'tests',
 
+  match: ['**/**.js', '!fixtures/**'],
+
   template: [__dirname, 'test-builder-template.html'].join('/'),
   
   testRunnerMain: [process.cwd(), 'tests/test-runner.html'].join('/'),

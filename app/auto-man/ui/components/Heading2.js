@@ -11,8 +11,6 @@ AutoMan.ui.components.Heading2 = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Heading2, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Heading2, AutoMan.ui.components.AbstractComponent);
 
 /**

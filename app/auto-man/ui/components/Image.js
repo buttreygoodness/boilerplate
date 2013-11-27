@@ -11,8 +11,6 @@ AutoMan.ui.components.Image = function(options) {
   goog.base(this, options);
 };
 
-goog.object.extend(AutoMan.ui.components.Image, AutoMan.ui.components.AbstractComponent);
-
 goog.inherits(AutoMan.ui.components.Image, AutoMan.ui.components.AbstractComponent);
 
 /**

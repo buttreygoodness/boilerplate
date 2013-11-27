@@ -1,4 +1,5 @@
 goog.provide('AutoMan.ui.components');
+goog.provide('AutoMan.ui.components.factory');
 
 goog.require('AutoMan.ui.components.Factory');
 goog.require('AutoMan.ui.components.AbstractComponent');
@@ -18,6 +19,7 @@ goog.require('AutoMan.ui.components.Section');
 goog.require('AutoMan.ui.components.Root');
 goog.require('AutoMan.ui.components.Title');
 goog.require('AutoMan.ui.components.Script');
+goog.require('AutoMan.ui.components.Span');
 
 AutoMan.ui.components.factory = new AutoMan.ui.components.Factory();
 
@@ -36,3 +38,4 @@ AutoMan.ui.components.factory.register(AutoMan.ui.components.Section);
 AutoMan.ui.components.factory.register(AutoMan.ui.components.Root);
 AutoMan.ui.components.factory.register(AutoMan.ui.components.Title);
 AutoMan.ui.components.factory.register(AutoMan.ui.components.Script);
+AutoMan.ui.components.factory.register(AutoMan.ui.components.Span);

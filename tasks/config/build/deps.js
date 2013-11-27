@@ -1,7 +1,7 @@
 var config = {
   configName: 'shell.deps',
   command:[
-    'python app/lib/closure-library/closure/bin/build/depswriter.py --root=./app/ > app/auto-man/deps.js' 
+    'python app/lib/closure-library/closure/bin/build/depswriter.py --root_with_prefix="app/auto-man ../../../../../app/auto-man" > bin/automan-deps.js' 
   ].join('&&'),
   options: {
 	callback: function(err, stdout, stderr, cb) {
