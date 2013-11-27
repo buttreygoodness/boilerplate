@@ -19,12 +19,14 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
  * 
  * @param  {Function} callback [description]
  */
-AutoMan.parsers.content.AbstractParser.parse = function(callback) {
-  this.content_ = this.parse_();
+AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
+  if(!this.isCached_()) {
+    this.content_ = this.parse_();
+  }
 
   if(goog.isFunction(callback)) {
     callback(this.getContent());
-  } 
+  }
 };
 
 /**
@@ -32,8 +34,17 @@ AutoMan.parsers.content.AbstractParser.parse = function(callback) {
  * 
  * @return {!AutoMan.collections.Content} [description]
  */
-AutoMan.parsers.content.AbstractParser.getContent = function() {
+AutoMan.parsers.content.AbstractParser.prototype.getContent = function() {
   return this.content_;
+};
+
+/**
+ * Determines if content is cached.
+ * 
+ * @return {!Boolean}
+ */
+AutoMan.parsers.content.AbstractParser.prototype.isCached_ = function() {
+  return this.content_ instanceof AutoMan.collections.Content;
 };
 
 /**
@@ -42,4 +53,4 @@ AutoMan.parsers.content.AbstractParser.getContent = function() {
  * @override
  * @return {!AutoMan.collections.Content}
  */
-AutoMan.parsers.content.AbstractParser.parse_ = goog.abstractMethod;
+AutoMan.parsers.content.AbstractParser.prototype.parse_ = goog.abstractMethod;

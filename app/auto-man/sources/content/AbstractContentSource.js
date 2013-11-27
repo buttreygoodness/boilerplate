@@ -5,11 +5,11 @@ goog.require('AutoMan.collections.Content');
 /**
  * @constructor
  * 
- * @param {!*} content
+ * @param {!*} source
  * @param {!Object} options
  */
-AutoMan.sources.content.AbstractContentSource = function(content, options) {
-	this.content_ = content;
+AutoMan.sources.content.AbstractContentSource = function(source, options) {
+	this.content_ = source;
 
 	this.options_ = options || {};
 };
