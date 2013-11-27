@@ -92,9 +92,7 @@ AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current
       .assert_(current);
 
     current.addChild(component, true);
-
-    console.log(element.children);
-
+ 
     if(goog.isArray(element.children)) {
       goog.bind(self.parseChildren_, self)(element.children, factory, component);
     }
@@ -134,17 +132,28 @@ AutoMan.ui.Builder.prototype.handleParseError_ = function() {
  */
 AutoMan.ui.Builder.prototype.assert_ = function(condition, options) {
   if(!condition) {
-    throw('Assertion Faild'); //create builder assertion types.
+    throw(AutoMan.ui.Builder.ErrorType.AssertFailed);
   }
 
   return this;
-}
+};
 
 /**
  * Enum of event types for the parser function
+ *
+ * @type {Object}
  */
 AutoMan.ui.Builder.EventTypes = {
   'ParseComplete' : 'Parse.Complete',
   'ParseError'    : 'Parse.Error',
   'ParseStart'    : 'Parse.Start'
+};
+
+/**
+ * Error types.
+ * 
+ * @type {Object}
+ */
+AutoMan.ui.Builder.ErrorType = {
+  'AssertFailed' : 'Assert.Failed'
 };

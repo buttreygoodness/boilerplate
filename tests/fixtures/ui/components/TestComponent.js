@@ -2,10 +2,9 @@ goog.provide('AutoMan.tests.fixtures.ui.components.TestComponent');
 
 goog.require('AutoMan.ui.components.AbstractComponent');
 
-
 AutoMan.tests.fixtures.ui.components.TestComponent = function(options) {
-  goog.base(this, options)
-}
+  goog.base(this, options);
+};
 
 goog.object.extend(AutoMan.tests.fixtures.ui.components.TestComponent, AutoMan.ui.components.AbstractComponent);
 

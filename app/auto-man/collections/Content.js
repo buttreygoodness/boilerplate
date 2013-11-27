@@ -14,6 +14,6 @@ AutoMan.collections.Content = function(key, value) {
 	goog.base(this, key, value);
 
 	this.key_ = this.key_ || goog.getUid(this);
-}
+};
 
 goog.inherits(AutoMan.collections.Content, goog.structs.TreeNode);
