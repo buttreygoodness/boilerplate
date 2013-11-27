@@ -4,6 +4,8 @@ goog.require('goog.ui.Control');
 
 /**
  * Abstract Component that all components must implement.
+ *
+ * @extends {goog.ui.Control}
  * 
  * @param {?Object} options
  * @param {?goog.dom.DomHelper} domHelper
@@ -22,8 +24,6 @@ AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
   this.attributes_ = this.data_ .attributes || {};
 
   this.style_ = this.data_ .styles || {};
-
-  this.setAutoStates(255, false);
 };
 
 goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);

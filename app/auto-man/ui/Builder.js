@@ -8,7 +8,7 @@ goog.require('goog.array');
  *
  * @extends {goog.events.EventTarget}
  * 
- * @param {!Object} content
+ * @param {!AutoMan.collections.Content} content
  * @param {!AutoMan.ui.components.Factory} factory
  */
 AutoMan.ui.Builder = function(content, factory) {
@@ -16,9 +16,9 @@ AutoMan.ui.Builder = function(content, factory) {
 
   this.factory_ = factory;
 
-  this.content_ = content || {};
+  this.content_ = content;
 
-  this.parseing_ = false;
+  this.building_ = false;
 
   this.components_ = [];
 };
@@ -26,20 +26,20 @@ AutoMan.ui.Builder = function(content, factory) {
 goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
 
 /**
- * Async parse of content.
+ * Async Build Content
  */
-AutoMan.ui.Builder.prototype.parse = function() {
-  if(!this.parseing_) {
-    this.parseing_ = true;
+AutoMan.ui.Builder.prototype.build = function() {
+  if(!this.building_) {
+    this.building_ = true;
 
     this.bindEvents_();
 
-    setTimeout(goog.bind(this.parse_, this), 1);
+    setTimeout(goog.bind(this.build_, this), 1);
   }
 };
 
 /**
- * Returns parsed component.
+ * Returns Buildd component.
  * 
  * @return {?AutoMan.ui.components.Abstractcomponent}
  */
@@ -48,105 +48,95 @@ AutoMan.ui.Builder.prototype.getComponents = function() {
 };
 
 /**
- * Emits events and starts parse.
+ * Emits events and starts Build.
  */
-AutoMan.ui.Builder.prototype.parse_ = function() {
-  this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseStart);
+AutoMan.ui.Builder.prototype.build_ = function() {
+  this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildStart);
 
-  var initial = this.factory_.create(this.content_.type, this.content_);
-
-  if(!initial) {
-    this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseError);
-
-    return;
-  }
-
-  if(this.content_.children) {
-    try {
-      this.components_ = this.parseChildren_(this.content_.children, this.factory_, initial);
-    } catch (e) {
-      this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseError);
-    }
+  try {
+    this.components_ = this.buildChildren_(this.content_, this.factory_);
     
+    this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildComplete);
+  } catch (e) {
+    this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildError);
   }
-
-  this.dispatchEvent(AutoMan.ui.Builder.EventTypes.ParseComplete);
 };
 
 /**
- * Recursive parse of children.
+ * Recursive Build of children.
  * 
- * @param  {!Object} content
+ * @param  {!AutoMan.collections.Content} content
  * @param  {!AutoMan.ui.components.Factory} factory
- * @param  {!AutoMan.ui.components.AbstractComponent} current
+ * @param  {?AutoMan.ui.components.AbstractComponent} node
  * @return {!AutoMan.ui.components.AbstractComponent}
  */
-AutoMan.ui.Builder.prototype.parseChildren_ = function(content, factory, current) {
+AutoMan.ui.Builder.prototype.buildChildren_ = function(content, factory, node) {
   var self = this;
 
-  goog.array.forEach(content, function(element) {
-    var component = factory.create(element.type, element);
+  var nodeValue = content.getValue();
 
-    self
-      .assert_(component)
-      .assert_(current);
+  var nodeElement = factory.create(nodeValue.type, nodeValue);
 
-    current.addChild(component, true);
- 
-    if(goog.isArray(element.children)) {
-      goog.bind(self.parseChildren_, self)(element.children, factory, component);
-    }
-  });
+  self.assert_(nodeElement);
 
-  return current;
+  if(!node) {
+    node = nodeElement;
+  } else {
+    node.addChild(nodeElement, true);
+  }
+
+  content.forEachChild(function(child) {
+    self.buildChildren_(child, factory, nodeElement);
+  }.bind(self));
+
+  return node;
 };
 
 /**
  * Binds internal events.
  */
 AutoMan.ui.Builder.prototype.bindEvents_ = function() {
-  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseComplete, goog.bind(this.handleParseComplete_, this));
-  this.listenOnce(AutoMan.ui.Builder.EventTypes.ParseError, goog.bind(this.handleParseError_, this));
+  this.listenOnce(AutoMan.ui.Builder.EventTypes.BuildComplete, goog.bind(this.handleBuildComplete_, this));
+  this.listenOnce(AutoMan.ui.Builder.EventTypes.BuildError, goog.bind(this.handleBuildError_, this));
 };
 
 /**
- * Handels parse complete. Unlocks parse.
+ * Handels Build complete. Unlocks Build.
  */
-AutoMan.ui.Builder.prototype.handleParseComplete_ = function() {
-  this.parseing_ = false;
+AutoMan.ui.Builder.prototype.handleBuildComplete_ = function() {
+  this.building_ = false;
 };
 
 /**
- * Handels parse error. Unlocks parse.
+ * Handels Build error. Unlocks Build.
  */
-AutoMan.ui.Builder.prototype.handleParseError_ = function() {
-  this.parseing_ = false;
+AutoMan.ui.Builder.prototype.handleBuildError_ = function() {
+  this.building_ = false;
 };
 
 /**
  * Asserts a condition or blows up. 
  * 
  * @param  {!Boolean} condition [description]
- * @param  {Object?} options   Event arguments to pass.
  * @return {?this} Used to chain assertions.
  */
-AutoMan.ui.Builder.prototype.assert_ = function(condition, options) {
+AutoMan.ui.Builder.prototype.assert_ = function(condition) {
   if(!condition) {
-    throw(AutoMan.ui.Builder.ErrorType.AssertFailed);
+    throw(AutoMan.ui.Builder.Errors.AssertFailed);
   }
 
   return this;
 };
 
 /**
- * Enum of event types for the parser function
+ * Enum of event types for the Buildr function
  *
  * @type {Object}
  */
 AutoMan.ui.Builder.EventTypes = {
-  'ParseComplete' : 'Parse.Complete',
-  'ParseError'    : 'Parse.Error',
-  'ParseStart'    : 'Parse.Start'
+  'BuildComplete' : 'Build.Complete',
+  'BuildError'    : 'Build.Error',
+  'BuildStart'    : 'Build.Start'
 };
 
 /**
@@ -154,6 +144,6 @@ AutoMan.ui.Builder.EventTypes = {
  * 
  * @type {Object}
  */
-AutoMan.ui.Builder.ErrorType = {
+AutoMan.ui.Builder.Errors = {
   'AssertFailed' : 'Assert.Failed'
 };

@@ -20,11 +20,15 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
  * @param  {Function} callback [description]
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
-  if(!this.isCached_()) {
-    this.content_ = this.parse_();
-  }
+  var callback_ = goog.isFunction(callback) ? callback : goog.function.constant();
 
-  if(goog.isFunction(callback)) {
+  if(!this.isCached_()) {
+    setTimeout(function() {
+      this.content_ = this.parse_();
+
+      callback(this.getContent());
+    }.bind(this), 0);
+  } else {
     callback(this.getContent());
   }
 };
@@ -48,9 +52,33 @@ AutoMan.parsers.content.AbstractParser.prototype.isCached_ = function() {
 };
 
 /**
+ * Asserts a condition or throws error.
+ * 
+ * @param  {!Boolean} condition
+ * @param  {String=} error
+ * @return {self}
+ */
+AutoMan.parsers.content.AbstractParser.prototype.assert_ = function(condition, error) {
+  if(!condition) {
+    throw (error || AutoMan.parsers.content.AbstractParser.Errors.AssertFail);
+  }
+
+  return this;
+};
+
+/**
  * Internal parse. Subclasses need to implement.
  *
  * @override
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse_ = goog.abstractMethod;
+
+/**
+ * Possible Parser Errors.
+ * 
+ * @type {Object}
+ */
+AutoMan.parsers.content.AbstractParser.Errors = {
+  'AssertFailed': 'Assert.Failed'
+};

@@ -23,6 +23,7 @@
 
   <script>
     goog.require('AutoMan');
+    goog.require('AutoMan.parsers.content.Json');
   </script>
 
   <script>
@@ -34,26 +35,21 @@
 
       $('#content').remove();
 
-      var content = {};
+      var jsonParser = new AutoMan.parsers.content.Json(contentText);
 
-      try {
-        content = JSON.parse(contentText);
-      } catch (e) {
-        // display error message
-        content = {};
-      }
-
-      builder = new AutoMan.ui.Builder(content.content, AutoMan.ui.components.factory);
-
-      builder.addEventListener('Parse.Complete', function(e) {
-        var div = document.createElement('div');
-
-        e.target.getComponents().render(div);
+      jsonParser.parse(function(content) {
+        var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
         
-        $('body').append(div);
-      });
+        builder.addEventListener('Build.Complete', function(e) {
+          var div = document.createElement('div');
 
-      builder.parse();
+          
+          
+          $('body').append(div);
+        });
+
+        builder.build();
+      });
     });
   </script>
 
