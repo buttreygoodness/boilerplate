@@ -43,7 +43,7 @@
         builder.addEventListener('Build.Complete', function(e) {
           var div = document.createElement('div');
 
-          
+          e.target.getComponents().render(div);
           
           $('body').append(div);
         });
