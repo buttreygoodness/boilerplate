@@ -4,50 +4,50 @@ goog.require('AutoMan.tests.fixtures.ui.components');
 
 describe('AutoMan.ui.Builder', function () {
   var badContentFixture = {
-    "type": "div",
-    "children": [{
-      "type":"blop",
-      "children": []
+    'type': 'div',
+    'children': [{
+      'type':'blop',
+      'children': []
     }]
   };
 
   var contentFixture = {
-    "type": "div",
-    "data": {
-      "attributes": {
-        "id": "root"
+    'type': 'div',
+    'data': {
+      'attributes': {
+        'id': 'root'
       }
     },
-    "children": [
+    'children': [
       {
-        "type": "div",
-        "data": {
-          "attributes": {
-            "id": "no-child"
+        'type': 'div',
+        'data': {
+          'attributes': {
+            'id': 'no-child'
           }
         }
       },
       {
-        "type": "div", 
-        "data": {
-          "attributes": {
-          "id": "has-children"
+        'type': 'div',
+        'data': {
+          'attributes': {
+            'id': 'has-children'
           }
         },
-        "children": [
+        'children': [
           {
-            "type": "div",
-            "data": {
-              "attributes": {
-                "id": "child-1"
+            'type': 'div',
+            'data': {
+              'attributes': {
+                'id': 'child-1'
               }
             }
           },
           {
-            "type": "div",
-            "data": {
-              "attributes": {
-                "id": "child-2"
+            'type': 'div',
+            'data': {
+              'attributes': {
+                'id': 'child-2'
               }
             }
           }

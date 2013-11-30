@@ -15,6 +15,10 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
         done();
       });
     });
+
+    it('should parse with no callback.', function() {
+      goog.bind(parser.parse, parser).should.not.throw();
+    });
   });
 
   describe('#getContent', function() {
@@ -23,7 +27,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
     });
 
     it('should return content after parse.', function(done) {
-      parser.parse(function(content) {
+      parser.parse(function() {
         parser.getContent().should.exist;
 
         done();

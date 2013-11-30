@@ -8,19 +8,12 @@ goog.require('AutoMan.collections.Content');
 
 /**
  * @implements {AutoMan.parsers.content.AbstractParser}
- *
- * @throws {AutoMan.parsers.content.Json.Errors.Unparsable} If json cannot be decoded.
- * @throws {AutoMan.parsers.content.Json.Errors.NoContent} If there is no content node.
  * 
  * @param {!String} parsable
  * @param {options=} options
  */
 AutoMan.parsers.content.Json = function(parsable, options) {
   goog.base(this, parsable, options);
-
-  this
-    .assert_(this.decode_(), AutoMan.parsers.content.Json.Errors.Unparsable)
-    .assert_(this.json_.content, AutoMan.parsers.content.Json.Errors.NoContent);
 };
 
 goog.inherits(AutoMan.parsers.content.Json, AutoMan.parsers.content.AbstractParser);
@@ -42,10 +35,17 @@ AutoMan.parsers.content.Json.prototype.decode_ = function() {
 
 /**
  * Starts recursive parse.
- * 
+ *  
+ * @throws {AutoMan.parsers.content.Json.Errors.Unparsable} If json cannot be decoded.
+ * @throws {AutoMan.parsers.content.Json.Errors.NoContent} If there is no content node.
+ *
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Json.prototype.parse_ = function() {
+  this
+    .assert_(this.decode_(), AutoMan.parsers.content.Json.Errors.Unparsable)
+    .assert_(this.json_.content, AutoMan.parsers.content.Json.Errors.NoContent);
+    
   return this.recursiveParse_(this.json_.content) || new AutoMan.collections.Content();
 };
 
@@ -63,7 +63,7 @@ AutoMan.parsers.content.Json.prototype.recursiveParse_ = function(jsonNode, cont
     var children = jsonNode.children || [];
 
     var nodeValue = goog.object.filter(jsonNode, function(value, key) {
-      return key != 'children';
+      return key !== 'children';
     });
 
     var node = new AutoMan.collections.Content(nodeValue.id, nodeValue);

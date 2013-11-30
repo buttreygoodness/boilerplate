@@ -20,7 +20,6 @@
     "grunt-mocha-phantomjs": "~0.3.0",
     "underscore": "~1.5.2",
     "mocha": "~1.13.0",
-    "mustache": "~0.7.2",
-    "glob": "~3.2.7"
+    "mustache": "~0.7.2"
   }
 }

@@ -17,7 +17,7 @@ AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
 
   this.data_ = this.options_.data || {};
 
-  this.content_ = this.data_  || "";
+  this.content_ = this.data_  || '';
 
   this.classes_ = this.data_ .classes || [];
 

@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 var ConfigLoader = require('./tasks/helpers/config-loader');
 
 module.exports = function(grunt) {
@@ -15,8 +13,8 @@ module.exports = function(grunt) {
         tasks: ['jshint', 'deps'],
         options: {
           spawn: true
-        },
-      },
+        }
+      }
     }
   });
   

@@ -124,17 +124,17 @@ AutoMan.ui.components.Factory.prototype.bindEvents_ = function() {
 /*
  * Handle registration errors
  */
-AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function (e) {};
+AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function () {};
 
 /*
  * Handle unregistration errors
  */
-AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function (e) {};
+AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function () {};
 
 /*
  * Handle creation errors
  */
-AutoMan.ui.components.Factory.prototype.handleCreationError_ = function (e) {};
+AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {};
 
 /**
  * Granular Events.

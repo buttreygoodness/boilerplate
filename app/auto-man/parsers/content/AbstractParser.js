@@ -1,5 +1,7 @@
 goog.provide('AutoMan.parsers.content.AbstractParser');
 
+goog.require('goog.functions');
+
 goog.require('AutoMan.collections.Content');
 
 /**
@@ -7,7 +9,7 @@ goog.require('AutoMan.collections.Content');
  * @param {Options=} options
  */
 AutoMan.parsers.content.AbstractParser = function(parsable, options) {
-  this.parsable_ = parsable || "";
+  this.parsable_ = parsable || '';
 
   this.options_ = options || {};
 
@@ -20,16 +22,16 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
  * @param  {Function} callback [description]
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
-  var callback_ = goog.isFunction(callback) ? callback : goog.function.constant();
+  var callback_ = goog.isFunction(callback) ? callback : goog.functions.constant();
 
   if(!this.isCached_()) {
     setTimeout(function() {
       this.content_ = this.parse_();
 
-      callback(this.getContent());
+      callback_(this.getContent());
     }.bind(this), 0);
   } else {
-    callback(this.getContent());
+    callback_(this.getContent());
   }
 };
 

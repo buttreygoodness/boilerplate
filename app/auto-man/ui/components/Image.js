@@ -27,4 +27,4 @@ AutoMan.ui.components.Image.tag = function() {
   return 'img';
 };
 
-AutoMan.ui.components.Image.prototype.decorateInternalContent_ = function(options) {};
+AutoMan.ui.components.Image.prototype.decorateInternalContent_ = function() {};

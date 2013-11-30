@@ -24,5 +24,5 @@ AutoMan.ui.components.Page.supportedContent = function() {
 };
 
 AutoMan.ui.components.Page.tag = function() {
-  return "section";
+  return 'section';
 };

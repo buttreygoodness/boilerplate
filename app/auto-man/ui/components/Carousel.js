@@ -24,7 +24,7 @@ AutoMan.ui.components.Carousel.supportedContent = function() {
 };
 
 AutoMan.ui.components.Carousel.tag = function() {
-  return "div";
+  return 'div';
 };
 
 AutoMan.ui.components.Carousel.prototype.enterDocument = function() {

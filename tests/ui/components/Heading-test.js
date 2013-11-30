@@ -2,15 +2,15 @@ goog.require('AutoMan.ui.components.Heading');
 
 describe('AutoMan.ui.components.Heading', function () {
   var fixtureJson = {
-    "type": "heading",
-    "data": {
-      "text": "TestText",
-      "classes": ["test1", "test2"],
-      "attributes": {
-        "id": "test_id"
+    'type': 'heading',
+    'data': {
+      'text': 'TestText',
+      'classes': ['test1', 'test2'],
+      'attributes': {
+        'id': 'test_id'
       },
-      "styles": {
-        "width": "200px"
+      'styles': {
+        'width': '200px'
       }
     }
   };
@@ -22,13 +22,13 @@ describe('AutoMan.ui.components.Heading', function () {
   });
 
   describe('#constructor', function () {
-    it('Should return an object that is an instance of AutoMan.ui.components.Heading', function () {
+    it('Should return an object that is an instance of AutoMan.ui.components.Heading.', function () {
       heading.should.be.an.instanceof(AutoMan.ui.components.Heading);
     });
   });
 
   describe('#supportedContent', function () {
-    it('Should return a value of \'heading\'', function () {
+    it('Should return a value of "heading".', function () {
       AutoMan.ui.components.Heading.supportedContent().should.equal('heading');
     });
   });

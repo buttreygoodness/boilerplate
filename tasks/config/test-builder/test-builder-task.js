@@ -15,10 +15,10 @@ var options = {
   testRunnerMain: [process.cwd(), 'tests/test-runner.html'].join('/'),
 
   map: function(script) {
-    return ['' , options.cwd, script].join('/');        
+    return ['' , options.cwd, script].join('/');
   },
 
-  onComplete: function(scripts, done) {    
+  onComplete: function(scripts, done) {
     var template = fs.readFileSync(options.template).toString();
     
     var view = {'scripts' : scripts};

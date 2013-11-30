@@ -1,6 +1,4 @@
 var _ = require('underscore');
-var glob = require('glob');
-var path = require('path');
 
 /**
  * @param {!Object} grunt Grunt global object.

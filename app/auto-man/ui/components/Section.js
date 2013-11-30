@@ -6,7 +6,7 @@ goog.require('AutoMan.ui.components.AbstractComponent');
  * Section Component
  * 
  * @param {?Object} options
- */ 
+ */
 AutoMan.ui.components.Section = function(options) {
   goog.base(this, options);
 };
