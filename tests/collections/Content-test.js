@@ -2,18 +2,22 @@ goog.require('AutoMan.collections.Content');
 
 describe('AutoMan.collections.Content', function() {
   describe('#Content', function() {
+    it('should return proper object type', function() {
+      var content = new AutoMan.collections.Content();
+
+      content.should.be.instanceOf(AutoMan.collections.Content);
+    });
+
     it('Should use key if one is provided', function() {
       var content = new AutoMan.collections.Content('key!!!');
 
       content.getKey().should.equal('key!!!');
-
     });
 
     it('Should create a unique key if one is not provided.', function() {
       var content = new AutoMan.collections.Content();
 
-      content.getKey().should.not.be.null;
-      content.getKey().should.not.be.undefined;
+      content.getKey().should.exist;
 
       var contentOther = new AutoMan.collections.Content();
 
