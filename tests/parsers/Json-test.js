@@ -6,56 +6,110 @@ describe('AutoMan.parsers.content.Json', function() {
   var badContent = 'bad-content';
 
   var goodContent = JSON.stringify({
-    'type': 'div',
-    'data': {
-      'attributes': {
-        'id': 'root'
-      }
-    },
-    'children': [
-      {
-        'type': 'div',
-        'data': {
-          'attributes': {
-            'id': 'no-child'
-          }
+    'content' : {
+      'type': 'a',
+      'data': {
+        'attributes': {
+          'id': 'root'
         }
       },
-      {
-        'type': 'div',
-        'data': {
-          'attributes': {
-            'id': 'has-children'
+      'children': [
+        {
+          'type': 'b',
+          'data': {
+            'attributes': {
+              'id': 'no-child'
+            }
           }
         },
-        'children': [
-          {
-            'type': 'div',
-            'data': {
-              'attributes': {
-                'id': 'child-1'
-              }
+        {
+          'type': 'c',
+          'data': {
+            'attributes': {
+              'id': 'has-children'
             }
           },
-          {
-            'type': 'div',
-            'data': {
-              'attributes': {
-                'id': 'child-2'
+          'children': [
+            {
+              'type': 'd',
+              'data': {
+                'attributes': {
+                  'id': 'child-1'
+                }
+              }
+            },
+            {
+              'type': 'e',
+              'data': {
+                'attributes': {
+                  'id': 'child-2'
+                }
               }
             }
-          }
-        ]
-      }
-    ]
+          ]
+        }
+      ]
+    }
   });
 
   describe('#parse', function() {
-    it('should throw an AutoMan.parsers.content.Json.Errors.NoContent on no content nodes.', function() {
+    it('Should return an AutoMan.parsers.content.Json.Errors.NoContent on no content nodes.', function(done) {
       var parser = new AutoMan.parsers.content.Json(noContent);
 
-      parser.parse(function() {
-        console.log(':)');
+      parser.parse(function(content, error) {
+        error.should.exist;
+        error.getCode().should.equal(AutoMan.parsers.content.Json.Errors.NoContent);
+
+        done();
+      });
+    });
+
+    it('Should return a AutoMan.parsers.content.Json.Errors.Unparsable on unparsable content.', function(done) {
+      var parsers = new AutoMan.parsers.content.Json(badContent);
+
+      parsers.parse(function(content, error) {
+        error.should.exist;
+        error.getCode().should.equal(AutoMan.parsers.content.Json.Errors.Unparsable);
+
+        done();
+      });
+    });
+
+    it('Should not return errors on correct parse.', function(done) {
+      var parsers = new AutoMan.parsers.content.Json(goodContent);
+
+      parsers.parse(function(content, error) {
+        should.not.exist(error);
+
+        done();
+      });
+    });
+
+    it('Should parse valid data and return a proper AutoMan.collections.content.', function(done) {
+      var parsers = new AutoMan.parsers.content.Json(goodContent);
+
+      parsers.parse(function(content) {
+        content.getValue().type.should.equal('a');
+        content.getValue().data.attributes.id.should.equal('root');
+        content.getChildCount().should.equal(2);
+
+        content.getChildAt(0).getValue().type.should.equal('b');
+        content.getChildAt(0).getValue().data.attributes.id.should.equal('no-child');
+        content.getChildAt(0).getChildCount().should.equal(0);
+
+        content.getChildAt(1).getValue().type.should.equal('c');
+        content.getChildAt(1).getValue().data.attributes.id.should.equal('has-children');
+        content.getChildAt(1).getChildCount().should.equal(2);
+
+        content.getChildAt(1).getChildAt(0).getValue().type.should.equal('d');
+        content.getChildAt(1).getChildAt(0).getValue().data.attributes.id.should.equal('child-1');
+        content.getChildAt(1).getChildAt(0).getChildCount().should.equal(0);
+
+        content.getChildAt(1).getChildAt(1).getValue().type.should.equal('e');
+        content.getChildAt(1).getChildAt(1).getValue().data.attributes.id.should.equal('child-2');
+        content.getChildAt(1).getChildAt(1).getChildCount().should.equal(0);
+
+        done();
       });
     });
   });

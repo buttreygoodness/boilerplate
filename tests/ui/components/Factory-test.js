@@ -12,14 +12,14 @@ describe('AutoMan.ui.components.Factory', function() {
   });
 
   describe('#register', function() {
-    it('should register a component if its not registered already.', function() {
+    it('Should register a component if its not registered already.', function() {
       factory.register(TestComponent).should.true;
       factory.register(TestComponent).should.false;
     });
   });
 
   describe('#unregister', function() {
-    it('should unregister a component if its registered.', function() {
+    it('Should unregister a component if its registered.', function() {
       factory.unregister(TestComponent).should.false;
 
       factory.register(TestComponent);
@@ -28,7 +28,7 @@ describe('AutoMan.ui.components.Factory', function() {
   });
 
   describe('#unregisterType', function() {
-    it('should unregister a component by its type if its been registered.', function() {
+    it('Should unregister a component by its type if its been registered.', function() {
       factory.unregisterType('doesnt-exist').should.be.false;
 
       factory.register(TestComponent);
@@ -37,7 +37,7 @@ describe('AutoMan.ui.components.Factory', function() {
   });
 
   describe('#isRegistered', function() {
-    it('should detect if a component is registered.', function() {
+    it('Should detect if a component is registered.', function() {
       factory.isRegistered(TestComponent).should.be.false;
 
       factory.register(TestComponent);
@@ -46,7 +46,7 @@ describe('AutoMan.ui.components.Factory', function() {
   });
 
   describe('#isTypeSupported', function() {
-    it('should detect if a there is any components registered that can handle a given type.', function() {
+    it('Should detect if a there is any components registered that can handle a given type.', function() {
       factory.register(TestComponent);
 
       factory.isTypeSupported(TestComponent.supportedContent()).should.be.true;
@@ -55,7 +55,7 @@ describe('AutoMan.ui.components.Factory', function() {
   });
 
   describe('#create', function() {
-    it('should create a component by type, if supported.', function() {
+    it('Should create a component by type, if supported.', function() {
       factory.register(TestComponent);
 
       var testComponent = factory.create(TestComponent.supportedContent());

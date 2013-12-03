@@ -2,7 +2,7 @@ goog.require('AutoMan.collections.Content');
 
 describe('AutoMan.collections.Content', function() {
   describe('#Content', function() {
-    it('should return proper object type', function() {
+    it('Should return proper object type', function() {
       var content = new AutoMan.collections.Content();
 
       content.should.be.instanceOf(AutoMan.collections.Content);

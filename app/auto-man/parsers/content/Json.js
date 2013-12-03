@@ -90,6 +90,6 @@ AutoMan.parsers.content.Json.prototype.recursiveParse_ = function(jsonNode, cont
  * @type {Object}
  */
 AutoMan.parsers.content.Json.Errors = {
-  'Unparsable' : 'JSON content is invalid and unparsable.',
-  'NoContent'  : 'No content node exists in json.'
+  'Unparsable' : 'Content.Unparsable',
+  'NoContent'  : 'Content.NoContent'
 };

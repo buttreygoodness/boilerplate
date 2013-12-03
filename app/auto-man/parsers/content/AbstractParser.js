@@ -15,12 +15,14 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
   this.options_ = options || {};
 
   this.content_ = undefined;
+
+  this.parseFail_ = false;
 };
 
 /**
  * Parses content and pushes results into callback.
  * 
- * @param  {Function(AutoMan.collections.Content, ?AutoMan.parsers.Error)} callback
+ * @param  {Function(!AutoMan.collections.Content, ?AutoMan.parsers.Error)} callback
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
   if(!this.isCached_()) {
@@ -35,6 +37,8 @@ AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
       }
       
       this.content_ = content ? content : new AutoMan.collections.Content();
+
+      this.parseFail_ = error ? true : false;
 
       callback(this.getContent(), error);
 

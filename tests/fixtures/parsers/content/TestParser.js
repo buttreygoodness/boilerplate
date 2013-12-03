@@ -14,6 +14,6 @@ AutoMan.tests.fixtures.parsers.content.TestParser.prototype.parse_ = function() 
   if(this.options_.pass) {
     return new AutoMan.collections.Content();
   } else {
-    this.assert_(false); 
+    this.assert_(false);
   }
 };

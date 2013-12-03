@@ -144,29 +144,19 @@ describe('AutoMan.ui.Builder', function () {
         components.getChildCount().should.equal(2);
 
         components.getChildAt(0).should.be.instanceOf(TestComponent);
-
         components.getChildAt(0).getElement().id.should.equal('no-child');
-
         components.getChildAt(0).getChildCount().should.equal(0);
 
         components.getChildAt(1).should.be.instanceOf(TestComponent);
-
         components.getChildAt(1).getElement().id.should.equal('has-children');
-
         components.getChildAt(1).getChildCount().should.equal(2);
 
         components.getChildAt(1).getChildAt(0).should.be.instanceOf(TestComponent);
-
         components.getChildAt(1).getChildAt(0).getElement().id.should.equal('child-1');
-
         components.getChildAt(1).getChildAt(0).getChildCount().should.equal(0);
 
         components.getChildAt(1).getChildAt(1).should.be.instanceOf(TestComponent);
-
-        components.getChildAt(1).getChildAt(1).should.be.instanceOf(TestComponent);
-
         components.getChildAt(1).getChildAt(1).getElement().id.should.equal('child-2');
-
         components.getChildAt(1).getChildAt(1).getChildCount().should.equal(0);
 
         done();
