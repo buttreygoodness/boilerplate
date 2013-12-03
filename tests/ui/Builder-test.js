@@ -2,59 +2,10 @@ goog.require('AutoMan.ui.Builder');
 
 goog.require('AutoMan.tests.fixtures.ui.components');
 
-describe('AutoMan.ui.Builder', function () {
-  var badContentFixture = {
-    'type': 'div',
-    'children': [{
-      'type':'blop',
-      'children': []
-    }]
-  };
+goog.require('AutoMan.tests.fixtures.collections.Content');
 
-  var contentFixture = {
-    'type': 'div',
-    'data': {
-      'attributes': {
-        'id': 'root'
-      }
-    },
-    'children': [
-      {
-        'type': 'div',
-        'data': {
-          'attributes': {
-            'id': 'no-child'
-          }
-        }
-      },
-      {
-        'type': 'div',
-        'data': {
-          'attributes': {
-            'id': 'has-children'
-          }
-        },
-        'children': [
-          {
-            'type': 'div',
-            'data': {
-              'attributes': {
-                'id': 'child-1'
-              }
-            }
-          },
-          {
-            'type': 'div',
-            'data': {
-              'attributes': {
-                'id': 'child-2'
-              }
-            }
-          }
-        ]
-      }
-    ]
-  };
+describe('AutoMan.ui.Builder', function () {
+  var badContentFixture = {};
 
   var TestComponent = AutoMan.tests.fixtures.ui.components.TestComponent;
 
@@ -63,7 +14,7 @@ describe('AutoMan.ui.Builder', function () {
   //var builder;
 
   beforeEach(function() {
-    builder = new AutoMan.ui.Builder(contentFixture, factory);
+    builder = new AutoMan.ui.Builder(new AutoMan.tests.fixtures.collections.Content(), factory);
   });
 
   afterEach(function() {

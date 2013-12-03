@@ -3,6 +3,8 @@ goog.provide('AutoMan.ui.Builder');
 goog.require('goog.events.EventTarget');
 goog.require('goog.array');
 
+goog.require('AutoMan.common.Error');
+
 /**
  * @constructor
  *
@@ -54,8 +56,8 @@ AutoMan.ui.Builder.prototype.build_ = function() {
   this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildStart);
 
   try {
-    this.components_ = this.buildChildren_(this.content_, this.factory_);
-    
+    this.components_ = this.buildRecursive_(this.content_, this.factory_);
+
     this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildComplete);
   } catch (e) {
     this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildError);
@@ -63,14 +65,14 @@ AutoMan.ui.Builder.prototype.build_ = function() {
 };
 
 /**
- * Recursive Build of children.
+ * Recursive Build self.
  * 
  * @param  {!AutoMan.collections.Content} content
  * @param  {!AutoMan.ui.components.Factory} factory
  * @param  {?AutoMan.ui.components.AbstractComponent} node
  * @return {!AutoMan.ui.components.AbstractComponent}
  */
-AutoMan.ui.Builder.prototype.buildChildren_ = function(content, factory, node) {
+AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) {
   var self = this;
 
   var nodeValue = content.getValue();
@@ -86,7 +88,7 @@ AutoMan.ui.Builder.prototype.buildChildren_ = function(content, factory, node) {
   }
 
   content.forEachChild(function(child) {
-    self.buildChildren_(child, factory, nodeElement);
+    self.buildRecursive_(child, factory, nodeElement);
   }.bind(self));
 
   return node;
@@ -122,7 +124,7 @@ AutoMan.ui.Builder.prototype.handleBuildError_ = function() {
  */
 AutoMan.ui.Builder.prototype.assert_ = function(condition) {
   if(!condition) {
-    throw(AutoMan.ui.Builder.Errors.AssertFailed);
+    throw new AutoMan.common.Error(AutoMan.ui.Builder.Errors.AssertFailed);
   }
 
   return this;
