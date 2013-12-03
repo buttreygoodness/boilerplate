@@ -3,8 +3,10 @@ goog.provide('AutoMan.parsers.content.Json');
 goog.require('goog.array');
 goog.require('goog.object');
 
-goog.require('AutoMan.parsers.content.AbstractParser');
+goog.require('AutoMan.parsers.Error');
 goog.require('AutoMan.collections.Content');
+goog.require('AutoMan.parsers.content.AbstractParser');
+
 
 /**
  * @implements {AutoMan.parsers.content.AbstractParser}
