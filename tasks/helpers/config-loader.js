@@ -1,18 +1,18 @@
+'use strict';
+
 var _ = require('underscore');
 var path = require('path');
 
-'use strict';
-
 /**
- * @param {!Object} options
  * @param {!Grunt} grunt
+ * @param {Object=} options
  */
-function ConfigLoader(options, grunt) {
+function ConfigLoader(grunt, options) {
   this.grunt_ = grunt;
 
   this.options_ = ConfigLoader.defaultOptions;
 
-  _.extend(this.options_, options);
+  _.extend(this.options_, options || {});
 }
 
 /**
@@ -54,7 +54,7 @@ ConfigLoader.prototype.glob_ = function() {
 };
 
 /**
- * Default options.
+ * Default options used if they are not provided or not completed.
  * 
  * @type {Object}
  */

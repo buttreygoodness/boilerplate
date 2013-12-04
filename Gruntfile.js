@@ -18,9 +18,9 @@ module.exports = function(grunt) {
     }
   });
   
-  var configLoader = new ConfigLoader({
+  var configLoader = new ConfigLoader(grunt, {
     match: ['**/*.js', '!helpers/**']
-  }, grunt);
+  });
 
   configLoader.loadAll();
     
