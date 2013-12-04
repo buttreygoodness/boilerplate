@@ -1,5 +1,5 @@
 var config = {
-  configName:'closure-compiler',
+  taskName:'closure-compiler',
   frontend: {
     closurePath: 'bin/closure-compiler',
     js: 'bin/auto-man.js',

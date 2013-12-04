@@ -4,7 +4,7 @@ var path = require('path');
 var Mustache = require('mustache');
 
 var options = {
-  configName: 'test-builder',
+  taskName: 'test-builder',
 
   cwd: 'tests',
 

@@ -1,5 +1,5 @@
 var config = {
-  configName: 'nodestatic',
+  taskName: 'nodestatic',
   server: {
     options: {
       dev: true,

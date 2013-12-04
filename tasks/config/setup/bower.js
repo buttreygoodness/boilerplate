@@ -1,5 +1,5 @@
 var config = {
-  configName: 'shell.bower',
+  taskName: 'shell.bower',
   command: [
     'bower install'
   ].join('&&'),

@@ -1,5 +1,5 @@
 var config = {
-  configName: 'mocha_phantomjs',
+  taskName: 'mocha_phantomjs',
   all: {
     options: {
       urls: ['http://localhost:8080/tests/test-runner.html']

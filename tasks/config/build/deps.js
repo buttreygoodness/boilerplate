@@ -1,5 +1,5 @@
 var config = {
-  configName: 'shell.deps',
+  taskName: 'shell.deps',
   command:[
     'python app/lib/closure-library/closure/bin/build/depswriter.py --root_with_prefix="app/auto-man ../../../../../app/auto-man" > bin/automan-deps.js'
   ].join('&&'),

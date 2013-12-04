@@ -1,5 +1,5 @@
 var config = {
-  configName: 'jshint',
+  taskName: 'jshint',
   all: ['app/auto-man/**/*.js', 'Gruntfile.js', 'tests/**/*.js', 'tasks'],
   options: {
     expr: true,

@@ -1,5 +1,5 @@
 var config = {
-  configName: 'shell.resolve-build-deps',
+  taskName: 'shell.resolve-build-deps',
   command: [
     'git clone https://code.google.com/p/closure-compiler/ bin/closure-compiler',
     'cd bin/closure-compiler',

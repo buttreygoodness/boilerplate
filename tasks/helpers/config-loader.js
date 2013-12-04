@@ -1,6 +1,8 @@
 var _ = require('underscore');
 var path = require('path');
 
+'use strict';
+
 /**
  * @param {!Object} options
  * @param {!Grunt} grunt
@@ -20,18 +22,22 @@ function ConfigLoader(options, grunt) {
  */
 ConfigLoader.prototype.load = function(file) {
   if(_.isString(file)) {
-    var config = require(path.resolve([this.options_.cwd, file].join('/')));
+    var configPath = path.resolve([this.options_.cwd, file].join('/'));
 
-    this.grunt_.config(config.configName || 'config-loader' , _.omit(config, 'configName'));
-  } else if(_isArray(file)) {
+    var config = require(path.resolve(configPath));
+
+    if(!config.taskName) {
+      throw new Error(['Missing', this.options_.taskName, 'in', configPath].join(' '));
+    }
+
+    this.grunt_.config(config.taskName, _.omit(config, this.options_.taskName));
+  } else if(_.isArray(file)) {
     _.each(file, this.load.bind(this));
   }
 };
 
 /**
  * Resolves and loads all configs based of globing parameters.
- * 
- * @return {[type]} [description]
  */
 ConfigLoader.prototype.loadAll = function() {
   _.each(this.glob_(), this.load.bind(this));
@@ -54,7 +60,8 @@ ConfigLoader.prototype.glob_ = function() {
  */
 ConfigLoader.defaultOptions = {
   cwd: 'tasks',
-  match: ['**/**.js', '!helpers/**']
+  match: ['**/**.js'],
+  taskName: 'taskName'
 };
 
 module.exports = ConfigLoader;
