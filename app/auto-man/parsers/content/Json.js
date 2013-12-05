@@ -7,7 +7,6 @@ goog.require('AutoMan.parsers.Error');
 goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.AbstractParser');
 
-
 /**
  * @implements {AutoMan.parsers.content.AbstractParser}
  * 
