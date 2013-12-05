@@ -75,9 +75,7 @@ AutoMan.ui.Builder.prototype.build_ = function() {
 AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) {
   var self = this;
 
-  var nodeValue = content.getValue();
-
-  var nodeElement = factory.create(nodeValue.type, nodeValue);
+  var nodeElement = factory.create(content.getType(), content);
 
   self.assert_(nodeElement);
 

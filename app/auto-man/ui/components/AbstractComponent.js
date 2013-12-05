@@ -2,28 +2,20 @@ goog.provide('AutoMan.ui.components.AbstractComponent');
 
 goog.require('goog.ui.Control');
 
+goog.require('AutoMan.collections.Content');
+
 /**
  * Abstract Component that all components must implement.
  *
  * @extends {goog.ui.Control}
  * 
- * @param {?Object} options
+ * @param {!AutoMan.collections.Content} content
  * @param {?goog.dom.DomHelper} domHelper
  */
-AutoMan.ui.components.AbstractComponent = function(options, domHelper) {
+AutoMan.ui.components.AbstractComponent = function(content, domHelper) {
   goog.base(this, domHelper);
 
-  this.options_ = options || {};
-
-  this.data_ = this.options_.data || {};
-
-  this.content_ = this.data_  || '';
-
-  this.classes_ = this.data_ .classes || [];
-
-  this.attributes_ = this.data_ .attributes || {};
-
-  this.style_ = this.data_ .styles || {};
+  this.setModel(content);
 };
 
 goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
@@ -79,7 +71,14 @@ AutoMan.ui.components.AbstractComponent.prototype.createDom = function() {
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(element) {
   this.setElementInternal(element);
-  
+
+  this.decorateInternal_();
+};
+
+/**
+ * Decorates self based of model.
+ */
+AutoMan.ui.components.AbstractComponent.prototype.decorateInternal_ = function() {
   this.decorateInternalContent_();
 
   this.decorateInternalClasses_();
@@ -95,7 +94,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(el
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
-  this.getElement().innerText = this.content_.text || '';
+  this.getElement().innerText = this.getModel().getData().text || '';
 };
 
 /**
@@ -104,7 +103,9 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = fun
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalClasses_ = function() {
-  goog.array.forEach(this.classes_, goog.bind(function(class_) {
+  var classes = this.getModel().getData().classes || [];
+
+  goog.array.forEach(classes, goog.bind(function(class_) {
     this.getElement().classList.add(class_);
   }, this));
 };
@@ -115,7 +116,9 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalClasses_ = fun
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = function() {
-  goog.object.forEach(this.attributes_, goog.bind(function(value, key) {
+  var attributes = this.getModel().getData().attributes || {};
+
+  goog.object.forEach(attributes, goog.bind(function(value, key) {
     this.getElement().setAttribute(key, value);
   }, this));
 };
@@ -126,7 +129,44 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = 
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalStyles_ = function() {
-  goog.object.forEach(this.style_, goog.bind(function(value, key) {
+  var styles = this.getModel().getData().styles || {};
+
+  goog.object.forEach(styles, goog.bind(function(value, key) {
     this.getElement().style.setProperty(key, value);
   }, this));
+};
+
+/**
+ * Destorys any decorations.
+ */
+AutoMan.ui.components.AbstractComponent.prototype.destroyInternal_ = function() {
+  if(!this.isInDocument()) {
+    return;
+  }
+
+  var attributes = this.getElement().attributes;
+
+  goog.array.forEach(attributes, function(attribute) {
+    this.getElement().removeAttribute(attribute);
+  }.bind(this));
+};
+
+/**
+ * Sets model and binds change events to self.
+ * 
+ * @param {!AutoMan.collections.Content} model
+ */
+AutoMan.ui.components.AbstractComponent.prototype.setModel = function(model) {
+  goog.base(this, 'setModel', model);
+
+  this.getModel().getEventTarget().addEventListener(AutoMan.collections.Content.Events.ContentChange, this.handleModelChange_.bind(this));
+};
+
+/**
+ * Handles any model updates and by redorating self.
+ */
+AutoMan.ui.components.AbstractComponent.prototype.handleModelChange_ = function() {
+  this.destroyInternal_();
+
+  this.decorateInternal_();
 };
