@@ -1,9 +1,10 @@
 goog.require('AutoMan.ui.components.Factory');
 
-goog.require('AutoMan.tests.fixtures.ui.components.TestComponent');
+goog.require('AutoMan.tests.fixtures.ui.components.Component');
+goog.require('AutoMan.tests.fixtures.collections.Content');
 
 describe('AutoMan.ui.components.Factory', function() {
-  var TestComponent = AutoMan.tests.fixtures.ui.components.TestComponent;
+  var Component = AutoMan.tests.fixtures.ui.components.Component;
 
   var factory;
 
@@ -13,17 +14,17 @@ describe('AutoMan.ui.components.Factory', function() {
 
   describe('#register', function() {
     it('Should register a component if its not registered already.', function() {
-      factory.register(TestComponent).should.true;
-      factory.register(TestComponent).should.false;
+      factory.register(Component).should.true;
+      factory.register(Component).should.false;
     });
   });
 
   describe('#unregister', function() {
     it('Should unregister a component if its registered.', function() {
-      factory.unregister(TestComponent).should.false;
+      factory.unregister(Component).should.false;
 
-      factory.register(TestComponent);
-      factory.unregister(TestComponent).should.true;
+      factory.register(Component);
+      factory.unregister(Component).should.true;
     });
   });
 
@@ -31,38 +32,38 @@ describe('AutoMan.ui.components.Factory', function() {
     it('Should unregister a component by its type if its been registered.', function() {
       factory.unregisterType('doesnt-exist').should.be.false;
 
-      factory.register(TestComponent);
-      factory.unregisterType(TestComponent.supportedContent()).should.be.true;
+      factory.register(Component);
+      factory.unregisterType(Component.supportedContent()).should.be.true;
     });
   });
 
   describe('#isRegistered', function() {
     it('Should detect if a component is registered.', function() {
-      factory.isRegistered(TestComponent).should.be.false;
+      factory.isRegistered(Component).should.be.false;
 
-      factory.register(TestComponent);
-      factory.isRegistered(TestComponent).should.be.true;
+      factory.register(Component);
+      factory.isRegistered(Component).should.be.true;
     });
   });
 
   describe('#isTypeSupported', function() {
     it('Should detect if a there is any components registered that can handle a given type.', function() {
-      factory.register(TestComponent);
+      factory.register(Component);
 
-      factory.isTypeSupported(TestComponent.supportedContent()).should.be.true;
+      factory.isTypeSupported(Component.supportedContent()).should.be.true;
       factory.isTypeSupported('doesnt-exist').should.be.false;
     });
   });
 
   describe('#create', function() {
-    it('Should create a component by type, if supported.', function() {
-      factory.register(TestComponent);
+    it('Should create a component by type, if supported.', function() {      
+      factory.register(Component);
 
-      var testComponent = factory.create(TestComponent.supportedContent());
+      var component = factory.create(Component.supportedContent(), new AutoMan.tests.fixtures.collections.Content);
 
       should.not.exist(factory.create('doesnt-exist'));
-      should.exist(testComponent);
-      testComponent.should.be.an.instanceof(TestComponent);
+      should.exist(component);
+      component.should.be.an.instanceof(Component);
     });
   });
 });

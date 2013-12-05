@@ -60,7 +60,6 @@ AutoMan.ui.Builder.prototype.build_ = function() {
 
     this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildComplete);
   } catch (e) {
-    throw(e);
     this.dispatchEvent(AutoMan.ui.Builder.EventTypes.BuildError);
   }
 };

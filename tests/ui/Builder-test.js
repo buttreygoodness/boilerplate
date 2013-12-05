@@ -1,13 +1,12 @@
 goog.require('AutoMan.ui.Builder');
 
 goog.require('AutoMan.tests.fixtures.ui.components');
-
 goog.require('AutoMan.tests.fixtures.collections.Content');
 
 describe('AutoMan.ui.Builder', function () {
   var badContentFixture = {};
 
-  var TestComponent = AutoMan.tests.fixtures.ui.components.TestComponent;
+  var Component = AutoMan.tests.fixtures.ui.components.Component;
 
   var factory = AutoMan.tests.fixtures.ui.components.factory;
 
@@ -80,7 +79,7 @@ describe('AutoMan.ui.Builder', function () {
 
     it('Should return a proper type.', function(done) {
       builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
-        e.target.getComponents().should.be.instanceOf(TestComponent);
+        e.target.getComponents().should.be.instanceOf(Component);
 
         done();
       });
@@ -94,19 +93,19 @@ describe('AutoMan.ui.Builder', function () {
 
         components.getChildCount().should.equal(2);
 
-        components.getChildAt(0).should.be.instanceOf(TestComponent);
+        components.getChildAt(0).should.be.instanceOf(Component);
         components.getChildAt(0).getElement().id.should.equal('no-child');
         components.getChildAt(0).getChildCount().should.equal(0);
 
-        components.getChildAt(1).should.be.instanceOf(TestComponent);
+        components.getChildAt(1).should.be.instanceOf(Component);
         components.getChildAt(1).getElement().id.should.equal('has-children');
         components.getChildAt(1).getChildCount().should.equal(2);
 
-        components.getChildAt(1).getChildAt(0).should.be.instanceOf(TestComponent);
+        components.getChildAt(1).getChildAt(0).should.be.instanceOf(Component);
         components.getChildAt(1).getChildAt(0).getElement().id.should.equal('child-1');
         components.getChildAt(1).getChildAt(0).getChildCount().should.equal(0);
 
-        components.getChildAt(1).getChildAt(1).should.be.instanceOf(TestComponent);
+        components.getChildAt(1).getChildAt(1).should.be.instanceOf(Component);
         components.getChildAt(1).getChildAt(1).getElement().id.should.equal('child-2');
         components.getChildAt(1).getChildAt(1).getChildCount().should.equal(0);
 
