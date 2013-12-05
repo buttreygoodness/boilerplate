@@ -44,8 +44,14 @@
           var div = document.createElement('div');
 
           e.target.getComponents().render(div);
+
+          window.components = e.target.getComponents();
           
           $('body').append(div);
+        });
+
+        builder.addEventListener('Build.Error', function(e) {
+          throw('Build Fail');
         });
 
         builder.build();
