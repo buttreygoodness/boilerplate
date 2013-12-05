@@ -56,10 +56,10 @@ describe('AutoMan.ui.components.Factory', function() {
   });
 
   describe('#create', function() {
-    it('Should create a component by type, if supported.', function() {      
+    it('Should create a component by type, if supported.', function() {
       factory.register(Component);
 
-      var component = factory.create(Component.supportedContent(), new AutoMan.tests.fixtures.collections.Content);
+      var component = factory.create(Component.supportedContent(), new AutoMan.tests.fixtures.collections.Content());
 
       should.not.exist(factory.create('doesnt-exist'));
       should.exist(component);

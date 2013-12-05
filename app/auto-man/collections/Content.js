@@ -61,7 +61,7 @@ AutoMan.collections.Content.prototype.getEventTarget = function() {
 AutoMan.collections.Content.prototype.updateData = function(data, fire) {
   if(!data) {
     return;
-  } else if(data == this.getData() && !fire) {
+  } else if(data === this.getData() && !fire) {
     return;
   }
 
