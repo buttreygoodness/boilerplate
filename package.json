@@ -4,7 +4,9 @@
   "description": "Boilerplate for a course.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test",
+    "setup": "grunt setup",
+    "dev": "grunt dev"
   },
   "author": "AutomaticManual",
   "license": "BSD-2-Clause",

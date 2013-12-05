@@ -6,11 +6,11 @@ goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.Error');
 
 /**
- * @param {!String} parsable 
+ * @param {!*} parsable 
  * @param {Options=} options
  */
 AutoMan.parsers.content.AbstractParser = function(parsable, options) {
-  this.parsable_ = parsable || '';
+  this.parsable_ = parsable;
 
   this.options_ = options || {};
 
