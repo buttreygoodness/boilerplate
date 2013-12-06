@@ -1,4 +1,4 @@
-var ConfigLoader = require('./tasks/helpers/config-loader');
+var ConfigLoader = require('grunt-config-loader');
 
 module.exports = function(grunt) {
 

@@ -22,6 +22,7 @@
     "grunt-mocha-phantomjs": "~0.3.0",
     "underscore": "~1.5.2",
     "mocha": "~1.13.0",
-    "mustache": "~0.7.2"
+    "mustache": "~0.7.2",
+    "grunt-config-loader": "0.0.1"
   }
 }
