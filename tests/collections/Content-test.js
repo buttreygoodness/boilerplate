@@ -9,7 +9,7 @@ describe('AutoMan.collections.Content', function() {
     });
 
     it('Should use key if one is provided', function() {
-      var content = new AutoMan.collections.Content('key!!!');
+      var content = new AutoMan.collections.Content({id:'key!!!'});
 
       content.getKey().should.equal('key!!!');
     });

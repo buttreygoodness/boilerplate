@@ -31,7 +31,7 @@
      * Trying out bringing in data remotely...
      */
     jQuery(document).ready(function () {
-      jQuery.getJSON( "./auto-man/index.json", function(data) {
+      jQuery.getJSON( "/app/auto-man/index.json", function(data) {
         var jsonParser = new AutoMan.parsers.content.Object(data);
 
         jsonParser.parse(function (data) {
@@ -43,6 +43,8 @@
             e.target.getComponents().render(div);
 
             jQuery('body').append(div);
+
+            window.components = e.target.getComponents();
           });
 
           builder.build();

@@ -67,7 +67,7 @@ AutoMan.parsers.content.Json.prototype.recursiveParse_ = function(jsonNode, cont
       return key !== 'children';
     });
 
-    var node = new AutoMan.collections.Content(nodeValue.id, nodeValue);
+    var node = new AutoMan.collections.Content(nodeValue);
 
     if(contentNode) {
       contentNode.addChild(node);

@@ -22,7 +22,7 @@ describe('AutoMan.ui.Builder', function () {
 
   describe('#build', function() {
     it('Should dispatch a BuildStart event on start.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildStart, function() {
+      builder.addEventListener(builder.Events.BuildStart, function() {
         done();
       });
 
@@ -32,7 +32,7 @@ describe('AutoMan.ui.Builder', function () {
     it('Should dispatch a BuildError event on error.', function(done) {
       var builder = new AutoMan.ui.Builder(badContentFixture, factory);
 
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildError, function() {
+      builder.addEventListener(builder.Events.BuildError, function() {
         done();
       });
 
@@ -40,7 +40,7 @@ describe('AutoMan.ui.Builder', function () {
     });
 
     it('Should dispatch a BuildComplete event on complete.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function() {
+      builder.addEventListener(builder.Events.BuildComplete, function() {
         done();
       });
 
@@ -58,7 +58,7 @@ describe('AutoMan.ui.Builder', function () {
     it('Should return no components on failed build.', function(done) {
       var builder = new AutoMan.ui.Builder(badContentFixture, factory);
 
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildError, function(e) {
+      builder.addEventListener(builder.Events.BuildError, function(e) {
         e.target.getComponents().should.be.empty;
 
         done();
@@ -68,7 +68,7 @@ describe('AutoMan.ui.Builder', function () {
     });
 
     it('Should return components on build complete.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
+      builder.addEventListener(builder.Events.BuildComplete, function(e) {
         e.target.getComponents().should.not.be.empty;
 
         done();
@@ -78,7 +78,7 @@ describe('AutoMan.ui.Builder', function () {
     });
 
     it('Should return a proper type.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
+      builder.addEventListener(builder.Events.BuildComplete, function(e) {
         e.target.getComponents().should.be.instanceOf(Component);
 
         done();
@@ -88,7 +88,7 @@ describe('AutoMan.ui.Builder', function () {
     });
 
     it('Should return components in proper hierarchy.', function(done) {
-      builder.addEventListener(AutoMan.ui.Builder.EventTypes.BuildComplete, function(e) {
+      builder.addEventListener(builder.Events.BuildComplete, function(e) {
         components = e.target.getComponents();
 
         components.getChildCount().should.equal(2);

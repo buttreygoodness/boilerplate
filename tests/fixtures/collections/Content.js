@@ -3,7 +3,7 @@ goog.provide('AutoMan.tests.fixtures.collections.Content');
 goog.require('AutoMan.collections.Content');
 
 AutoMan.tests.fixtures.collections.Content = function() {
-  goog.base(this, null, {
+  goog.base(this, {
     'type': 'div',
     'data': {
       'attributes': {
@@ -12,7 +12,7 @@ AutoMan.tests.fixtures.collections.Content = function() {
     }
   });
 
-  this.addChild(new AutoMan.collections.Content(null, {
+  this.addChild(new AutoMan.collections.Content({
     'type': 'div',
     'data': {
       'attributes': {
@@ -21,7 +21,7 @@ AutoMan.tests.fixtures.collections.Content = function() {
     }
   }));
 
-  this.addChild(new AutoMan.collections.Content(null, {
+  this.addChild(new AutoMan.collections.Content({
     'type': 'div',
     'data': {
       'attributes': {
@@ -30,7 +30,7 @@ AutoMan.tests.fixtures.collections.Content = function() {
     }
   }));
 
-  this.getChildAt(1).addChild(new AutoMan.collections.Content(null, {
+  this.getChildAt(1).addChild(new AutoMan.collections.Content({
     'type': 'div',
     'data': {
       'attributes': {
@@ -39,7 +39,7 @@ AutoMan.tests.fixtures.collections.Content = function() {
     }
   }));
 
-  this.getChildAt(1).addChild(new AutoMan.collections.Content(null, {
+  this.getChildAt(1).addChild(new AutoMan.collections.Content({
     'type': 'div',
     'data': {
       'attributes': {
