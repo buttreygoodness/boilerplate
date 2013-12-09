@@ -21,3 +21,8 @@ img{
   width: 100%;
   background-size: cover;
 }
+
+#component-selector ul {
+  position: static;
+  top: 0px;
+}

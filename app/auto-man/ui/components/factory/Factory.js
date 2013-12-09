@@ -70,6 +70,15 @@ AutoMan.ui.components.Factory.prototype.unregisterType = function(type) {
 };
 
 /**
+ * Returns a list of supported types.
+ * 
+ * @return {!Array<String>}
+ */
+AutoMan.ui.components.Factory.prototype.getSupportedTypes = function() {
+  return goog.object.getKeys(this.registery_);
+};
+
+/**
  * Determines if a component is registered.
  * 
  * @param  {!AutoMan.ui.components.AbstractComponent}  component This is the constructor of the component.
