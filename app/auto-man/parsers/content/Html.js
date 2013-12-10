@@ -102,7 +102,7 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
       if (htmlNode.childNodes[0]) {
         nodeValue.data.text = htmlNode.childNodes[0].data;
       }
-    };
+    }
 
     var node = new AutoMan.collections.Content(nodeValue);
 
