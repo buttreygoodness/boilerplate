@@ -4,6 +4,7 @@ goog.require('goog.array');
 goog.require('goog.object');
 goog.require('goog.string.html.HtmlParser');
 goog.require('goog.string.html.HtmlSaxHandler');
+goog.require('goog.dom.DomHelper');
 
 goog.require('AutoMan.parsers.Error');
 goog.require('AutoMan.collections.Content');
@@ -27,66 +28,147 @@ goog.inherits(AutoMan.parsers.content.HTML, AutoMan.parsers.content.AbstractPars
  * @return {!Boolean} Could we decode the json?
  */
 AutoMan.parsers.content.HTML.prototype.decode_ = function() {
-  if (/<[a-z][\s\S]*>/i.test(this.parsable_)) {
-    this.html_ = this.parsable_;
+  var tmpDom = document.createElement('body');
+  tmpDom.innerHTML = this.parsable_;
+
+  if (tmpDom.children.length > 0) {
+    this.html_ = tmpDom;
+    this.domHelper_ = new goog.dom.DomHelper(this.html_);
     return true;
   }
   
   return false;
 };
 
+AutoMan.parsers.content.HTML.prototype.hasContent_ = function () {
+  return this.domHelper_.getElementsByTagNameAndClass('div', 'content').length > 0
+}
+
 /**
  * Starts recursive parse.
  *  
- * @throws {AutoMan.parsers.content.Json.Errors.Unparsable} If json cannot be decoded.
- * @throws {AutoMan.parsers.content.Json.Errors.NoContent} If there is no content node.
+ * @throws {AutoMan.parsers.content.HTML.Errors.Unparsable} If HTML cannot be decoded.
+ * @throws {AutoMan.parsers.content.HTML.Errors.NoContent} If there is no content node.
  *
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.HTML.prototype.parse_ = function() {
   this
     .assert_(this.decode_(), AutoMan.parsers.content.HTML.Errors.Unparsable)
-    .assert_(/content/i.test(this.html_), AutoMan.parsers.content.HTML.Errors.NoContent);
+    .assert_(this.hasContent_(), AutoMan.parsers.content.HTML.Errors.NoContent);
     
-  return this.recursiveParse_(this.html_) || new AutoMan.collections.Content();
+  //return this.saxParse_(this.html_) || new AutoMan.collections.Content();
+
+  return this.recursiveParse_(this.html_.firstChild) || new AutoMan.collections.Content();
 };
 
-AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlString, contentNode) {
+AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, contentNode) {
+  var self = this;
+  
+  if (htmlNode) {
+    var children = htmlNode.children || [];
+
+    var attributes = {};
+
+    var nodeAttributes = goog.object.filter(htmlNode.attributes, function(value, key) {
+      if (typeof value === 'object') {
+        attributes[value.name] = value.value;
+        return true;
+      }
+    });
+    
+    var nodeValue = {
+      type: htmlNode.tagName.toLowerCase(),
+      data: {
+        classes: htmlNode.className.split(' '),
+        text: htmlNode.text,
+        attributes: attributes
+      }
+    }
+
+    var node = new AutoMan.collections.Content(nodeValue);
+
+    if(contentNode) {
+      contentNode.addChild(node);
+    } else {
+      contentNode = node;
+    }
+
+    goog.array.forEach(children, function(child) {
+      self.recursiveParse_.bind(self)(child, node);
+    });
+
+
+   return contentNode;
+  }
+};
+
+/**
+ * SAX parse the document.
+ */
+AutoMan.parsers.content.HTML.prototype.saxParse_ = function (htmlString, contentNode) {
 
   var html_parser = new goog.string.html.HtmlParser();
   var html_handler = new goog.string.html.HtmlSaxHandler();
+  var node;
+  var contentDepth = -1;
+  var previousDepth = -1;
 
   html_handler.pcdata = function (text) {
-    console.log('pcdata', text);
-  }
+    node.value_.data.text = text;
+  };
 
   html_handler.rcdata = function (text) {
-    console.log('rcdata', text);
-  }
+    node.value_.data.text = text;
+  };
 
   html_handler.cdata = function (text) {
-    console.log('cdata', text);
-  }
+    node.value_.data.text = text;
+  };
 
   html_handler.startTag = function (name, attributes) {
-    console.log('startTag', name, attributes);
-  }
+    console.log(attributes);
+    var attrs = attributes || [];
 
-  html_handler.endTag = function (name, attributes) {
-    console.log('endTag', name);
-  }
+    node = new AutoMan.collections.Content({
+      type: name,
+      data: {
+        attributes: attrs
+      }
+    });
 
-  html_handler.startDoc = function (name, attributes) {
-    console.log('startDoc');
-  }
+    if (contentDepth === previousDepth) {
+      contentNode.addChild(node);
+    } else {
+      contentNode.getChildAt(contentDepth).addChild(node);
+      previousDepth = contentDepth;
+    }
 
-  html_handler.endDoc = function (name, attributes) {
-    console.log('endDoc');
-  }
-      
-  var parsed = html_parser.parse(html_handler, htmlString);
+    contentDepth++;
+  };
 
-  return parsed;
+  html_handler.endTag = function () {
+    contentDepth --;
+  };
+
+  html_handler.startDoc = function () {
+    contentNode = new AutoMan.collections.Content({
+      type: 'div',
+      data: {
+        attributes: {
+          id: 'root'
+        }
+      }
+    });
+  };
+
+  html_handler.endDoc = function () {
+    window.htmlContent = contentNode;
+  };
+    
+  html_parser.parse(html_handler, htmlString);
+
+  return contentNode;
 };
 
 /**

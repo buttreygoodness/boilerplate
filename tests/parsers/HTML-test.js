@@ -6,7 +6,7 @@ describe('AutoMan.parsers.content.HTML', function () {
 
   var badContent = 'bad-content';
 
-  var goodContent = '<div class="content"><a href="#">anchor</a><div id="new" class="fake"></div></div>';
+  var goodContent = '<div class="content anotherClass" data-test="test"><a href="#" id="id1">anchor</a><div id="id2" class="fake"></div></div>';
 
   describe('#parse', function () {
     it('Should return an AutoMan.parsers.content.HTML.Errors.NoContent on no content nodes.', function (done) {
@@ -34,8 +34,8 @@ describe('AutoMan.parsers.content.HTML', function () {
     it('Should parse valid data and return a proper AutoMan.collections.content.', function (done) {
       var parser = new AutoMan.parsers.content.HTML(goodContent);
 
-      parser.parse(function (content) {
-        console.log(content);
+      parser.parse(function (htmlContent) {
+        console.log(htmlContent);
         done();
       });
     });
