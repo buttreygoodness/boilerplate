@@ -35,28 +35,24 @@ describe('AutoMan.parsers.content.HTML', function () {
       var parser = new AutoMan.parsers.content.HTML(goodContent);
 
       parser.parse(function (htmlContent) {
-        console.log(htmlContent);
+        htmlContent.getValue().type.should.equal('div');
+        htmlContent.getValue().data.classes.should.contain('content');
+        htmlContent.getChildCount().should.equal(2);
+
+        htmlContent.getChildAt(0).getValue().type.should.equal('a');
+        htmlContent.getChildAt(0).getValue().data.attributes.id.should.equal('id1');
+        htmlContent.getChildAt(0).getValue().data.attributes.href.should.equal('#');
+        htmlContent.getChildAt(0).getValue().data.text.should.equal('anchor');
+        htmlContent.getChildAt(0).getChildCount().should.equal(0);
+
+        htmlContent.getChildAt(1).getValue().type.should.equal('div');
+        htmlContent.getChildAt(1).getValue().data.classes.should.contain('fake');
+        htmlContent.getChildAt(1).getValue().data.attributes.id.should.equal('id2');
+        htmlContent.getChildAt(1).getChildCount().should.equal(0);
+
         done();
       });
     });
 
   });
 });
-
-// describe('AutoMan.parsers.content.HTML', function () {
-//   var noContent = '';
- 
-//   describe('#parse', function () {
-//     it('Should return an AutoMan.parsers.content.HTML.Errors.NoContent on no content nodes.', function () {
-//       var parser = new AutoMan.parsers.content.HTML(noContent);
-
-//       parser.parse(function (content, error) {
-//         error.should.exist;
-//         error.getCode().should.equal(AutoMan.parsers.content.HTML.Errors.NoContent);
-
-//         done();
-//       });
-
-//     });
-//   });
-// });
