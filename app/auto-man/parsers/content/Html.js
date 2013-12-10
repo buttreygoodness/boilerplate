@@ -26,7 +26,8 @@ goog.inherits(AutoMan.parsers.content.HTML, AutoMan.parsers.content.AbstractPars
  * @return {!Boolean} Could we decode the json?
  */
 AutoMan.parsers.content.HTML.prototype.decode_ = function() {
-  var tmpDom = document.createElement('body');
+  var tmpDom = document.createElement('div');
+  tmpDom.id = 'root';
   tmpDom.innerHTML = this.parsable_;
 
   if (tmpDom.children.length > 0) {
@@ -60,7 +61,7 @@ AutoMan.parsers.content.HTML.prototype.parse_ = function() {
     .assert_(this.decode_(), AutoMan.parsers.content.HTML.Errors.Unparsable)
     .assert_(this.hasContent_(), AutoMan.parsers.content.HTML.Errors.NoContent);
 
-  return this.recursiveParse_(this.html_.firstChild) || new AutoMan.collections.Content();
+  return this.recursiveParse_(this.html_) || new AutoMan.collections.Content();
 };
 
 /**
@@ -86,11 +87,20 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
     });
 
     var nodeValue = {
-      type: htmlNode.tagName.toLowerCase(),
+      type: AutoMan.parsers.content.HTML.TypeMap[htmlNode.tagName.toLowerCase()] || htmlNode.tagName.toLowerCase(),
       data: {
-        classes: htmlNode.className.split(' '),
         text: htmlNode.text,
         attributes: attributes
+      }
+    };
+
+    if (htmlNode.className.split(' ') > 0) {
+      nodeValue.data.classes = htmlNode.className.split(' ');
+    }
+
+    if (htmlNode.childNodes) {
+      if (htmlNode.childNodes[0]) {
+        nodeValue.data.text = htmlNode.childNodes[0].data;
       }
     };
 
@@ -119,3 +129,21 @@ AutoMan.parsers.content.HTML.Errors = {
   'Unparsable' : 'Content.Unparsable',
   'NoContent'  : 'Content.NoContent'
 };
+
+/**
+ * Type mapping for html elements (temporary).
+ * 
+ * @type {Object}
+ */
+AutoMan.parsers.content.HTML.TypeMap = {
+  'a'   : 'anchor',
+  'h1'  : 'title',
+  'h2'  : 'heading',
+  'h3'  : 'heading2',
+  'img' : 'image',
+  'li'  : 'lineitem',
+  'ol'  : 'list-ordered',
+  'p'   : 'paragraph',
+  'ul'  : 'list-unordered'
+};
+

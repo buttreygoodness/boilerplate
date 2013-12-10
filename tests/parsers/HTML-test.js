@@ -35,20 +35,25 @@ describe('AutoMan.parsers.content.HTML', function () {
       var parser = new AutoMan.parsers.content.HTML(goodContent);
 
       parser.parse(function (htmlContent) {
+
+        // It wrapped wrapped in a 'root' div node...
         htmlContent.getValue().type.should.equal('div');
-        htmlContent.getValue().data.classes.should.contain('content');
-        htmlContent.getChildCount().should.equal(2);
+        htmlContent.getValue().data.attributes.id.should.equal('root');
 
-        htmlContent.getChildAt(0).getValue().type.should.equal('a');
-        htmlContent.getChildAt(0).getValue().data.attributes.id.should.equal('id1');
-        htmlContent.getChildAt(0).getValue().data.attributes.href.should.equal('#');
-        htmlContent.getChildAt(0).getValue().data.text.should.equal('anchor');
-        htmlContent.getChildAt(0).getChildCount().should.equal(0);
+        htmlContent.getChildAt(0).getValue().type.should.equal('div');
+        htmlContent.getChildAt(0).getValue().data.classes.should.contain('content');
+        htmlContent.getChildAt(0).getChildCount().should.equal(2);
 
-        htmlContent.getChildAt(1).getValue().type.should.equal('div');
-        htmlContent.getChildAt(1).getValue().data.classes.should.contain('fake');
-        htmlContent.getChildAt(1).getValue().data.attributes.id.should.equal('id2');
-        htmlContent.getChildAt(1).getChildCount().should.equal(0);
+        htmlContent.getChildAt(0).getChildAt(0).getValue().type.should.equal('anchor');
+        htmlContent.getChildAt(0).getChildAt(0).getValue().data.attributes.id.should.equal('id1');
+        htmlContent.getChildAt(0).getChildAt(0).getValue().data.attributes.href.should.equal('#');
+        htmlContent.getChildAt(0).getChildAt(0).getValue().data.text.should.equal('anchor');
+        htmlContent.getChildAt(0).getChildAt(0).getChildCount().should.equal(0);
+
+        htmlContent.getChildAt(0).getChildAt(1).getValue().type.should.equal('div');
+        htmlContent.getChildAt(0).getChildAt(1).getValue().data.classes.should.contain('fake');
+        htmlContent.getChildAt(0).getChildAt(1).getValue().data.attributes.id.should.equal('id2');
+        htmlContent.getChildAt(0).getChildAt(1).getChildCount().should.equal(0);
 
         done();
       });
