@@ -95,8 +95,9 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
       }
     };
 
-    if (htmlNode.className.split(' ') > 0) {
-      nodeValue.data.classes = htmlNode.className.split(' ');
+    var classes = htmlNode.className.split(' ');
+    if (classes.length > 0 && classes[0] !== '') {
+      nodeValue.data.classes = classes;
     }
 
     if (htmlNode.childNodes) {
