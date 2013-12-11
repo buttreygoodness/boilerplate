@@ -70,6 +70,7 @@ AutoMan.ui.components.AbstractComponent.prototype.createDom = function() {
  * @override
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(element) {
+  element.dataset.idKey = this.model_.key_;
   this.setElementInternal(element);
 
   this.decorateInternal_();
