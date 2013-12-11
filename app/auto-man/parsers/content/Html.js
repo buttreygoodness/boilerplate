@@ -2,6 +2,7 @@ goog.provide('AutoMan.parsers.content.HTML');
 
 goog.require('goog.array');
 goog.require('goog.object');
+goog.require('goog.string');
 goog.require('goog.dom.DomHelper');
 
 goog.require('AutoMan.parsers.Error');
@@ -100,7 +101,11 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
 
     if (htmlNode.childNodes) {
       if (htmlNode.childNodes[0]) {
-        nodeValue.data.text = htmlNode.childNodes[0].data;
+        // This is for replacing the javascript-safe single quotes. 
+        // It should be removed later or turned into a more robust 'scrubber' for text.
+        if (typeof htmlNode.childNodes[0].data === 'string') {
+          nodeValue.data.text = htmlNode.childNodes[0].data.replace(/\\'/ig, "'");
+        }
       }
     }
 
