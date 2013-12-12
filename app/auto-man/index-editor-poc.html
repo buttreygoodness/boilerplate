@@ -43,6 +43,8 @@
       this.populateComponentSelector_();
 
       this.bindEvents_();
+
+      this.enableTextSelection_();
     };
 
     Editor.prototype.run = function() {};
@@ -50,13 +52,10 @@
     Editor.prototype.bindEvents_ = function() {
       var self = this;
 
-      window.components = self.components_;
-
       $('body')
-        .find('#course-wrapper, section')
+        .find('section')
         .droppable({
           drop: function(event, ui) {
-            console.log(event.target.dataset.idKey);
             var currentModel = self.components_.getModel().getNodeByKey(event.target.dataset.idKey);
             
             if (currentModel) {
@@ -75,6 +74,9 @@
               .removeClass('just-added');
             };
           },
+          over: function (event, ui) {},
+          out: function (event, ui) {},
+          hoverClass: 'am-hover',
           greedy: true
         });
     };
@@ -90,12 +92,34 @@
 
       $('#component-selector #dropdown-menu .component').draggable({
         revert: 'valid',
+        revertDuration: false,
         helper: 'clone',
         cursor: 'move'
       });
 
       componentSelector.children('#dropdown-menu').dropdown().show();
     };
+
+    Editor.prototype.enableTextSelection_ = function () {
+      // This definitely needs to be handled at a lower level...
+      var self = this;
+
+      self.components_.children_.every(function (c) {  
+        if (c.children_) {
+          c.children_.every(function (ch) {
+            ch.setEnabled(false);
+            ch.setAllowTextSelection(true);
+            return ch;
+          });
+        }
+        c.setEnabled(false);
+        c.setAllowTextSelection(true);
+        return c;
+      });
+
+      self.components_.setEnabled(false);
+      self.components_.setAllowTextSelection(true);
+    }
 
     /*
      * Trying out bringing in data remotely...
@@ -106,13 +130,15 @@
 
         jsonParser.parse(function (data) {
           var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
-          window.builder = builder;
 
           builder.addEventListener('Build.Complete', function (e) {
+            window.builder = e.target;
             var div = document.createElement('div');
             div.className = 'mainElement';
 
             e.target.getComponents().render(div);
+
+            window.components = e.target.getComponents();
 
             jQuery('body').append(div);
 

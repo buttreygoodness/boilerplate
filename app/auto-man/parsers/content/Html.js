@@ -105,7 +105,7 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
         // This is for replacing the javascript-safe single quotes. 
         // It should be removed later or turned into a more robust 'scrubber' for text.
         if (typeof htmlNode.childNodes[0].data === 'string') {
-          nodeValue.data.text = htmlNode.childNodes[0].data.replace(/\\'/ig, "'");
+          nodeValue.data.text = htmlNode.childNodes[0].data.replace(/\\'/ig, '\'');
         }
       }
     }
