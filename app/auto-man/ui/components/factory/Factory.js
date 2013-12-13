@@ -16,10 +16,28 @@ AutoMan.ui.components.Factory = function(options) {
 
   this.options_ = options || {};
 
+  this.genericContentType_ = this.options_.genericContentType || AutoMan.ui.components.Factory.GenericContentType;
+
   this.bindEvents_();
 };
 
 goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
+
+/**
+ * Content type that should be treated as a generic type.
+ * 
+ * @type {String}
+ */
+AutoMan.ui.components.Factory.GenericContentType = '*';
+
+/**
+ * Granular Events.
+ * 
+ * @type {Object}
+ */
+AutoMan.ui.components.Factory.GranularEvents = {
+  TypeUnsupported: 'Type.Unsupported'
+};
 
 /**
  * Registers a component if its type isnt already registered.
@@ -96,29 +114,38 @@ AutoMan.ui.components.Factory.prototype.isRegistered = function(component) {
  * @param  {!String}  type 
  * @return {!Boolean} True if supported, false if not.
  */
-AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
+AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {  
   return goog.isDefAndNotNull(this.registery_[type]);
+};
+
+/**
+ * Determines if a generic type has been registered.
+ * 
+ * @return {Boolean}
+ */
+AutoMan.ui.components.Factory.prototype.isGenericRegistered = function() {
+  return this.isTypeSupported(this.genericContentType_);
 };
 
 /**
  * Creates a component if its type is registered.
  * 
  * @param  {!String} type
- * @param  {!Object=} options
+ * @param  {!AutoMan.collections.Content} content
  * @return {?AutoMan.ui.components.AbstractComponent}
  */
-AutoMan.ui.components.Factory.prototype.create = function(type, options) {
-  if(!this.isTypeSupported(type)) {
-    this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.CreationError({
-      granularEventType: AutoMan.ui.components.Factory.GranularEvents.TypeUnsupported,
-      type: type,
-      options: options
-    }, this));
-
-    return;
+AutoMan.ui.components.Factory.prototype.create = function(type, content) {
+  if(this.isTypeSupported(type)) {
+    return new this.registery_[type](content);
+  } else if(this.isGenericRegistered()) {
+    return new this.registery_[this.genericContentType_](content);
   }
 
-  return new this.registery_[type](options || {});
+  this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.CreationError({
+    granularEventType: AutoMan.ui.components.Factory.GranularEvents.TypeUnsupported,
+    type: type,
+    content: content
+  }, this));
 };
 
 /**
@@ -144,12 +171,3 @@ AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function ()
  * Handle creation errors
  */
 AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {};
-
-/**
- * Granular Events.
- * 
- * @type {Object}
- */
-AutoMan.ui.components.Factory.GranularEvents = {
-  TypeUnsupported: 'Type.Unsupported'
-};

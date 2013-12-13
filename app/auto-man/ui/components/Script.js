@@ -5,10 +5,10 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * Script Component
  * 
- * @param {!Object} options
+ * @param {!Object} content
  */
-AutoMan.ui.components.Script = function(options) {
-  goog.base(this, options);
+AutoMan.ui.components.Script = function(content, domHelper) {
+  goog.base(this, content, domHelper);
 };
 
 goog.inherits(AutoMan.ui.components.Script, AutoMan.ui.components.AbstractComponent);

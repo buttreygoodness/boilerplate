@@ -5,10 +5,10 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * Carousel Component
  * 
- * @param {!Object} options
+ * @param {!Object} content
  */
-AutoMan.ui.components.Carousel = function(options) {
-  goog.base(this, options);
+AutoMan.ui.components.Carousel = function(content, domHelper) {
+  goog.base(this, content, domHelper);
 };
 
 goog.inherits(AutoMan.ui.components.Carousel, AutoMan.ui.components.AbstractComponent);

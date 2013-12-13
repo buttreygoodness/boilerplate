@@ -5,11 +5,11 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * Root component that does nothing but acts like a container for other components.
  * 
- * @param {?Object} options
+ * @param {?Object} content
  * @param {?goog.dom.DomHelper} domHelper
  */
-AutoMan.ui.components.Root = function(options, domHelper) {
-	goog.base(this, domHelper);
+AutoMan.ui.components.Root = function(content, domHelper) {
+	goog.base(this, content, domHelper);
 };
 
 goog.inherits(AutoMan.ui.components.Root, AutoMan.ui.components.AbstractComponent);

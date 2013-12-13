@@ -5,10 +5,10 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * Image Component
  * 
- * @param {!Object} options
+ * @param {!Object} content
  */
-AutoMan.ui.components.Image = function(options) {
-  goog.base(this, options);
+AutoMan.ui.components.Image = function(content, domHelper) {
+  goog.base(this, content, domHelper);
 };
 
 goog.inherits(AutoMan.ui.components.Image, AutoMan.ui.components.AbstractComponent);
