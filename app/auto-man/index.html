@@ -89,7 +89,7 @@
       $('#content').remove();
 
       var jsonParser = new AutoMan.parsers.content.Json(contentText);
-
+      
       jsonParser.parse(function(content) {
         var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
         
