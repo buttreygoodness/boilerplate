@@ -44,7 +44,7 @@ describe('AutoMan.parsers.content.HTML', function () {
         htmlContent.getChildAt(0).getValue().data.classes.should.contain('content');
         htmlContent.getChildAt(0).getChildCount().should.equal(2);
 
-        htmlContent.getChildAt(0).getChildAt(0).getValue().type.should.equal('anchor');
+        htmlContent.getChildAt(0).getChildAt(0).getValue().type.should.equal('a');
         htmlContent.getChildAt(0).getChildAt(0).getValue().data.attributes.id.should.equal('id1');
         htmlContent.getChildAt(0).getChildAt(0).getValue().data.attributes.href.should.equal('#');
         htmlContent.getChildAt(0).getChildAt(0).getValue().data.text.should.equal('anchor');

@@ -88,7 +88,7 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
     });
 
     var nodeValue = {
-      type: AutoMan.parsers.content.HTML.TypeMap[htmlNode.tagName.toLowerCase()] || htmlNode.tagName.toLowerCase(),
+      type: htmlNode.tagName.toLowerCase(),
       data: {
         text: htmlNode.text,
         attributes: attributes
@@ -135,21 +135,3 @@ AutoMan.parsers.content.HTML.Errors = {
   'Unparsable' : 'Content.Unparsable',
   'NoContent'  : 'Content.NoContent'
 };
-
-/**
- * Type mapping for html elements (temporary).
- * 
- * @type {Object}
- */
-AutoMan.parsers.content.HTML.TypeMap = {
-  'a'   : 'anchor',
-  'h1'  : 'title',
-  'h2'  : 'heading',
-  'h3'  : 'heading2',
-  'img' : 'image',
-  'li'  : 'lineitem',
-  'ol'  : 'list-ordered',
-  'p'   : 'paragraph',
-  'ul'  : 'list-unordered'
-};
-
