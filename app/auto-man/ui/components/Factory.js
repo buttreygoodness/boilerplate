@@ -3,11 +3,11 @@ goog.provide('AutoMan.ui.components.Factory');
 goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 
-goog.require('AutoMan.ui.components.FactoryEvents');
-goog.require('AutoMan.ui.components.FactoryEvents.types');
-
 /**
- * [Factory description]
+ * UI Components factory.
+ *
+ * @extends {goog.events.EventTarget}
+ * @param {?Options} options
  */
 AutoMan.ui.components.Factory = function(options) {
   goog.base(this);
@@ -17,8 +17,6 @@ AutoMan.ui.components.Factory = function(options) {
   this.options_ = options || {};
 
   this.genericContentType_ = this.options_.genericContentType || AutoMan.ui.components.Factory.GenericContentType;
-
-  this.bindEvents_();
 };
 
 goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
@@ -35,8 +33,12 @@ AutoMan.ui.components.Factory.GenericContentType = '*';
  * 
  * @type {Object}
  */
-AutoMan.ui.components.Factory.GranularEvents = {
-  TypeUnsupported: 'Type.Unsupported'
+AutoMan.ui.components.Factory.Events = {
+  'Registered'          : 'Registration.Success',
+  'RegistrationError'   : 'Registration.Error',
+  'Unregisted'          : 'Unregistration.Success',
+  'UnregistrationError' : 'Unregistration.Error',
+  'CreationError'       : 'Creation.Error'
 };
 
 /**
@@ -46,13 +48,19 @@ AutoMan.ui.components.Factory.GranularEvents = {
  * @return {!Boolean} Returns true if registers, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.register = function(component) {
-  if(!component.supportedContent) {
-    return false;
-  } else if(this.isRegistered(component)) {
+  var eventContext = new goog.events.Event({
+    component: component
+  });
+
+  if(this.isRegistered(component)) {
+    this.dispatchEvent(this.Events.RegistrationError, eventContext);
+
     return false;
   }
 
   this.registery_[component.supportedContent()] = component;
+
+  this.dispatchEvent(this.Events.Registered, eventContext);
 
   return true;
 };
@@ -64,11 +72,19 @@ AutoMan.ui.components.Factory.prototype.register = function(component) {
  * @return {!Boolean} Returns true if unregisters, false otherwise.
  */
 AutoMan.ui.components.Factory.prototype.unregister = function(component) {
+  var eventContext = new goog.events.Event({
+    component: component
+  });
+
   if(this.isRegistered(component)) {
     delete this.registery_[component.supportedContent()];
 
+    this.dispatchEvent(this.Events.Unregisted, eventContext);
+
     return true;
   }
+
+  this.dispatchEvent(this.Events.UnregistrationError, eventContext)
   
   return false;
 };
@@ -81,6 +97,10 @@ AutoMan.ui.components.Factory.prototype.unregister = function(component) {
  */
 AutoMan.ui.components.Factory.prototype.unregisterType = function(type) {
   if(!this.isTypeSupported(type)) {
+    this.dispatchEvent(this.Events.UnregistrationError, {
+      type: type
+    });
+
     return false;
   }
 
@@ -141,33 +161,15 @@ AutoMan.ui.components.Factory.prototype.create = function(type, content) {
     return new this.registery_[this.genericContentType_](content);
   }
 
-  this.dispatchEvent(new AutoMan.ui.components.FactoryEvents.CreationError({
-    granularEventType: AutoMan.ui.components.Factory.GranularEvents.TypeUnsupported,
+  this.dispatchEvent(new goog.events.Event(this.Events.CreationError, {
     type: type,
     content: content
-  }, this));
+  }));
 };
 
 /**
- * Binds internal events.
+ * Allows instance scope access to Event types.
+ * 
+ * @type {!Object]}
  */
-AutoMan.ui.components.Factory.prototype.bindEvents_ = function() {
-  this.addEventListener(AutoMan.ui.components.FactoryEvents.types.RegistrationError, goog.bind(this.handleRegistrationError_, this));
-  this.addEventListener(AutoMan.ui.components.FactoryEvents.types.UnregistrationError, goog.bind(this.handleUnregistrationError_, this));
-  this.addEventListener(AutoMan.ui.components.FactoryEvents.types.CreationError, goog.bind(this.handleCreationError_, this));
-};
-
-/*
- * Handle registration errors
- */
-AutoMan.ui.components.Factory.prototype.handleRegistrationError_ = function () {};
-
-/*
- * Handle unregistration errors
- */
-AutoMan.ui.components.Factory.prototype.handleUnregistrationError_ = function () {};
-
-/*
- * Handle creation errors
- */
-AutoMan.ui.components.Factory.prototype.handleCreationError_ = function () {};
+AutoMan.ui.components.Factory.prototype.Events = AutoMan.ui.components.Factory.Events;
