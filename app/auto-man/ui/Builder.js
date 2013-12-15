@@ -100,22 +100,22 @@ AutoMan.ui.Builder.prototype.build_ = function() {
  * @return {!AutoMan.ui.components.AbstractComponent}
  */
 AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) {
-  var ElementNode = factory.create(content.getType(), content);
+  var elementNode = factory.create(content.getType(), content);
 
-  goog.asserts.assert(ElementNode, this.Errors.ElementNodeError);
+  goog.asserts.assert(elementNode, this.Errors.ElementNodeError);
 
-  this.contentMap_[content.getId()] = ElementNode;
+  this.contentMap_[content.getId()] = elementNode;
 
   this.bindContentEvents_(content);
 
   if(!node) {
-    node = ElementNode;
+    node = elementNode;
   } else {
-    node.addChild(ElementNode, true);
+    node.addChild(elementNode, true);
   }
 
   content.forEachChild(function(child) {
-    this.buildRecursive_(child, factory, ElementNode);
+    this.buildRecursive_(child, factory, elementNode);
   }.bind(this));
 
   return node;
