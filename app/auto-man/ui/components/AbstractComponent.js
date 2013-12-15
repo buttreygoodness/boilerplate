@@ -95,7 +95,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal_ = function()
  * @private
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
-  this.getElement().innerText = this.getModel().getData().text || '';
+  this.getElement().textContent = this.getModel().getData().text || '';
 };
 
 /**
