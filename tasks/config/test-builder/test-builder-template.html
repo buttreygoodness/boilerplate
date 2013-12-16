@@ -7,18 +7,18 @@
     <body>
         <div id="mocha"></div>
 
+        <script src="/node_modules/mocha/mocha.js"></script>
+        <script src="/node_modules/chai/chai.js"></script>
+
         <script src="/app/lib/closure-library/closure/goog/base.js"></script>
 
-        <script src="/bin/automan-deps.js"></script>
+        <script src="/bin/automan-deps.js" data-cover></script>
         <script src="/bin/fixture-deps.js"></script>
 
         <script type="text/javascript">
             goog.require('AutoMan');
             goog.require('AutoMan.tests.fixtures');
         </script>
-
-        <script src="/node_modules/mocha/mocha.js"></script>
-        <script src="/node_modules/chai/chai.js"></script>
 
         <script>
             mocha.ui('bdd');

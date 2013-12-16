@@ -5,8 +5,8 @@ goog.require('goog.ui.Control');
 goog.require('AutoMan.collections.Content');
 
 /**
- * Abstract Component that all components must implement.
- *
+ * @class Base ui component.
+ * 
  * @extends {goog.ui.Control}
  * 
  * @param {!AutoMan.collections.Content} content
@@ -24,6 +24,7 @@ goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
  * Determines what content type is supported by this component.
  * 
  * @static
+ * @abstract
  * @return {!String}
  */
 AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
@@ -32,13 +33,14 @@ AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
  * Determines tag supported by this element.
  *
  * @static
+ * @abstract
  * @type {!String}
  */
 AutoMan.ui.components.AbstractComponent.tag = goog.abstractMethod;
 
 /**
  * Returns supported content type. Should be same as static.
- * 
+ *
  * @return {!String}
  */
 AutoMan.ui.components.AbstractComponent.prototype.supportedContent = function() {
@@ -57,7 +59,7 @@ AutoMan.ui.components.AbstractComponent.prototype.tag = function() {
 
 /**
  * Creates dom element of type {this.tag}
- * 
+ *
  * @override
  */
 AutoMan.ui.components.AbstractComponent.prototype.createDom = function() {
@@ -78,6 +80,8 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(el
 
 /**
  * Decorates self based of model.
+ *
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternal_ = function() {
   this.decorateInternalContent_();
@@ -92,7 +96,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternal_ = function()
 /**
  * Decorates content.
  *
- * @private
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = function() {
   this.getElement().textContent = this.getModel().getData().text || '';
@@ -101,7 +105,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalContent_ = fun
 /**
  * Decoractes a elemenets classes.
  *
- * @private
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalClasses_ = function() {
   var classes = this.getModel().getData().classes || [];
@@ -114,7 +118,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalClasses_ = fun
 /**
  * Decorates internal attributes of element.
  * 
- * @private
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = function() {
   var attributes = this.getModel().getData().attributes || {};
@@ -127,7 +131,7 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = 
 /**
  * Decoractes inline styles of element.
  *
- * @private
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternalStyles_ = function() {
   var styles = this.getModel().getData().styles || {};
@@ -139,6 +143,8 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalStyles_ = func
 
 /**
  * Destorys any decorations.
+ *
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.destroyInternal_ = function() {
   if(!this.isInDocument()) {
@@ -154,7 +160,7 @@ AutoMan.ui.components.AbstractComponent.prototype.destroyInternal_ = function() 
 
 /**
  * Sets model and binds change events to self.
- * 
+ *
  * @param {!AutoMan.collections.Content} model
  */
 AutoMan.ui.components.AbstractComponent.prototype.setModel = function(model) {
@@ -165,6 +171,8 @@ AutoMan.ui.components.AbstractComponent.prototype.setModel = function(model) {
 
 /**
  * Handles any model updates and by redorating self.
+ *
+ * @protected
  */
 AutoMan.ui.components.AbstractComponent.prototype.handleModelChange_ = function() {
   this.destroyInternal_();

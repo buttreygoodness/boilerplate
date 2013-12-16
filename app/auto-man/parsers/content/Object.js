@@ -8,7 +8,9 @@ goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.Json');
 
 /**
- * @implements {AutoMan.parsers.content.Json}
+ * @class Handles parsing of Object type content fragments.
+ * 
+ * @augments {AutoMan.parsers.content.Json}
  * 
  * @param {!String} parsable
  * @param {options=} options
@@ -21,7 +23,8 @@ goog.inherits(AutoMan.parsers.content.Object, AutoMan.parsers.content.Json);
 
 /**
  * Internal parse.
- *
+ * 
+ * @private
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Object.prototype.parse_ = function () {
@@ -30,7 +33,8 @@ AutoMan.parsers.content.Object.prototype.parse_ = function () {
 
 /**
  * Check to make sure parsable_ is an object. If so, passes through.
- * 
+ *
+ * @private
  * @return {!Boolean}
  */
 AutoMan.parsers.content.Object.prototype.decode_ = function() {

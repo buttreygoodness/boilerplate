@@ -1,9 +1,8 @@
 goog.provide('AutoMan.sources.Factory');
 
 /**
- * Generates sources for content data.
+ * @class Manages sources.
  * 
- * @constructor
  * @param {Object=} options
  */
 AutoMan.sources.Factory = function(options) {
@@ -14,7 +13,7 @@ AutoMan.sources.Factory = function(options) {
 
 /**
  * Registers a source.
- * 
+ *
  * @param  {!AutoMan.sources.AbstractSource} source
  * @return {!Boolean} returns true if registers, false otherwise.
  */
@@ -30,7 +29,7 @@ AutoMan.sources.Factory.prototype.register = function(source) {
 
 /**
  * Unregisters a source.
- * 
+ *
  * @param  {!AutoMan.sources.AbstractSource} source
  * @return {!Boolean} returns true if able to unregister, false otherwise.
  */
@@ -46,7 +45,7 @@ AutoMan.sources.Factory.prototype.unregister = function(source) {
 
 /**
  * Creates instance of source and returns if exists.
- * 
+ *
  * @param  {!String} name
  * @param  {!Object} options
  * @return {?AutoMan.sources.AbstractSource}
@@ -61,7 +60,7 @@ AutoMan.sources.Factory.prototype.create = function(name, options) {
 
 /**
  * Determines if a source name has been registered.
- * 
+ *
  * @param  {!String}  name
  * @return {!Boolean}
  */
@@ -81,7 +80,8 @@ AutoMan.sources.Factory.prototype.isRegistered = function(source) {
 
 /**
  * Validates a source.
- * 
+ *
+ * @private
  * @param  {!AutoMan.sources.AbstractSource} source
  * @return {!Boolean} True if source is a valid source, otherwise false.
  */

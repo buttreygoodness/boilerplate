@@ -1,4 +1,4 @@
-goog.provide('AutoMan.parsers.content.HTML');
+goog.provide('AutoMan.parsers.content.Html');
 
 goog.require('goog.array');
 goog.require('goog.object');
@@ -10,23 +10,36 @@ goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.AbstractParser');
 
 /**
- * @implements {AutoMan.parsers.content.AbstractParser}
+ * @class Handles parsing of HTML content fragments.
+ * 
+ * @augments {AutoMan.parsers.content.AbstractParser}
  * 
  * @param {!String} parsable
  * @param {options=} options
  */
-AutoMan.parsers.content.HTML = function(parsable, options) {
+AutoMan.parsers.content.Html = function(parsable, options) {
   goog.base(this, parsable, options);
 };
 
-goog.inherits(AutoMan.parsers.content.HTML, AutoMan.parsers.content.AbstractParser);
+goog.inherits(AutoMan.parsers.content.Html, AutoMan.parsers.content.AbstractParser);
+
+/**
+ * Error support.
+ *
+ * @enum {String}
+ */
+AutoMan.parsers.content.Html.Errors = {
+  'Unparsable' : 'Content.Unparsable',
+  'NoContent'  : 'Content.NoContent'
+};
 
 /**
  * Determines if parsable can be decoded. if so parse.
- * 
+ *
+ * @private
  * @return {!Boolean} Could we decode the json?
  */
-AutoMan.parsers.content.HTML.prototype.decode_ = function() {
+AutoMan.parsers.content.Html.prototype.decode_ = function() {
   var tmpDom = document.createElement('div');
   tmpDom.id = 'root';
   tmpDom.innerHTML = this.parsable_;
@@ -45,34 +58,41 @@ AutoMan.parsers.content.HTML.prototype.decode_ = function() {
   return false;
 };
 
-AutoMan.parsers.content.HTML.prototype.hasContent_ = function () {
+/**
+ * Does this have content?
+ *
+ * @private
+ * @return {!Boolean}
+ */
+AutoMan.parsers.content.Html.prototype.hasContent_ = function () {
   return this.domHelper_.getElementsByTagNameAndClass('div', 'content').length > 0;
 };
 
 /**
  * Starts recursive parse.
- *  
- * @throws {AutoMan.parsers.content.HTML.Errors.Unparsable} If HTML cannot be decoded.
- * @throws {AutoMan.parsers.content.HTML.Errors.NoContent} If there is no content node.
  *
+ * @private
+ * @throws {AutoMan.parsers.content.Html.Errors.Unparsable} If HTML cannot be decoded.
+ * @throws {AutoMan.parsers.content.Html.Errors.NoContent} If there is no content node.
  * @return {!AutoMan.collections.Content}
  */
-AutoMan.parsers.content.HTML.prototype.parse_ = function() {
+AutoMan.parsers.content.Html.prototype.parse_ = function() {
   this
-    .assert_(this.decode_(), AutoMan.parsers.content.HTML.Errors.Unparsable)
-    .assert_(this.hasContent_(), AutoMan.parsers.content.HTML.Errors.NoContent);
+    .assert_(this.decode_(), AutoMan.parsers.content.Html.Errors.Unparsable)
+    .assert_(this.hasContent_(), AutoMan.parsers.content.Html.Errors.NoContent);
 
   return this.recursiveParse_(this.html_) || new AutoMan.collections.Content();
 };
 
 /**
  * Recursivly walks HTML structure and parses nodes.
- * 
+ *
+ * @private
  * @param  {?Object} htmlNode Current HTML node.
  * @param  {?AutoMan.collections.Content} contentNode Current content node.
  * @return {?AutoMan.collections.Content}
  */
-AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, contentNode) {
+AutoMan.parsers.content.Html.prototype.recursiveParse_ = function (htmlNode, contentNode) {
   var self = this;
   
   if (htmlNode) {
@@ -127,11 +147,9 @@ AutoMan.parsers.content.HTML.prototype.recursiveParse_ = function (htmlNode, con
 };
 
 /**
- * Error support.
+ * Easy 'this' reference for Errors.
+ *
  * 
  * @type {Object}
  */
-AutoMan.parsers.content.HTML.Errors = {
-  'Unparsable' : 'Content.Unparsable',
-  'NoContent'  : 'Content.NoContent'
-};
+AutoMan.parsers.content.Html.prototype.Errors = AutoMan.parsers.content.Html.Errors;

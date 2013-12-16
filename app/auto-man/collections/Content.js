@@ -5,7 +5,7 @@ goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 
 /**
- * @constructor
+ * @class Content node class that allows for tree like handling of content.
  * 
  * @extends {goog.structs.TreeNode}
  * 
@@ -31,7 +31,7 @@ goog.inherits(AutoMan.collections.Content, goog.structs.TreeNode);
 /**
  * Events Supported by Content.
  * 
- * @type {Object}
+ * @enum {String}
  */
 AutoMan.collections.Content.Events = {
   'ContentChange'   : 'Content.Change',
@@ -42,7 +42,7 @@ AutoMan.collections.Content.Events = {
 
 /**
  * Returns data node of content. 
- * 
+ *
  * @return {!Object}
  */
 AutoMan.collections.Content.prototype.getData = function() {
@@ -69,7 +69,7 @@ AutoMan.collections.Content.prototype.getId = function() {
 
 /**
  * Returns event target used by instance to allow external event binding.
- * 
+ *
  * @return {!goog.events.EventTarget}
  */
 AutoMan.collections.Content.prototype.getEventTarget = function() {
@@ -78,9 +78,9 @@ AutoMan.collections.Content.prototype.getEventTarget = function() {
 
 /**
  * Updates internal data.
- * 
+ *
  * @param  {!Object} data
- * @param  {?Boolean]} fire Should we fire change events even when data is equivalent?
+ * @param  {?Boolean} fire Should we fire change events even when data is equivalent?
  */
 AutoMan.collections.Content.prototype.updateData = function(data, fire) {
   if(!data) {
@@ -96,7 +96,7 @@ AutoMan.collections.Content.prototype.updateData = function(data, fire) {
 
 /**
  * Augments super addChildAt to allow notification of listeners.
- * 
+ *
  * @param {!AutoMan.collections.Content} child
  * @param {!Number} index
  */
@@ -108,7 +108,7 @@ AutoMan.collections.Content.prototype.addChildAt = function(child, index) {
 
 /**
  * Augments super setParent to allow notifications of listeners.
- * 
+ *
  * @param {!AutoMan.collections.Content} parent
  */
 AutoMan.collections.Content.prototype.setParent = function(parent) {
@@ -123,7 +123,7 @@ AutoMan.collections.Content.prototype.setParent = function(parent) {
 
 /**
  * Determines if this node has a parent.
- * 
+ *
  * @return {!Boolean}
  */
 AutoMan.collections.Content.prototype.isOrphan = function() {
@@ -132,7 +132,7 @@ AutoMan.collections.Content.prototype.isOrphan = function() {
 
 /**
  * Convienence method that just saves on typing.
- * 
+ *
  * @param  {!goog.events.Event} event
  */
 AutoMan.collections.Content.prototype.dispatchEvent_ = function(event) {
@@ -141,7 +141,7 @@ AutoMan.collections.Content.prototype.dispatchEvent_ = function(event) {
 
 /**
  * Allows 'this' access of Events.
- * 
+ *
  * @type {Object}
  */
 AutoMan.collections.Content.prototype.Events = AutoMan.collections.Content.Events;

@@ -9,7 +9,7 @@ goog.require('goog.events.EventTarget');
 goog.require('AutoMan.common.Error');
 
 /**
- * @constructor
+ * @class Handles content to component building and its lifecycle.
  *
  * @extends {goog.events.EventTarget}
  * 
@@ -34,9 +34,8 @@ goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
 
 /**
  * Enum of event types for the Buildr function
- * 
- * @static
- * @type {Object}
+ *
+ * @enum {String}
  */
 AutoMan.ui.Builder.Events = {
   'BuildComplete' : 'Build.Complete',
@@ -47,8 +46,7 @@ AutoMan.ui.Builder.Events = {
 /**
  * Error types.
  *
- * @static
- * @type {Object}
+ * @enum {String}
  */
 AutoMan.ui.Builder.Errors = {
   'ElementNodeError' : 'ElementNodeError'
@@ -78,6 +76,8 @@ AutoMan.ui.Builder.prototype.getComponents = function() {
 
 /**
  * Emits events and starts Build.
+ *
+ * @private
  */
 AutoMan.ui.Builder.prototype.build_ = function() {
   this.dispatchEvent(new goog.events.Event(this.Events.BuildStart, this));
@@ -93,7 +93,8 @@ AutoMan.ui.Builder.prototype.build_ = function() {
 
 /**
  * Recursive Build self.
- * 
+ *
+ * @private
  * @param  {!AutoMan.collections.Content} content
  * @param  {!AutoMan.ui.components.Factory} factory
  * @param  {?AutoMan.ui.components.AbstractComponent} node
@@ -123,6 +124,8 @@ AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) 
 
 /**
  * Binds internal events.
+ *
+ * @private
  */
 AutoMan.ui.Builder.prototype.bindBuildEvents_ = function() {
   this.listenOnce(this.Events.BuildComplete, goog.bind(this.handleBuildComplete_, this));
@@ -131,6 +134,8 @@ AutoMan.ui.Builder.prototype.bindBuildEvents_ = function() {
 
 /**
  * Handels Build complete. Unlocks Build.
+ *
+ * @private
  */
 AutoMan.ui.Builder.prototype.handleBuildComplete_ = function() {
   this.building_ = false;
@@ -138,11 +143,20 @@ AutoMan.ui.Builder.prototype.handleBuildComplete_ = function() {
 
 /**
  * Handels Build error. Unlocks Build.
+ *
+ * @private
  */
 AutoMan.ui.Builder.prototype.handleBuildError_ = function() {
   this.building_ = false;
 };
 
+
+/**
+ * Binds all content model based events.
+ *
+ * @private
+ * @param  {!AutoMan.collections.Content} content
+ */
 AutoMan.ui.Builder.prototype.bindContentEvents_ = function(content) {
   content.getEventTarget().addEventListener(content.Events.ContentAdded, this.handleContentAdd_.bind(this));
   content.getEventTarget().addEventListener(content.Events.ContentMoved, this.handleContentMove_.bind(this));
@@ -151,7 +165,8 @@ AutoMan.ui.Builder.prototype.bindContentEvents_ = function(content) {
 
 /**
  * Handles any added content nodes by rebuilding node.
- * 
+ *
+ * @private
  * @param  {!goog.events.Event} e
  */
 AutoMan.ui.Builder.prototype.handleContentAdd_ = function(e) {
@@ -160,7 +175,8 @@ AutoMan.ui.Builder.prototype.handleContentAdd_ = function(e) {
 
 /**
  * Handles content relocation.
- * 
+ *
+ * @private
  * @param  {!goog.events.Event} e
  */
 AutoMan.ui.Builder.prototype.handleContentMove_ = function(e) {
@@ -171,7 +187,8 @@ AutoMan.ui.Builder.prototype.handleContentMove_ = function(e) {
 
 /**
  * Handles any removed content by disposing of the component.
- * 
+ *
+ * @private
  * @param  {!goog.events.Event} e
  */
 AutoMan.ui.Builder.prototype.handleContentRemove_ = function(e) {
@@ -188,14 +205,14 @@ AutoMan.ui.Builder.prototype.handleContentRemove_ = function(e) {
 
 /**
  * Allows easier 'this' access to error Enum.
- * 
+ *
  * @type {Object}
  */
 AutoMan.ui.Builder.prototype.Errors = AutoMan.ui.Builder.Errors;
 
 /**
  * Allows easier 'this' access to event Enum.
- * 
+ *
  * @type {Object}
  */
 AutoMan.ui.Builder.prototype.Events = AutoMan.ui.Builder.Events;

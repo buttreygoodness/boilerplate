@@ -3,7 +3,9 @@ goog.provide('AutoMan.ui.components.Img');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Image Component
+ * @class Image
+ *
+ * @augments {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!Object} content
  */
@@ -23,8 +25,19 @@ AutoMan.ui.components.Img.supportedContent = function() {
   return 'img';
 };
 
+/**
+ * Returns 'img'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.Img.tag = function() {
   return 'img';
 };
 
+/**
+ * Nops out decorate internal content.
+ *
+ * @protected
+ */
 AutoMan.ui.components.Img.prototype.decorateInternalContent_ = function() {};

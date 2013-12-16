@@ -4,9 +4,10 @@ goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 
 /**
- * UI Components factory.
- *
+ * @class Managages UI components.
+ * 
  * @extends {goog.events.EventTarget}
+ * 
  * @param {?Options} options
  */
 AutoMan.ui.components.Factory = function(options) {
@@ -24,6 +25,7 @@ goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
 /**
  * Content type that should be treated as a generic type.
  * 
+ * @const
  * @type {String}
  */
 AutoMan.ui.components.Factory.GenericContentType = '*';
@@ -31,7 +33,7 @@ AutoMan.ui.components.Factory.GenericContentType = '*';
 /**
  * Granular Events.
  * 
- * @type {Object}
+ * @enum {String}
  */
 AutoMan.ui.components.Factory.Events = {
   'Registered'          : 'Registration.Success',
@@ -84,7 +86,7 @@ AutoMan.ui.components.Factory.prototype.unregister = function(component) {
     return true;
   }
 
-  this.dispatchEvent(this.Events.UnregistrationError, eventContext)
+  this.dispatchEvent(this.Events.UnregistrationError, eventContext);
   
   return false;
 };
@@ -134,7 +136,7 @@ AutoMan.ui.components.Factory.prototype.isRegistered = function(component) {
  * @param  {!String}  type 
  * @return {!Boolean} True if supported, false if not.
  */
-AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {  
+AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
   return goog.isDefAndNotNull(this.registery_[type]);
 };
 
@@ -170,6 +172,6 @@ AutoMan.ui.components.Factory.prototype.create = function(type, content) {
 /**
  * Allows instance scope access to Event types.
  * 
- * @type {!Object]}
+ * @type {!Object}
  */
 AutoMan.ui.components.Factory.prototype.Events = AutoMan.ui.components.Factory.Events;

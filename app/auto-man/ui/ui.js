@@ -1,3 +1,7 @@
+/**
+ * @namespace AutoMan.ui
+ */
+
 goog.provide('AutoMan.ui');
 
 goog.require('AutoMan.ui.components');
