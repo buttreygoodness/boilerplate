@@ -84,7 +84,7 @@ AutoMan.ui.components.Factory.prototype.unregister = function(component) {
     return true;
   }
 
-  this.dispatchEvent(this.Events.UnregistrationError, eventContext)
+  this.dispatchEvent(this.Events.UnregistrationError, eventContext);
   
   return false;
 };
@@ -134,7 +134,7 @@ AutoMan.ui.components.Factory.prototype.isRegistered = function(component) {
  * @param  {!String}  type 
  * @return {!Boolean} True if supported, false if not.
  */
-AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {  
+AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
   return goog.isDefAndNotNull(this.registery_[type]);
 };
 

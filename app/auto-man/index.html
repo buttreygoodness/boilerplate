@@ -23,7 +23,7 @@
 
   <script>
     goog.require('AutoMan');
-    goog.require('AutoMan.parsers.content.HTML');
+    goog.require('AutoMan.parsers.content.Html');
     goog.require('AutoMan.parsers.content.Json');
     goog.require('AutoMan.parsers.content.Object');
   </script>
@@ -32,28 +32,28 @@
     /**
      * This will all need to moved into clousure code after the tracer period is complete.
      */
-    // $(document).ready(function() {
-    //   var contentText = $('#html-content').text();
+    $(document).ready(function() {
+      var contentText = $('#html-content').text();
 
-    //   $('#content').remove();
+      $('#content').remove();
 
-    //   var htmlParser = new AutoMan.parsers.content.HTML(contentText);
+      var htmlParser = new AutoMan.parsers.content.Html(contentText);
 
-    //   htmlParser.parse(function(content) {
+      htmlParser.parse(function(content) {
 
-    //     var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
+        var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
         
-    //     builder.addEventListener('Build.Complete', function(e) {
-    //       var div = document.createElement('div');
+        builder.addEventListener('Build.Complete', function(e) {
+          var div = document.createElement('div');
 
-    //       e.target.getComponents().render(div);
+          e.target.getComponents().render(div);
           
-    //       $('body').append(div);
-    //     });
+          $('body').append(div);
+        });
 
-    //     builder.build();
-    //   });
-    // });
+        builder.build();
+      });
+    });
   
     /*
      * Trying out bringing in data remotely...
@@ -83,27 +83,27 @@
     /**
      * This will all need to moved into clousure code after the tracer period is complete.
      */
-    $(document).ready(function() {
-      var contentText = $('#content').text();
+    // $(document).ready(function() {
+    //   var contentText = $('#content').text();
 
-      $('#content').remove();
+    //   $('#content').remove();
 
-      var jsonParser = new AutoMan.parsers.content.Json(contentText);
+    //   var jsonParser = new AutoMan.parsers.content.Json(contentText);
       
-      jsonParser.parse(function(content) {
-        var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
+    //   jsonParser.parse(function(content) {
+    //     var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);
         
-        builder.addEventListener('Build.Complete', function(e) {
-          var div = document.createElement('div');
+    //     builder.addEventListener('Build.Complete', function(e) {
+    //       var div = document.createElement('div');
 
-          e.target.getComponents().render(div);
+    //       e.target.getComponents().render(div);
           
-          $('body').append(div);
-        });
+    //       $('body').append(div);
+    //     });
 
-        builder.build();
-      });
-    });
+    //     builder.build();
+    //   });
+    // });
   </script>
 
   <script type="text/plain" id="content">
