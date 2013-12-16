@@ -27,9 +27,9 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-nodestatic');
   grunt.loadNpmTasks('grunt-mocha-phantomjs');
   grunt.loadNpmTasks('grunt-jsdoc');
 
@@ -41,12 +41,12 @@ module.exports = function(grunt) {
   grunt.registerTask('compile', ['closure-compiler']);
   grunt.registerTask('build', ['test', 'jsdoc', 'deps', 'link', 'compile']);
   
-  grunt.registerTask('dev', ['nodestatic']);
+  grunt.registerTask('dev', ['connect:keep-alive']);
 
   grunt.registerTask('build-test-fixtures', ['shell:test-fixture-builder']);
   grunt.registerTask('build-test-runners', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
   grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runners']);
-  grunt.registerTask('test', ['build-tests','mocha_phantomjs']);
+  grunt.registerTask('test', ['build-tests', 'connect:default', 'mocha_phantomjs']);
 
   grunt.registerTask('default', ['watch']);
 };
