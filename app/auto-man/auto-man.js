@@ -1,3 +1,7 @@
+/**
+ * @namespace AutoMan
+ */
+
 goog.provide('AutoMan');
 goog.provide('AutoMan.start');
 

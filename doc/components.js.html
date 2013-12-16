@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui/components/Img.js</title>
+    <title>JSDoc: Source: ui/components/components.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: ui/components/Img.js</h1>
+    <h1 class="page-title">Source: ui/components/components.js</h1>
     
     
 
@@ -25,49 +25,29 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>goog.provide('AutoMan.ui.components.Img');
+            <pre class="prettyprint source"><code>/**
+ * @namespace AutoMan.ui.components
+ */
 
+goog.provide('AutoMan.ui.components');
+goog.provide('AutoMan.ui.components.factory');
+
+goog.require('AutoMan.ui.components.Factory');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
-/**
- * @class Image
- *
- * @augments {AutoMan.ui.components.AbstractComponent}
- * 
- * @param {!Object} content
- */
-AutoMan.ui.components.Img = function(content, domHelper) {
-  goog.base(this, content, domHelper);
-};
+goog.require('AutoMan.ui.components.Carousel');
+goog.require('AutoMan.ui.components.Img');
+goog.require('AutoMan.ui.components.Root');
+goog.require('AutoMan.ui.components.Script');
+goog.require('AutoMan.ui.components.Generic');
 
-goog.inherits(AutoMan.ui.components.Img, AutoMan.ui.components.AbstractComponent);
+AutoMan.ui.components.factory = new AutoMan.ui.components.Factory();
 
-/**
- * Returns 'image'
- * 
- * @static
- * @return {!String}
- */
-AutoMan.ui.components.Img.supportedContent = function() {
-  return 'img';
-};
-
-/**
- * Returns 'img'
- * 
- * @static
- * @return {!String}
- */
-AutoMan.ui.components.Img.tag = function() {
-  return 'img';
-};
-
-/**
- * Nops out decorate internal content.
- *
- * @protected
- */
-AutoMan.ui.components.Img.prototype.decorateInternalContent_ = function() {};</code></pre>
+AutoMan.ui.components.factory.register(AutoMan.ui.components.Carousel);
+AutoMan.ui.components.factory.register(AutoMan.ui.components.Img);
+AutoMan.ui.components.factory.register(AutoMan.ui.components.Root);
+AutoMan.ui.components.factory.register(AutoMan.ui.components.Script);
+AutoMan.ui.components.factory.register(AutoMan.ui.components.Generic);</code></pre>
         </article>
     </section>
 

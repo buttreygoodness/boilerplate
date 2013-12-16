@@ -5,7 +5,7 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * @class Image
  *
- * @extends {AutoMan.ui.components.AbstractComponent}
+ * @augments {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!Object} content
  */

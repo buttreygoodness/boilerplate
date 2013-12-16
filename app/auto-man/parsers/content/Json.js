@@ -10,7 +10,7 @@ goog.require('AutoMan.parsers.content.AbstractParser');
 /**
  * @class Handles parsing of Json type content fragments.
  * 
- * @extends {AutoMan.parsers.content.AbstractParser}
+ * @augments {AutoMan.parsers.content.AbstractParser}
  * 
  * @param {!String} parsable
  * @param {options=} options

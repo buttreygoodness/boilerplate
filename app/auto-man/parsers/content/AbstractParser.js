@@ -96,7 +96,7 @@ AutoMan.parsers.content.AbstractParser.prototype.assert_ = function(condition, e
 /**
  * Internal parse. Subclasses need to implement.
  *
- * @override
+ * @abstract
  * @protected
  * @return {!AutoMan.collections.Content}
  */

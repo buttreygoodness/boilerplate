@@ -5,7 +5,7 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * @class Generic component. Handles all dom elelments that are not explicitly defined.
  * 
- * @extends {AutoMan.ui.components.AbstractComponent}
+ * @augments {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!AutoMan.collections.Content} content
  * @param {?goog.dom.DomHelper} domHelper

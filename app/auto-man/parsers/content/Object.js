@@ -10,7 +10,7 @@ goog.require('AutoMan.parsers.content.Json');
 /**
  * @class Handles parsing of Object type content fragments.
  * 
- * @extends {AutoMan.parsers.content.Json}
+ * @augments {AutoMan.parsers.content.Json}
  * 
  * @param {!String} parsable
  * @param {options=} options

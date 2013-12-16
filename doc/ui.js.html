@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui/components/Img.js</title>
+    <title>JSDoc: Source: ui/ui.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: ui/components/Img.js</h1>
+    <h1 class="page-title">Source: ui/ui.js</h1>
     
     
 
@@ -25,49 +25,14 @@
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>goog.provide('AutoMan.ui.components.Img');
-
-goog.require('AutoMan.ui.components.AbstractComponent');
-
-/**
- * @class Image
- *
- * @augments {AutoMan.ui.components.AbstractComponent}
- * 
- * @param {!Object} content
+            <pre class="prettyprint source"><code>/**
+ * @namespace AutoMan.ui
  */
-AutoMan.ui.components.Img = function(content, domHelper) {
-  goog.base(this, content, domHelper);
-};
 
-goog.inherits(AutoMan.ui.components.Img, AutoMan.ui.components.AbstractComponent);
+goog.provide('AutoMan.ui');
 
-/**
- * Returns 'image'
- * 
- * @static
- * @return {!String}
- */
-AutoMan.ui.components.Img.supportedContent = function() {
-  return 'img';
-};
-
-/**
- * Returns 'img'
- * 
- * @static
- * @return {!String}
- */
-AutoMan.ui.components.Img.tag = function() {
-  return 'img';
-};
-
-/**
- * Nops out decorate internal content.
- *
- * @protected
- */
-AutoMan.ui.components.Img.prototype.decorateInternalContent_ = function() {};</code></pre>
+goog.require('AutoMan.ui.components');
+goog.require('AutoMan.ui.Builder');</code></pre>
         </article>
     </section>
 

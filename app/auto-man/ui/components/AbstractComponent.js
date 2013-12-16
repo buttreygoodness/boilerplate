@@ -24,6 +24,7 @@ goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
  * Determines what content type is supported by this component.
  * 
  * @static
+ * @abstract
  * @return {!String}
  */
 AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
@@ -32,6 +33,7 @@ AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
  * Determines tag supported by this element.
  *
  * @static
+ * @abstract
  * @type {!String}
  */
 AutoMan.ui.components.AbstractComponent.tag = goog.abstractMethod;
