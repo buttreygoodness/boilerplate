@@ -19,7 +19,6 @@ goog.inherits(AutoMan.ui.components.Script, AutoMan.ui.components.AbstractCompon
  * Returns 'Script'
  * 
  * @static
- * @public
  * @return {!String}
  */
 AutoMan.ui.components.Script.supportedContent = function() {
@@ -29,8 +28,8 @@ AutoMan.ui.components.Script.supportedContent = function() {
 /**
  * Defines the createDom method for this component.
  *
- * @public
- * @override
+ * @static
+ * @return {!String}
  */
 AutoMan.ui.components.Script.type = function() {
   return 'script';

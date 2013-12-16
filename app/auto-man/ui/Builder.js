@@ -34,9 +34,8 @@ goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
 
 /**
  * Enum of event types for the Buildr function
- * 
- * @static
- * @type {Object}
+ *
+ * @enum {String}
  */
 AutoMan.ui.Builder.Events = {
   'BuildComplete' : 'Build.Complete',
@@ -47,8 +46,7 @@ AutoMan.ui.Builder.Events = {
 /**
  * Error types.
  *
- * @static
- * @type {Object}
+ * @enum {String}
  */
 AutoMan.ui.Builder.Errors = {
   'ElementNodeError' : 'ElementNodeError'
@@ -56,8 +54,6 @@ AutoMan.ui.Builder.Errors = {
 
 /**
  * Async Build Content
- *
- * @public
  */
 AutoMan.ui.Builder.prototype.build = function() {
   if(!this.building_) {
@@ -72,7 +68,6 @@ AutoMan.ui.Builder.prototype.build = function() {
 /**
  * Returns Buildd component.
  * 
- * @public
  * @return {?AutoMan.ui.components.Abstractcomponent}
  */
 AutoMan.ui.Builder.prototype.getComponents = function() {
@@ -211,7 +206,6 @@ AutoMan.ui.Builder.prototype.handleContentRemove_ = function(e) {
 /**
  * Allows easier 'this' access to error Enum.
  *
- * @public
  * @type {Object}
  */
 AutoMan.ui.Builder.prototype.Errors = AutoMan.ui.Builder.Errors;
@@ -219,7 +213,6 @@ AutoMan.ui.Builder.prototype.Errors = AutoMan.ui.Builder.Errors;
 /**
  * Allows easier 'this' access to event Enum.
  *
- * @public
  * @type {Object}
  */
 AutoMan.ui.Builder.prototype.Events = AutoMan.ui.Builder.Events;

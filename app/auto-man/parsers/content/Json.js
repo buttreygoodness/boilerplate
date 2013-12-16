@@ -23,7 +23,8 @@ goog.inherits(AutoMan.parsers.content.Json, AutoMan.parsers.content.AbstractPars
 
 /**
  * Determines if parsable can be decoded. if so parse.
- * 
+ *
+ * @private
  * @return {!Boolean} Could we decode the json?
  */
 AutoMan.parsers.content.Json.prototype.decode_ = function() {
@@ -38,10 +39,10 @@ AutoMan.parsers.content.Json.prototype.decode_ = function() {
 
 /**
  * Starts recursive parse.
- *  
+ * 
+ * @protected
  * @throws {AutoMan.parsers.content.Json.Errors.Unparsable} If json cannot be decoded.
  * @throws {AutoMan.parsers.content.Json.Errors.NoContent} If there is no content node.
- *
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Json.prototype.parse_ = function() {

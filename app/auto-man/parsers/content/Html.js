@@ -25,8 +25,8 @@ goog.inherits(AutoMan.parsers.content.Html, AutoMan.parsers.content.AbstractPars
 
 /**
  * Error support.
- * 
- * @type {Object}
+ *
+ * @enum {String}
  */
 AutoMan.parsers.content.Html.Errors = {
   'Unparsable' : 'Content.Unparsable',
@@ -35,7 +35,8 @@ AutoMan.parsers.content.Html.Errors = {
 
 /**
  * Determines if parsable can be decoded. if so parse.
- * 
+ *
+ * @private
  * @return {!Boolean} Could we decode the json?
  */
 AutoMan.parsers.content.Html.prototype.decode_ = function() {
@@ -57,16 +58,22 @@ AutoMan.parsers.content.Html.prototype.decode_ = function() {
   return false;
 };
 
+/**
+ * Does this have content?
+ *
+ * @private
+ * @return {!Boolean}
+ */
 AutoMan.parsers.content.Html.prototype.hasContent_ = function () {
   return this.domHelper_.getElementsByTagNameAndClass('div', 'content').length > 0;
 };
 
 /**
  * Starts recursive parse.
- *  
+ *
+ * @private
  * @throws {AutoMan.parsers.content.Html.Errors.Unparsable} If HTML cannot be decoded.
  * @throws {AutoMan.parsers.content.Html.Errors.NoContent} If there is no content node.
- *
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Html.prototype.parse_ = function() {
@@ -79,7 +86,8 @@ AutoMan.parsers.content.Html.prototype.parse_ = function() {
 
 /**
  * Recursivly walks HTML structure and parses nodes.
- * 
+ *
+ * @private
  * @param  {?Object} htmlNode Current HTML node.
  * @param  {?AutoMan.collections.Content} contentNode Current content node.
  * @return {?AutoMan.collections.Content}
@@ -140,6 +148,7 @@ AutoMan.parsers.content.Html.prototype.recursiveParse_ = function (htmlNode, con
 
 /**
  * Easy 'this' reference for Errors.
+ *
  * 
  * @type {Object}
  */

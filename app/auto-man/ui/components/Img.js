@@ -25,8 +25,19 @@ AutoMan.ui.components.Img.supportedContent = function() {
   return 'img';
 };
 
+/**
+ * Returns 'img'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.Img.tag = function() {
   return 'img';
 };
 
+/**
+ * Nops out decorate internal content.
+ *
+ * @protected
+ */
 AutoMan.ui.components.Img.prototype.decorateInternalContent_ = function() {};

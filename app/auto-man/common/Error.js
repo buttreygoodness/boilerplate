@@ -21,7 +21,7 @@ AutoMan.common.Error = function(options) {
 
 /**
  * Returns error code.
- * 
+ *
  * @return {!*}
  */
 AutoMan.common.Error.prototype.getCode = function() {
@@ -30,7 +30,7 @@ AutoMan.common.Error.prototype.getCode = function() {
 
 /**
  * Returns message.
- * 
+ *
  * @return {!String}
  */
 AutoMan.common.Error.prototype.getMessage = function() {
@@ -39,7 +39,7 @@ AutoMan.common.Error.prototype.getMessage = function() {
 
 /**
  * String magic method.
- * 
+ *
  * @return {!String}
  */
 AutoMan.common.Error.prototype.toString = function() {

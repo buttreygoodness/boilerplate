@@ -25,6 +25,7 @@ goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
 /**
  * Content type that should be treated as a generic type.
  * 
+ * @const
  * @type {String}
  */
 AutoMan.ui.components.Factory.GenericContentType = '*';
@@ -32,7 +33,7 @@ AutoMan.ui.components.Factory.GenericContentType = '*';
 /**
  * Granular Events.
  * 
- * @type {Object}
+ * @enum {String}
  */
 AutoMan.ui.components.Factory.Events = {
   'Registered'          : 'Registration.Success',

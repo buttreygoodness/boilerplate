@@ -25,10 +25,19 @@ AutoMan.ui.components.Carousel.supportedContent = function() {
   return 'carousel';
 };
 
+/**
+ * Returns 'div'
+ * 
+ * @static
+ * @return {!String}
+ */
 AutoMan.ui.components.Carousel.tag = function() {
   return 'div';
 };
 
+/**
+ * Handles document viewable.
+ */
 AutoMan.ui.components.Carousel.prototype.enterDocument = function() {
   $(this.element_)['carousel']();
 };

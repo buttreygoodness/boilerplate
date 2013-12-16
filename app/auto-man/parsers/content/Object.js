@@ -33,7 +33,8 @@ AutoMan.parsers.content.Object.prototype.parse_ = function () {
 
 /**
  * Check to make sure parsable_ is an object. If so, passes through.
- * 
+ *
+ * @private
  * @return {!Boolean}
  */
 AutoMan.parsers.content.Object.prototype.decode_ = function() {
