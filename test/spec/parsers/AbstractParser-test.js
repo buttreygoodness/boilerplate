@@ -36,7 +36,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
   });
 
   describe('#getContent', function() {
-    it('Should return nothing before parse.', function() {
+    xit('Should return nothing before parse.', function() {
       should.not.exist(parser.getContent());
     });
 

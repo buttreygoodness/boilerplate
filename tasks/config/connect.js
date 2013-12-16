@@ -13,14 +13,6 @@ var config = {
       cwd: '.',
       keepalive: true
     }
-  },
-
-  'test': {
-    options: {
-      port: '?',
-      base: '.',
-      hostname: '*'
-    }
   }
 };
 

@@ -3,7 +3,7 @@ goog.require('AutoMan.ui.Builder');
 goog.require('AutoMan.test.fixtures.ui.components');
 goog.require('AutoMan.test.fixtures.collections.Content');
 
-describe('AutoMan.ui.Builder', function () {
+xdescribe('AutoMan.ui.Builder', function () {
   var badContentFixture = {};
 
   var Component = AutoMan.test.fixtures.ui.components.Component;
