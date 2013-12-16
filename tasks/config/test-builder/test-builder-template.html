@@ -1,42 +1,59 @@
-<html>
-    <head>
-        <title> Tests </title>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jasmine Spec Runner</title>
+  <link rel="stylesheet" type="text/css" href="/app/lib/jasmine/lib/jasmine-core/jasmine.css">
+</head>
+<body>
+  <script src="/app/lib/jasmine/lib/jasmine-core/jasmine.js"></script>
+  <script src="/app/lib/jasmine/lib/jasmine-core/jasmine-html.js"></script>
 
-        <link rel="stylesheet" href="/node_modules/mocha/mocha.css" />
-    </head>
-    <body>
-        <div id="mocha"></div>
+  <script src="/app/lib/chai/chai.js"></script>
+  <script src="/app/lib/jquery/jquery.min.js"></script>
 
-        <script src="/node_modules/mocha/mocha.js"></script>
-        <script src="/node_modules/chai/chai.js"></script>
+  <script>
+    (function(assertion){
+      assertion.should();
+    })(chai);
+  </script>
 
-        <script src="/app/lib/closure-library/closure/goog/base.js"></script>
+  <script src="/app/lib/closure-library/closure/goog/base.js"></script>
 
-        <script src="/bin/automan-deps.js" data-cover></script>
-        <script src="/bin/fixture-deps.js"></script>
+  <script src="/bin/automan-deps.js"></script>
+  <script src="/bin/fixture-deps.js"></script>
 
-        <script type="text/javascript">
-            goog.require('AutoMan');
-            goog.require('AutoMan.tests.fixtures');
-        </script>
+  <script>
+    (function(closure) {
+      closure.require('AutoMan');
+      closure.require('AutoMan.tests.fixtures');
+    })(goog);
+  </script>
 
-        <script>
-            mocha.ui('bdd');
-            mocha.reporter('html');
-            
-            var should = chai.should();
-        </script>
+  {{#scripts}}
+  <script src="{{{.}}}"></script>
+  {{/scripts}}
 
-        {{#scripts}}
-        <script src="{{{.}}}"></script>
-        {{/scripts}}
+  <script>
+    (function($, jasmine) {
+      var jasmineEnv = jasmine.getEnv();
 
-        <script type="text/javascript">
-            if(window.mochaPhantomJS) {
-                mochaPhantomJS.run();
-            } else {
-                mocha.run();
-            }
-        </script>
-    </body>
+      jasmineEnv.updateInterval = 250;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+
+      jasmineEnv.addReporter(htmlReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      $(document).ready(function() {
+        $('.version').text(jasmineEnv.versionString());
+
+        jasmineEnv.execute();
+      });
+    })(jQuery, jasmine);
+  </script>
+</body>
 </html>

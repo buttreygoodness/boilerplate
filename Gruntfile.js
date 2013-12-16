@@ -30,7 +30,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-mocha-phantomjs');
   grunt.loadNpmTasks('grunt-jsdoc');
 
   grunt.registerTask('bower', 'shell:bower');
@@ -46,7 +45,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build-test-fixtures', ['shell:test-fixture-builder']);
   grunt.registerTask('build-test-runners', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
   grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runners']);
-  grunt.registerTask('test', ['build-tests', 'connect:default', 'mocha_phantomjs']);
+  grunt.registerTask('test', ['build-tests', 'connect:default']);
 
   grunt.registerTask('default', ['watch']);
 };
