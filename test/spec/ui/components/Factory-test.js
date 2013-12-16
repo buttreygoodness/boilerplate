@@ -1,10 +1,10 @@
 goog.require('AutoMan.ui.components.Factory');
 
-goog.require('AutoMan.tests.fixtures.ui.components.Component');
-goog.require('AutoMan.tests.fixtures.collections.Content');
+goog.require('AutoMan.test.fixtures.ui.components.Component');
+goog.require('AutoMan.test.fixtures.collections.Content');
 
 describe('AutoMan.ui.components.Factory', function() {
-  var Component = AutoMan.tests.fixtures.ui.components.Component;
+  var Component = AutoMan.test.fixtures.ui.components.Component;
 
   var factory;
 
@@ -59,7 +59,7 @@ describe('AutoMan.ui.components.Factory', function() {
     it('Should create a component by type, if supported.', function() {
       factory.register(Component);
 
-      var component = factory.create(Component.supportedContent(), new AutoMan.tests.fixtures.collections.Content());
+      var component = factory.create(Component.supportedContent(), new AutoMan.test.fixtures.collections.Content());
 
       should.not.exist(factory.create('doesnt-exist'));
       should.exist(component);

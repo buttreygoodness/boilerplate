@@ -1,10 +1,10 @@
-goog.require('AutoMan.tests.fixtures.parsers.content.TestParser');
+goog.require('AutoMan.test.fixtures.parsers.content.TestParser');
 
 describe('AutoMan.parsers.content.AbstractParser', function() {
   var parser;
 
   beforeEach(function() {
-    parser = new AutoMan.tests.fixtures.parsers.content.TestParser('', {pass: true});
+    parser = new AutoMan.test.fixtures.parsers.content.TestParser('', {pass: true});
   });
 
   describe('#parse', function() {
@@ -20,7 +20,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
     });
 
     it('Should return empty AutoMan.collections.Content and a AutoMan.parser.Error in callback on fail.', function(done){
-      parser = new AutoMan.tests.fixtures.parsers.content.TestParser('', {pass: false});
+      parser = new AutoMan.test.fixtures.parsers.content.TestParser('', {pass: false});
 
       parser.parse(function(content, error) {
         content.should.exst;

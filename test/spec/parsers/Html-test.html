@@ -26,13 +26,11 @@
   <script>
     (function(closure) {
       closure.require('AutoMan');
-      closure.require('AutoMan.tests.fixtures');
+      closure.require('AutoMan.test.fixtures');
     })(goog);
   </script>
 
-  {{#scripts}}
-  <script src="{{{.}}}"></script>
-  {{/scripts}}
+  <script src="/test/parsers/Html-test.js"></script>
 
   <script>
     (function($, jasmine) {

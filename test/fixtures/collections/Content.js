@@ -1,8 +1,8 @@
-goog.provide('AutoMan.tests.fixtures.collections.Content');
+goog.provide('AutoMan.test.fixtures.collections.Content');
 
 goog.require('AutoMan.collections.Content');
 
-AutoMan.tests.fixtures.collections.Content = function() {
+AutoMan.test.fixtures.collections.Content = function() {
   goog.base(this, {
     'type': 'div',
     'data': {
@@ -49,4 +49,4 @@ AutoMan.tests.fixtures.collections.Content = function() {
   }));
 };
 
-goog.inherits(AutoMan.tests.fixtures.collections.Content, AutoMan.collections.Content);
+goog.inherits(AutoMan.test.fixtures.collections.Content, AutoMan.collections.Content);

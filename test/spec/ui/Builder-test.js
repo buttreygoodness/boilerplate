@@ -1,19 +1,19 @@
 goog.require('AutoMan.ui.Builder');
 
-goog.require('AutoMan.tests.fixtures.ui.components');
-goog.require('AutoMan.tests.fixtures.collections.Content');
+goog.require('AutoMan.test.fixtures.ui.components');
+goog.require('AutoMan.test.fixtures.collections.Content');
 
 describe('AutoMan.ui.Builder', function () {
   var badContentFixture = {};
 
-  var Component = AutoMan.tests.fixtures.ui.components.Component;
+  var Component = AutoMan.test.fixtures.ui.components.Component;
 
-  var factory = AutoMan.tests.fixtures.ui.components.factory;
+  var factory = AutoMan.test.fixtures.ui.components.factory;
 
   //var builder;
 
   beforeEach(function() {
-    builder = new AutoMan.ui.Builder(new AutoMan.tests.fixtures.collections.Content(), factory);
+    builder = new AutoMan.ui.Builder(new AutoMan.test.fixtures.collections.Content(), factory);
   });
 
   afterEach(function() {

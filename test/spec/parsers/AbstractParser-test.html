@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jasmine Spec Runner</title>
+  <link rel="stylesheet" type="text/css" href="/app/lib/jasmine/lib/jasmine-core/jasmine.css">
+</head>
+<body>
+  <script src="/app/lib/jasmine/lib/jasmine-core/jasmine.js"></script>
+  <script src="/app/lib/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+
+  <script src="/app/lib/chai/chai.js"></script>
+  <script src="/app/lib/jquery/jquery.min.js"></script>
+
+  <script>
+    (function(assertion){
+      assertion.should();
+    })(chai);
+  </script>
+
+  <script src="/app/lib/closure-library/closure/goog/base.js"></script>
+
+  <script src="/bin/automan-deps.js"></script>
+  <script src="/bin/fixture-deps.js"></script>
+
+  <script>
+    (function(closure) {
+      closure.require('AutoMan');
+      closure.require('AutoMan.test.fixtures');
+    })(goog);
+  </script>
+
+  <script src="/test/parsers/AbstractParser-test.js"></script>
+
+  <script>
+    (function($, jasmine) {
+      var jasmineEnv = jasmine.getEnv();
+
+      jasmineEnv.updateInterval = 250;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+
+      jasmineEnv.addReporter(htmlReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      $(document).ready(function() {
+        $('.version').text(jasmineEnv.versionString());
+
+        jasmineEnv.execute();
+      });
+    })(jQuery, jasmine);
+  </script>
+</body>
+</html>

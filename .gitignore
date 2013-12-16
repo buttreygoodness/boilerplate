@@ -4,4 +4,6 @@ app/auto-man/deps.js
 app/deps.js
 bin/*
 doc/*
-tests/**/*.html
+test/spec/*.html
+.grunt
+_SpecRunner.html

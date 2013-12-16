@@ -4,18 +4,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-
     pkg: grunt.file.readJSON('package.json'),
-
-    watch: {
-      scripts: {
-        files: ['{app,tests}/**/*.js', 'tasks/**/*.js', '!app/auto-man/deps.js'],
-        tasks: ['jshint', 'deps'],
-        options: {
-          spawn: true
-        }
-      }
-    }
   });
   
   var configLoader = new ConfigLoader(grunt, {
@@ -26,6 +15,7 @@ module.exports = function(grunt) {
     
   // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-closure-compiler');
@@ -42,10 +32,7 @@ module.exports = function(grunt) {
   
   grunt.registerTask('dev', ['connect:keep-alive']);
 
-  grunt.registerTask('build-test-fixtures', ['shell:test-fixture-builder']);
-  grunt.registerTask('build-test-runners', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
-  grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runners']);
-  grunt.registerTask('test', ['build-tests', 'connect:default']);
+  grunt.registerTask('test', ['deps', 'shell:test-fixture-builder', 'connect:test', 'jasmine:test']);
 
   grunt.registerTask('default', ['watch']);
 };
