@@ -276,7 +276,7 @@
                         "type": "img",
                         "data": {
                           "attributes": {
-                            "src": "http://sorgalla.com/jcarousel/assets/img/pic/img1.jpg",
+                            "src": "/app/sandbox/img/img1.jpg",
                             "alt": "image one"
                           }
                         }
@@ -307,7 +307,7 @@
                         "type": "img",
                         "data": {
                           "attributes": {
-                            "src": "http://sorgalla.com/jcarousel/assets/img/pic/img2.jpg",
+                            "src": "/app/sandbox/img/img2.jpg",
                             "alt": "image two"
                           }
                         }
@@ -338,7 +338,7 @@
                         "type": "img",
                         "data": {
                           "attributes": {
-                            "src": "http://sorgalla.com/jcarousel/assets/img/pic/img3.jpg",
+                            "src": "/app/sandbox/img/img3.jpg",
                             "alt": "image three"
                           }
                         }
