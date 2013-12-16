@@ -3,7 +3,9 @@ goog.provide('AutoMan.ui.components.Root');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Root component that does nothing but acts like a container for other components.
+ * @class Container for all contenet.
+ *
+ * @implements {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {?Object} content
  * @param {?goog.dom.DomHelper} domHelper

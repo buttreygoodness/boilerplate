@@ -3,8 +3,8 @@ goog.provide('AutoMan.ui.components.Generic');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Generic component. This will create a component as with tag of content type.
- *
+ * @class Generic component. Handles all dom elelments that are not explicitly defined.
+ * 
  * @implements {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!AutoMan.collections.Content} content

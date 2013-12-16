@@ -3,7 +3,9 @@ goog.provide('AutoMan.ui.components.Carousel');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Carousel Component
+ * @class Carousel component.
+ *
+ * @implements {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!Object} content
  */

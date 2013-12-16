@@ -23,6 +23,7 @@
     "underscore": "~1.5.2",
     "mocha": "~1.13.0",
     "mustache": "~0.7.2",
-    "grunt-config-loader": "0.1.2"
+    "grunt-config-loader": "0.1.2",
+    "grunt-jsdoc": "~0.4.2"
   }
 }

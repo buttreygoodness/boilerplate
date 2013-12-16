@@ -1,9 +1,8 @@
 goog.provide('AutoMan.sources.Factory');
 
 /**
- * Generates sources for content data.
+ * @class Manages sources.
  * 
- * @constructor
  * @param {Object=} options
  */
 AutoMan.sources.Factory = function(options) {

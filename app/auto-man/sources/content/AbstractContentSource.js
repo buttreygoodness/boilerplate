@@ -3,7 +3,7 @@ goog.provide('AutoMan.sources.content.AbstractContentSource');
 goog.require('AutoMan.collections.Content');
 
 /**
- * @constructor
+ * @class Base source.
  * 
  * @param {!*} source
  * @param {!Object} options

@@ -1,7 +1,7 @@
 goog.provide('AutoMan.common.Error');
 
 /**
- * Base error object.
+ * @class Base error class.
  * 
  * @param {Object | String} options
  */

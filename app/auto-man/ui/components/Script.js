@@ -3,7 +3,9 @@ goog.provide('AutoMan.ui.components.Script');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Script Component
+ * @class Script
+ *
+ * @implements {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!Object} content
  */
@@ -17,6 +19,7 @@ goog.inherits(AutoMan.ui.components.Script, AutoMan.ui.components.AbstractCompon
  * Returns 'Script'
  * 
  * @static
+ * @public
  * @return {!String}
  */
 AutoMan.ui.components.Script.supportedContent = function() {
@@ -25,7 +28,8 @@ AutoMan.ui.components.Script.supportedContent = function() {
 
 /**
  * Defines the createDom method for this component.
- * 
+ *
+ * @public
  * @override
  */
 AutoMan.ui.components.Script.type = function() {

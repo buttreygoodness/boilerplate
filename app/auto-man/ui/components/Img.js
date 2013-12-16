@@ -3,7 +3,9 @@ goog.provide('AutoMan.ui.components.Img');
 goog.require('AutoMan.ui.components.AbstractComponent');
 
 /**
- * Image Component
+ * @class Image
+ *
+ * @implements {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!Object} content
  */

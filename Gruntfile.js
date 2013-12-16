@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: ['{app,tests}/**/*.js', 'tasks/**/*.js', '!app/auto-man/deps.js'],
-        tasks: ['jshint', 'deps'],
+        tasks: ['jshint', 'deps', 'jsdoc'],
         options: {
           spawn: true
         }
@@ -31,14 +31,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodestatic');
   grunt.loadNpmTasks('grunt-mocha-phantomjs');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   grunt.registerTask('bower', 'shell:bower');
-
   grunt.registerTask('setup', ['shell:resolve-build-deps', 'bower']);
 
   grunt.registerTask('deps', ['shell:deps']);
   grunt.registerTask('link', ['shell:link']);
-  grunt.registerTask('build', ['deps', 'link', 'closure-compiler']);
+  grunt.registerTask('compile', ['closure-compiler']);
+  grunt.registerTask('build', ['test', 'jsdoc', 'deps', 'link', 'compile']);
   
   grunt.registerTask('dev', ['nodestatic']);
 
