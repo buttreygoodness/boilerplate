@@ -5,7 +5,7 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * @class Container for all contenet.
  *
- * @implements {AutoMan.ui.components.AbstractComponent}
+ * @extends {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {?Object} content
  * @param {?goog.dom.DomHelper} domHelper

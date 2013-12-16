@@ -12,7 +12,7 @@ goog.require('AutoMan.parsers.content.AbstractParser');
 /**
  * @class Handles parsing of HTML content fragments.
  * 
- * @implements {AutoMan.parsers.content.AbstractParser}
+ * @extends {AutoMan.parsers.content.AbstractParser}
  * 
  * @param {!String} parsable
  * @param {options=} options

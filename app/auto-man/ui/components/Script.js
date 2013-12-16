@@ -5,7 +5,7 @@ goog.require('AutoMan.ui.components.AbstractComponent');
 /**
  * @class Script
  *
- * @implements {AutoMan.ui.components.AbstractComponent}
+ * @extends {AutoMan.ui.components.AbstractComponent}
  * 
  * @param {!Object} content
  */
