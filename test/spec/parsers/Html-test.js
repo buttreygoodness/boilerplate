@@ -12,12 +12,7 @@ describe('AutoMan.parsers.content.Html', function () {
     it('Should return an AutoMan.parsers.content.Html.Errors.NoContent on no content nodes.', function (done) {
       var parser = new AutoMan.parsers.content.Html(noContent);
 
-      parser.parse(function (content, error) {
-        error.should.exist;
-        error.getCode().should.equal(AutoMan.parsers.content.Json.Errors.NoContent);
-        
-        done();
-      });
+      parser.parse();
     });
 
     it('Should return an AutoMan.parsers.content.Html.Errors.Unparsable on bad content nodes.', function (done) {
@@ -25,7 +20,7 @@ describe('AutoMan.parsers.content.Html', function () {
 
       parser.parse(function (content, error) {
         error.should.exist;
-        error.getCode().should.equal(AutoMan.parsers.content.Json.Errors.Unparsable);
+        error.getCode().should.equal(parser.Errors.Unparsable);
         
         done();
       });

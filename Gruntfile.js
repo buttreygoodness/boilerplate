@@ -32,8 +32,8 @@ module.exports = function(grunt) {
   
   grunt.registerTask('dev', ['connect:keep-alive']);
 
-  grunt.registerTask('test', ['deps', 'shell:test-fixture-builder', 'connect:test', 'jasmine']);
-  grunt.registerTask('coverage', ['jasmine:coverage']);
+  grunt.registerTask('test', ['deps', 'shell:test-fixture-builder', 'connect:test', 'jasmine:test']);
+  grunt.registerTask('coverage', ['connect:test','jasmine:coverage']);
 
   grunt.registerTask('default', ['watch']);
 };

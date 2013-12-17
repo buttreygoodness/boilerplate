@@ -77,9 +77,8 @@ AutoMan.parsers.content.Html.prototype.hasContent_ = function () {
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Html.prototype.parse_ = function() {
-  this
-    .assert_(this.decode_(), AutoMan.parsers.content.Html.Errors.Unparsable)
-    .assert_(this.hasContent_(), AutoMan.parsers.content.Html.Errors.NoContent);
+  this.assert_(this.decode_(), AutoMan.parsers.content.Html.Errors.Unparsable)
+  this.assert_(this.hasContent_(), AutoMan.parsers.content.Html.Errors.NoContent);
 
   return this.recursiveParse_(this.html_) || new AutoMan.collections.Content();
 };

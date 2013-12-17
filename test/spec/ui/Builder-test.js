@@ -10,7 +10,7 @@ describe('AutoMan.ui.Builder', function () {
 
   var factory = AutoMan.test.fixtures.ui.components.factory;
 
-  //var builder;
+  var builder;
 
   beforeEach(function() {
     builder = new AutoMan.ui.Builder(new AutoMan.test.fixtures.collections.Content(), factory);
