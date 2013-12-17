@@ -5,13 +5,6 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
-    jscoverage: {
-      options: {
-        inputDirectory: 'app/auto-man',
-        outputDirectory: 'test/coverage'
-      }
-    }
   });
   
   var configLoader = new ConfigLoader(grunt, {
@@ -19,8 +12,6 @@ module.exports = function(grunt) {
   });
 
   configLoader.loadAll();
-
-  grunt.loadNpmTasks("grunt-jscoverage");
 
   // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -42,8 +33,6 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['connect:keep-alive']);
 
   grunt.registerTask('test', ['deps', 'shell:test-fixture-builder', 'connect:test', 'jasmine:test']);
-
-  grunt.registerTask('coverage', ['jscoverage', 'shell:build-coverage-deps']);
 
   grunt.registerTask('default', ['watch']);
 };
