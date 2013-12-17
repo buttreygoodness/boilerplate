@@ -61,8 +61,7 @@ describe('AutoMan.ui.components.Factory', function() {
 
       var component = factory.create(Component.supportedContent(), new AutoMan.test.fixtures.collections.Content());
 
-      should.not.exist(factory.create('doesnt-exist'));
-      should.exist(component);
+      component.should.exist;
       component.should.be.an.instanceof(Component);
     });
   });
