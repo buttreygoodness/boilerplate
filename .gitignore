@@ -5,3 +5,4 @@ doc/*
 test/**/*.html
 test/coverage/*
 .grunt
+**/_SpecRunner.html
