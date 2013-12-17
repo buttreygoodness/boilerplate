@@ -1,10 +1,7 @@
 node_modules
-app/lib
-app/auto-man/deps.js
-app/deps.js
+app/lib/*
 bin/*
 doc/*
-test/spec/*.html
-test/SpecRunner.html
+test/**/*.html
+test/coverage/*
 .grunt
-_SpecRunner.html

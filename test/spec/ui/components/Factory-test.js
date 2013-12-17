@@ -55,7 +55,7 @@ describe('AutoMan.ui.components.Factory', function() {
     });
   });
 
-  xdescribe('#create', function() {
+  describe('#create', function() {
     it('Should create a component by type, if supported.', function() {
       factory.register(Component);
 
