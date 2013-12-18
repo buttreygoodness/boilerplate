@@ -1,9 +1,9 @@
 var config = {
   taskName: 'connect.test',
   options: {
-    port: '?',
+    port: 9000,
     base: '.',
-    hostname: '*'
+    hostname: 'localhost'
   }
 };
 

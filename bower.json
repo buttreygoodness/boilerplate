@@ -10,15 +10,12 @@
     "node_modules",
     "bower_components",
     "app/components",
-    "test",
-    "tests"
+    "test"
   ],
   "directory": "my_components",
   "devDependencies": {
     "closure-library": "https://code.google.com/p/closure-library.git",
-    "jquery": "~2.0.3",
-    "jasmine": "~1.3.1",
-    "chai": "~1.8.1"
+    "jquery": "~2.0.3"
   },
   "dependencies": {
     "bootstrap": "~3.0.0"

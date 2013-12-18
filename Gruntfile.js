@@ -4,7 +4,18 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+
     pkg: grunt.file.readJSON('package.json'),
+
+    watch: {
+      scripts: {
+        files: ['{app,test}/**/*.js', 'tasks/**/*.js'],
+        tasks: ['jshint', 'deps'],
+        options: {
+          spawn: true
+        }
+      }
+    }
   });
   
   var configLoader = new ConfigLoader(grunt, {
@@ -12,12 +23,12 @@ module.exports = function(grunt) {
   });
 
   configLoader.loadAll();
-
+    
   // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-mocha-phantomjs');
   grunt.loadNpmTasks('grunt-closure-compiler');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-jsdoc');
@@ -32,8 +43,10 @@ module.exports = function(grunt) {
   
   grunt.registerTask('dev', ['connect:keep-alive']);
 
-  grunt.registerTask('test', ['deps', 'shell:test-fixture-builder', 'connect:test', 'jasmine:test']);
-  grunt.registerTask('coverage', ['connect:test','jasmine:coverage']);
+  grunt.registerTask('build-test-fixtures', ['shell:fixture-builder']);
+  grunt.registerTask('build-test-runners', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
+  grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runners']);
+  grunt.registerTask('test', ['build-tests', 'connect:test', 'mocha_phantomjs:test']);
 
-  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['watch']); 
 };
