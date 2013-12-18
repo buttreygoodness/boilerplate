@@ -1,7 +1,7 @@
 var config = {
   taskName: 'connect.keep-alive',
   options: {
-    port: 8080,
+    port: 8000,
     cwd: '.',
     keepalive: true
   }

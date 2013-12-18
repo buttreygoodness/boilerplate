@@ -1,35 +1,45 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title> Tests </title>
+    <title> Coverage </title>
 
     <link rel="stylesheet" href="/app/lib/mocha/mocha.css" />
   </head>
   <body>
     <div id="mocha"></div>
+    <div id="messages"></div>
+    <div id="fixtures"></div>
 
     <script src="/app/lib/mocha/mocha.js"></script>
     <script src="/app/lib/chai/chai.js"></script>
 
+    <script src="/app/lib/blanket/dist/qunit/blanket.min.js"></script>
+    <script src="/app/lib/blanket/src/adapters/mocha-blanket.js"></script>
+
     <script src="/app/lib/closure-library/closure/goog/base.js"></script>
+
+    <script src="/test/helpers/monkey-patch.js"></script>
     
     <script src="/bin/automan-deps.js"></script>
     <script src="/bin/fixture-deps.js"></script>
 
-    <script type="text/javascript">
-      goog.require('AutoMan');
+    <script>
       goog.require('AutoMan.test.fixtures');
     </script>
 
     <script>
-      mocha.ui('bdd');
-      mocha.reporter('html');
-      
-      var should = chai.should();
+      mocha.setup('bdd');
+            
+      chai.should();
     </script>
 
-    {{#scripts}}
+    {{#app}}
+    <script src="{{{.}}}" data-cover></script>
+    {{/app}}
+
+    {{#spec}}
     <script src="{{{.}}}"></script>
-    {{/scripts}}
+    {{/spec}}
 
     <script type="text/javascript">
       if(window.mochaPhantomJS) {

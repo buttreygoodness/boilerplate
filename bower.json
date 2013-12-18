@@ -5,17 +5,14 @@
   "main": "app/auto-man.js",
   "license": "MIT",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "app/components",
-    "test"
-  ],
+  "ignore": [],
   "directory": "my_components",
   "devDependencies": {
     "closure-library": "https://code.google.com/p/closure-library.git",
-    "jquery": "~2.0.3"
+    "jquery": "~2.0.3",
+    "mocha": "1.12.1",
+    "chai": "~1.8.1",
+    "blanket": "~1.1.5"
   },
   "dependencies": {
     "bootstrap": "~3.0.0"

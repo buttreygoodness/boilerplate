@@ -60,9 +60,9 @@ SuperGlob.defaultOptions = {
 SuperGlob.prototype.task = function() {
   var done = this.task_.async();
 
-  var onComplete = this.options_.onComplete.bind(this);
+  var onComplete = this.options_.onComplete.bind(this.options_);
 
-  var map = this.options_.map.bind(this);
+  var map = this.options_.map.bind(this.options_);
 
   onComplete(_.map(this.glob_(), map), done);
 };

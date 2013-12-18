@@ -1,18 +1,14 @@
 // monkey patches things that break tests/coverage.
-(function(_window, closure) {
+(function(closure) {
   var provide = closure.provide;
 
-  var require = closure.require;
-
   closure.provide = function(lib) {
+    if(closure.isProvided_(lib)) {
+      return;
+    }
+
     try {
       provide(lib);
     } catch (e) {};
   };
-
-  closure.require = function(lib) {
-    try {
-      require(lib);
-    } catch (e) {};
-  }
-})(window, goog);
+})(goog);

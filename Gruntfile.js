@@ -44,8 +44,9 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['connect:keep-alive']);
 
   grunt.registerTask('build-test-fixtures', ['shell:fixture-builder']);
-  grunt.registerTask('build-test-runners', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
-  grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runners']);
+  grunt.registerTask('build-test-runner', require('./tasks/helpers/super-glob.js')(grunt, 'test-builder'));
+  grunt.registerTask('build-coverage-runner', require('./tasks/helpers/super-glob.js')(grunt, 'coverage-builder'));
+  grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runner']);
   grunt.registerTask('test', ['build-tests', 'connect:test', 'mocha_phantomjs:test']);
 
   grunt.registerTask('default', ['watch']); 
