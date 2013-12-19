@@ -2,7 +2,7 @@ var config = {
   taskName: 'compass',
   dist: {
     options: {
-      config: 'sass-config.rb'
+      config: 'compass-config.rb'
     }
   }
 };
