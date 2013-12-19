@@ -1,8 +1,8 @@
 var config = {
   taskName: 'watch',
   scripts: {
-    files: ['{app,test}/**/*.js', 'tasks/**/*.js', '!app/auto-man/deps.js'],
-    tasks: ['jshint', 'deps'],
+    files: ['{app,test,tasks}/**/*.js'],
+    tasks: ['jshint', 'deps', 'build-tests'],
     options: {
       spawn: true
     }
