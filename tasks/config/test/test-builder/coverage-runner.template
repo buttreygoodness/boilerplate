@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="/app/lib/mocha/mocha.css" />
   </head>
   <body>
-    <div id="mocha"></div>
-    <div id="messages"></div>
-    <div id="fixtures"></div>
+    <div id="mocha" style="display:none;"></div>
 
     <script src="/app/lib/mocha/mocha.js"></script>
     <script src="/app/lib/chai/chai.js"></script>
@@ -29,6 +27,7 @@
 
     <script>
       mocha.setup('bdd');
+      mocha.ui();
             
       chai.should();
     </script>
