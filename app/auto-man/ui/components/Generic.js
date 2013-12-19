@@ -18,10 +18,21 @@ goog.inherits(AutoMan.ui.components.Generic, AutoMan.ui.components.AbstractCompo
 
 /**
  * Supports all content types.
- * 
+ *
+ * @static
  * @return {!String}
  */
 AutoMan.ui.components.Generic.supportedContent = function() {
+  return '*';
+};
+
+/**
+ * Supports all tag types.
+ *
+ * @static
+ * @return {!String}
+ */
+AutoMan.ui.components.Generic.tag = function() {
   return '*';
 };
 

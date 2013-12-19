@@ -39,6 +39,15 @@ AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
 AutoMan.ui.components.AbstractComponent.tag = goog.abstractMethod;
 
 /**
+ * Unbinds events and model bindings.
+ */
+AutoMan.ui.components.AbstractComponent.prototype.disposeInternal = function() {
+  this.removeAllListeners();
+
+  goog.base(this, 'disposeInternal');
+};
+
+/**
  * Returns supported content type. Should be same as static.
  *
  * @return {!String}

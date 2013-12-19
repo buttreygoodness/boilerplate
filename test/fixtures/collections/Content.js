@@ -8,12 +8,13 @@ AutoMan.test.fixtures.collections.Content = function() {
     'data': {
       'attributes': {
         'id': 'root'
-      }
+      },
+      'text': 'text'
     }
   });
 
   this.addChild(new AutoMan.collections.Content({
-    'type': 'div',
+    'type': 'img',
     'data': {
       'attributes': {
         'id': 'no-child'
@@ -31,7 +32,7 @@ AutoMan.test.fixtures.collections.Content = function() {
   }));
 
   this.getChildAt(1).addChild(new AutoMan.collections.Content({
-    'type': 'div',
+    'type': 'h2',
     'data': {
       'attributes': {
         'id': 'child-1'
@@ -40,7 +41,7 @@ AutoMan.test.fixtures.collections.Content = function() {
   }));
 
   this.getChildAt(1).addChild(new AutoMan.collections.Content({
-    'type': 'div',
+    'type': 'h2',
     'data': {
       'attributes': {
         'id': 'child-2'
