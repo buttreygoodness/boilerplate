@@ -22,6 +22,6 @@
     "grunt-closure-compiler": "0.0.21",
     "mustache": "~0.7.2",
     "underscore": "~1.5.2",
-    "grunt-contrib-compass": "~0.7.0"
+    "grunt-contrib-less": "~0.8.3"
   }
 }

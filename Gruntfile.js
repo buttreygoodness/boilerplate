@@ -19,7 +19,7 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-mocha-phantomjs');
   grunt.loadNpmTasks('grunt-closure-compiler');
@@ -31,8 +31,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deps', ['shell:deps']);
   grunt.registerTask('link', ['shell:link']);
+  grunt.registerTask('build-css', ['less']);
   grunt.registerTask('compile', ['closure-compiler']);
-  grunt.registerTask('build', ['test', 'jsdoc', 'deps', 'link', 'compile', 'compass']);
+  grunt.registerTask('build', ['test', 'jsdoc', 'deps', 'link', 'compile', 'build-css']);
   
   grunt.registerTask('dev', ['connect:keep-alive']);
 

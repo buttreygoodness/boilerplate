@@ -8,8 +8,8 @@ var config = {
     }
   },
   css: {
-    files: ['app/sandbox/scss/**/*.scss'],
-    tasks: ['compass']
+    files: ['app/sandbox/less/**/*.less'],
+    tasks: ['less']
   }
 };
         
