@@ -14,9 +14,6 @@
 #editor-accordion > .panel > .panel-heading > .panel-title > a {
   padding: 15px;
 }
-#editor-accordion > .panel + .panel {
-  margin-top: 0px;
-}
 #editor-accordion > .panel > div#navigation-collapse > .panel-body {
   padding: 0px;
 }
@@ -26,6 +23,9 @@
 }
 #editor-accordion > .panel > div#navigation-collapse > .panel-body > ul > li {
   text-indent: 5px;
+}
+#editor-accordion > .panel + .panel {
+  margin-top: 0px;
 }
 /* END editor-accordion */
 /* BEGIN sidebar */
@@ -51,11 +51,11 @@
 #sidebar-wrapper.active {
   left: 150px;
   width: 150px;
-  -webkit-transition: all 0.5s ease 0s;
-  -moz-transition: all 0.5s ease 0s;
-  -ms-transition: all 0.5s ease 0s;
-  -o-transition: all 0.5s ease 0s;
-  transition: all 0.5s ease 0s;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 .sidebar-nav {
   position: absolute;

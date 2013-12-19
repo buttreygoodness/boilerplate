@@ -20,25 +20,23 @@
     }
 
     > div#navigation-collapse {
-      
+      > .panel-body {
+        padding: 0px;
+
+        > ul {
+          list-style: none;
+          padding-left: 0px;
+
+          > li {
+            text-indent: 5px;
+          }
+        }
+      }
     }
   }
 
   > .panel + .panel {
     margin-top: 0px;
   }
-}
-
-#editor-accordion > .panel > div#navigation-collapse > .panel-body {
-  padding: 0px;
-}
-
-#editor-accordion > .panel > div#navigation-collapse > .panel-body > ul {
-  list-style: none;
-  padding-left: 0px;
-}
-
-#editor-accordion > .panel > div#navigation-collapse > .panel-body > ul > li {
-  text-indent: 5px;
 }
 /* END editor-accordion */

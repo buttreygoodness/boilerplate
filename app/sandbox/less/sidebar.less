@@ -1,12 +1,6 @@
-/* BEGIN sidebar */
-.am-transition (@attrs: all, @duration: 0.4s, @tween: ease, @delay: 0s) {
-  -webkit-transition: @attrs @duration @tween @delay;
-     -moz-transition: @attrs @duration @tween @delay;
-      -ms-transition: @attrs @duration @tween @delay;
-       -o-transition: @attrs @duration @tween @delay;
-          transition: @attrs @duration @tween @delay;
-}
+@import "am-mixins.less";
 
+/* BEGIN sidebar */
 .draggable{
   z-index:  10000;
 }
@@ -22,12 +16,12 @@
   overflow-y: auto;
   z-index: 1000;
   .am-transition(all, 0.4s, ease, 0s);
-}
 
-#sidebar-wrapper.active {
-  left: 150px;
-  width: 150px;
-  .am-transition(all, 0.5s, ease, 0s);
+  &.active {
+    left: 150px;
+    width: 150px;
+    .am-transition(all, 0.4s, ease, 0s);
+  }
 }
 
 .sidebar-nav {
@@ -38,7 +32,7 @@
   margin: 0;
   padding: 0;
 
-  > .sidebar-brand {
+  >.sidebar-brand {
     height: 55px;
     line-height: 55px;
     font-size: 18px;
