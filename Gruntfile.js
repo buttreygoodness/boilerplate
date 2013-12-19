@@ -31,9 +31,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deps', ['shell:deps']);
   grunt.registerTask('link', ['shell:link']);
-  grunt.registerTask('build-css', ['less']);
+  grunt.registerTask('build-css', ['less:development']);
   grunt.registerTask('compile', ['closure-compiler']);
-  grunt.registerTask('build', ['test', 'jsdoc', 'deps', 'link', 'compile', 'build-css']);
+  grunt.registerTask('build', ['test', 'jsdoc', 'deps', 'link', 'compile', 'less:production']);
   
   grunt.registerTask('dev', ['connect:keep-alive']);
 

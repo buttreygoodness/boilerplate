@@ -1,4 +1,4 @@
-/* Editor accordion styling */
+/* BEGIN editor-accordion */
 #editor-accordion > .panel {
   border-radius: 0px;
   background-color: #000;
@@ -27,35 +27,8 @@
 #editor-accordion > .panel > div#navigation-collapse > .panel-body > ul > li {
   text-indent: 5px;
 }
-
-body {
-  padding: 50px 0px;
-}
-.am-header {
-  font-size: 21px;
-  text-align: left;
-  padding: 30px 15px 40px;
-}
-.am-header .container {
-  position: relative;
-}
-#carousel-example {
-  margin: 0px auto;
-}
-img {
-  position: relative;
-  width: 100%;
-  background-size: cover;
-}
-#component-selector ul {
-  position: static;
-  top: 0px;
-}
-.am-hover {
-  border: 1px gray solid;
-}
-
-/* Side Menu */
+/* END editor-accordion */
+/* BEGIN sidebar */
 .draggable {
   z-index: 10000;
 }
@@ -131,4 +104,31 @@ img {
 }
 .toggle {
   margin: 5px 5px 0 0;
+}
+/* END sidebar */
+body {
+  padding: 50px 0px;
+}
+.am-header {
+  font-size: 21px;
+  text-align: left;
+  padding: 30px 15px 40px;
+}
+.am-header .container {
+  position: relative;
+}
+#carousel-example {
+  margin: 0px auto;
+}
+img {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+}
+#component-selector ul {
+  position: static;
+  top: 0px;
+}
+.am-hover {
+  border: 1px gray solid;
 }

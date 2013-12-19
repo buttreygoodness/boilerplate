@@ -9,7 +9,7 @@ var config = {
   },
   css: {
     files: ['app/sandbox/less/**/*.less'],
-    tasks: ['less']
+    tasks: ['less:development']
   }
 };
         
