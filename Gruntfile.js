@@ -49,5 +49,5 @@ module.exports = function(grunt) {
   grunt.registerTask('build-tests', ['build-test-fixtures', 'build-test-runner']);
   grunt.registerTask('test', ['build-tests', 'connect:test', 'mocha_phantomjs:test']);
 
-  grunt.registerTask('default', ['watch']); 
+  grunt.registerTask('default', ['watch']);
 };

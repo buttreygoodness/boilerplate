@@ -61,7 +61,7 @@ AutoMan.ui.Builder.prototype.build = function() {
 
     this.bindBuildEvents_();
 
-    setTimeout(goog.bind(this.build_, this), 1);
+    this.build_();
   }
 };
 

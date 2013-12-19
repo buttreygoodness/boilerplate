@@ -14,7 +14,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
         content.should.be.instanceOf(AutoMan.collections.Content);
         
         should.not.exist(error);
-
+        
         done();
       });
     });
@@ -36,7 +36,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
   });
 
   describe('#getContent', function() {
-    xit('Should return nothing before parse.', function() {
+    it('Should return nothing before parse.', function() {
       should.not.exist(parser.getContent());
     });
 

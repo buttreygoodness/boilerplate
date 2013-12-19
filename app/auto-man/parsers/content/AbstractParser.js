@@ -37,26 +37,24 @@ AutoMan.parsers.content.AbstractParser.Errors = {
  * @param  {Function(!AutoMan.collections.Content, ?AutoMan.parsers.Error)} callback
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
+  var callback_ = callback || function() {};
+
   if(!this.isCached_()) {
-    setTimeout(function() {
-      var content;
-      var error;
+    var content, error;
 
-      try {
-        content = this.parse_();
-      } catch (e) {
-        error = e;
-      }
-      
-      this.content_ = content ? content : new AutoMan.collections.Content();
+    try {
+      content = this.parse_();
+    } catch (e) {
+      error = e;
+    }
+    
+    this.content_ = content || new AutoMan.collections.Content();
 
-      this.parseFail_ = error ? true : false;
+    this.parseFail_ = error ? true : false;
 
-      callback(this.getContent(), error);
-
-    }.bind(this), 1);
+    callback_(this.getContent(), error);
   } else {
-    callback(this.getContent());
+    callback_(this.getContent());
   }
 };
 
@@ -88,7 +86,9 @@ AutoMan.parsers.content.AbstractParser.prototype.isCached_ = function() {
  * @return {self}
  */
 AutoMan.parsers.content.AbstractParser.prototype.assert_ = function(condition, error) {
-  goog.asserts.assert(condition, error || AutoMan.parsers.content.AbstractParser.Errors.AssertFail);
+  if(!condition) {
+    throw new AutoMan.parsers.Error(error || this.Errors.AssertFailed);
+  }
 
   return this;
 };

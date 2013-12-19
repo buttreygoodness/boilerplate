@@ -15,7 +15,7 @@ var options = {
     return {
       path : ['', script].join('/'),
       spec : script.indexOf('test/spec') === 0
-    }
+    };
   },
 
   onComplete: function(scripts, done) {
@@ -33,7 +33,7 @@ var options = {
       } else {
         view.app.push(script.path);
       }
-    }); 
+    });
 
     fs.writeFileSync(options.coverageRunner, Mustache.render(template, view));
 
