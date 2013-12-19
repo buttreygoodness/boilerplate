@@ -6,6 +6,10 @@ var config = {
     options: {
       spawn: true
     }
+  },
+  css: {
+    files: ['app/sandbox/scss/**/*.scss'],
+    tasks: ['compass']
   }
 };
         
