@@ -17,22 +17,12 @@ AutoMan.ui.components.Generic = function(content, domHelper) {
 goog.inherits(AutoMan.ui.components.Generic, AutoMan.ui.components.AbstractComponent);
 
 /**
- * Supports all content types.
+ * Should return wilcard.
  *
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Generic.supportedContent = function() {
-  return '*';
-};
-
-/**
- * Supports all tag types.
- *
- * @static
- * @return {!String}
- */
-AutoMan.ui.components.Generic.tag = function() {
+AutoMan.ui.components.Generic.getItemId = function() {
   return '*';
 };
 

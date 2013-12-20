@@ -1,7 +1,8 @@
 goog.provide('AutoMan.ui.components.Factory');
 
 goog.require('goog.events.Event');
-goog.require('goog.events.EventTarget');
+
+goog.require('AutoMan.common.Factory');
 
 /**
  * @class Managages UI components.
@@ -11,16 +12,12 @@ goog.require('goog.events.EventTarget');
  * @param {?Options} options
  */
 AutoMan.ui.components.Factory = function(options) {
-  goog.base(this);
-
-  this.registery_ = {};
-
-  this.options_ = options || {};
+  goog.base(this, options);
 
   this.genericContentType_ = this.options_.genericContentType || AutoMan.ui.components.Factory.GenericContentType;
 };
 
-goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
+goog.inherits(AutoMan.ui.components.Factory, AutoMan.common.Factory);
 
 /**
  * Content type that should be treated as a generic type.
@@ -30,114 +27,15 @@ goog.inherits(AutoMan.ui.components.Factory, goog.events.EventTarget);
  */
 AutoMan.ui.components.Factory.GenericContentType = '*';
 
-/**
- * Granular Events.
- * 
- * @enum {String}
- */
-AutoMan.ui.components.Factory.Events = {
-  'Registered'          : 'Registration.Success',
-  'RegistrationError'   : 'Registration.Error',
-  'Unregisted'          : 'Unregistration.Success',
-  'UnregistrationError' : 'Unregistration.Error',
-  'CreationError'       : 'Creation.Error'
-};
 
 /**
- * Registers a component if its type isnt already registered.
- * 
- * @param  {!AutoMan.ui.components.AbstractComponent} component This is the constructor of the component.
- * @return {!Boolean} Returns true if registers, false otherwise.
- */
-AutoMan.ui.components.Factory.prototype.register = function(component) {
-  var eventContext = new goog.events.Event({
-    component: component
-  });
-
-  if(this.isRegistered(component)) {
-    this.dispatchEvent(this.Events.RegistrationError, eventContext);
-
-    return false;
-  }
-
-  this.registery_[component.supportedContent()] = component;
-
-  this.dispatchEvent(this.Events.Registered, eventContext);
-
-  return true;
-};
-
-/**
- * Removes a component from registry.
- * 
- * @param  {!AutoMan.ui.components.AbstractComponent} component This is the constructor of the component.
- * @return {!Boolean} Returns true if unregisters, false otherwise.
- */
-AutoMan.ui.components.Factory.prototype.unregister = function(component) {
-  var eventContext = new goog.events.Event({
-    component: component
-  });
-
-  if(this.isRegistered(component)) {
-    delete this.registery_[component.supportedContent()];
-
-    this.dispatchEvent(this.Events.Unregisted, eventContext);
-
-    return true;
-  }
-
-  this.dispatchEvent(this.Events.UnregistrationError, eventContext);
-  
-  return false;
-};
-
-/**
- * Unregisters a component by its type.
- * 
- * @param  {!String} type
- * @return {!Boolean} Returns true if unregisters, false otherwise.
- */
-AutoMan.ui.components.Factory.prototype.unregisterType = function(type) {
-  if(!this.isTypeSupported(type)) {
-    this.dispatchEvent(this.Events.UnregistrationError, {
-      type: type
-    });
-
-    return false;
-  }
-
-  return this.unregister(this.registery_[type]);
-};
-
-/**
- * Returns a list of supported types.
- * 
+ * Returns a list of supported types. 
+ *
+ * @alias AutoMan.ui.components.Factory.getRegisteredItems;
  * @return {!Array<String>}
  */
 AutoMan.ui.components.Factory.prototype.getSupportedTypes = function() {
-  return goog.object.getKeys(this.registery_);
-};
-
-/**
- * Determines if a component is registered.
- * 
- * @param  {!AutoMan.ui.components.AbstractComponent}  component This is the constructor of the component.
- * @return {!Boolean} True if registered, false otherwise.
- */
-AutoMan.ui.components.Factory.prototype.isRegistered = function(component) {
-  var supportedContent = component.supportedContent();
-
-  return goog.isDefAndNotNull(this.registery_[supportedContent]);
-};
-
-/**
- * Determines if a media type is supported by this factory.
- * 
- * @param  {!String}  type 
- * @return {!Boolean} True if supported, false if not.
- */
-AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
-  return goog.isDefAndNotNull(this.registery_[type]);
+  return this.getRegisteredItems();
 };
 
 /**
@@ -146,32 +44,38 @@ AutoMan.ui.components.Factory.prototype.isTypeSupported = function(type) {
  * @return {Boolean}
  */
 AutoMan.ui.components.Factory.prototype.isGenericRegistered = function() {
-  return this.isTypeSupported(this.genericContentType_);
+  return this.isIdRegistered(this.GenericContentType);
 };
 
 /**
- * Creates a component if its type is registered.
- * 
- * @param  {!String} type
+ * Trys to create a component.
+ *
+ * @override
+ * @param  {!String} itemId  [description]
  * @param  {!AutoMan.collections.Content} content
- * @return {?AutoMan.ui.components.AbstractComponent}
+ * @return {?AutoMan.collections.Content}
  */
-AutoMan.ui.components.Factory.prototype.create = function(type, content) {
-  if(this.isTypeSupported(type)) {
-    return new this.registery_[type](content);
-  } else if(this.isGenericRegistered()) {
-    return new this.registery_[this.genericContentType_](content);
+AutoMan.ui.components.Factory.prototype.create = function(itemId, content) {
+  var item, event, eventType;
+
+  if(this.isIdRegistered(itemId)) {
+    item = goog.base(this, 'create', itemId, content);
+  } if(this.isGenericRegistered()) {
+    item = goog.base(this, 'create', this.GenericContentType, content);
   }
 
-  this.dispatchEvent(new goog.events.Event(this.Events.CreationError, {
-    type: type,
-    content: content
-  }));
+  eventType = item ? this.Events.Created : this.Events.CreationError;
+
+  event = item ? new goog.events.Event(item) :  new goog.events.Event(itemId);
+  
+  this.dispatchEvent(eventType, event);
+
+  return item;
 };
 
 /**
- * Allows instance scope access to Event types.
+ * Easy 'this' access to generic content type.
  * 
- * @type {!Object}
+ * @type {String}
  */
-AutoMan.ui.components.Factory.prototype.Events = AutoMan.ui.components.Factory.Events;
+AutoMan.ui.components.Factory.prototype.GenericContentType = AutoMan.ui.components.Factory.GenericContentType;

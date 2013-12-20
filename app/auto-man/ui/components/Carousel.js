@@ -21,7 +21,7 @@ goog.inherits(AutoMan.ui.components.Carousel, AutoMan.ui.components.AbstractComp
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Carousel.supportedContent = function() {
+AutoMan.ui.components.Carousel.getItemId = function() {
   return 'carousel';
 };
 
@@ -31,7 +31,7 @@ AutoMan.ui.components.Carousel.supportedContent = function() {
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Carousel.tag = function() {
+AutoMan.ui.components.Carousel.prototype.tag = function() {
   return 'div';
 };
 

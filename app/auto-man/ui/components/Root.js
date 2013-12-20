@@ -22,7 +22,7 @@ goog.inherits(AutoMan.ui.components.Root, AutoMan.ui.components.AbstractComponen
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Root.supportedContent = function() {
+AutoMan.ui.components.Root.getItemId = function() {
   return 'root';
 };
 
@@ -32,6 +32,6 @@ AutoMan.ui.components.Root.supportedContent = function() {
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Root.tag = function() {
+AutoMan.ui.components.Root.prototype.tag = function() {
   return 'div';
 };

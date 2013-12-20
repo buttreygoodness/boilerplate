@@ -6,7 +6,8 @@ goog.require('AutoMan.collections.Content');
 
 /**
  * @class Base ui component.
- * 
+ *
+ * @implements {AutoMan.common.FactoryItemInterface}
  * @extends {goog.ui.Control}
  * 
  * @param {!AutoMan.collections.Content} content
@@ -15,28 +16,36 @@ goog.require('AutoMan.collections.Content');
 AutoMan.ui.components.AbstractComponent = function(content, domHelper) {
   goog.base(this, domHelper);
 
-  this.setModel(content);
+  this.setModel(this.content_);
 };
 
 goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
 
 /**
- * Determines what content type is supported by this component.
- * 
+ * Implements {AutoMan.common.FactoryItemIterface#getItemId}
+ *
  * @static
  * @abstract
  * @return {!String}
  */
-AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
+AutoMan.ui.components.AbstractComponent.getItemId = goog.abstractMethod;
 
 /**
- * Determines tag supported by this element.
+ * Returns element tag type that will be decorated.
  *
- * @static
  * @abstract
  * @type {!String}
  */
-AutoMan.ui.components.AbstractComponent.tag = goog.abstractMethod;
+AutoMan.ui.components.AbstractComponent.prototype.tag = goog.abstractMethod;
+
+/**
+ * Returns supported content type. Should be same as itemId.
+ *
+ * @return {!String}
+ */
+AutoMan.ui.components.AbstractComponent.prototype.supportedContent = function() {
+  return this.constructor.getItemId();
+}
 
 /**
  * Unbinds events and model bindings.
@@ -45,25 +54,6 @@ AutoMan.ui.components.AbstractComponent.prototype.disposeInternal = function() {
   this.removeAllListeners();
 
   goog.base(this, 'disposeInternal');
-};
-
-/**
- * Returns supported content type. Should be same as static.
- *
- * @return {!String}
- */
-AutoMan.ui.components.AbstractComponent.prototype.supportedContent = function() {
-  return this.constructor.supportedContent();
-};
-
-/**
- * Returns element tag type that will be decorated.
- *
- * @override
- * @type {!String}
- */
-AutoMan.ui.components.AbstractComponent.prototype.tag = function() {
-  return this.constructor.tag();
 };
 
 /**
@@ -81,7 +71,6 @@ AutoMan.ui.components.AbstractComponent.prototype.createDom = function() {
  * @override
  */
 AutoMan.ui.components.AbstractComponent.prototype.decorateInternal = function(element) {
-  element.dataset.idKey = this.model_.key_;
   this.setElementInternal(element);
 
   this.decorateInternal_();
