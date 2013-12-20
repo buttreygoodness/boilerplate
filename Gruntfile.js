@@ -4,10 +4,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-
     pkg: grunt.file.readJSON('package.json'),
-
-
   });
   
   var configLoader = new ConfigLoader(grunt, {
