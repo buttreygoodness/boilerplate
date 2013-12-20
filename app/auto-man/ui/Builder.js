@@ -82,13 +82,13 @@ AutoMan.ui.Builder.prototype.getComponents = function() {
 AutoMan.ui.Builder.prototype.build_ = function() {
   this.dispatchEvent(new goog.events.Event(this.Events.BuildStart, this));
 
-  //try {
+  try {
     this.components_ = this.buildRecursive_(this.content_, this.factory_);
 
     this.dispatchEvent(new goog.events.Event(this.Events.BuildComplete, this));
-  //} catch (e) {
+  } catch (e) {
     this.dispatchEvent(new goog.events.Event(this.Events.BuildError, this));
-  //}
+  }
 };
 
 /**

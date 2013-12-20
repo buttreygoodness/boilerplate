@@ -39,15 +39,6 @@ AutoMan.ui.components.AbstractComponent.getItemId = goog.abstractMethod;
 AutoMan.ui.components.AbstractComponent.prototype.tag = goog.abstractMethod;
 
 /**
- * Returns supported content type. Should be same as itemId.
- *
- * @return {!String}
- */
-AutoMan.ui.components.AbstractComponent.prototype.supportedContent = function() {
-  return this.constructor.getItemId();
-}
-
-/**
  * Unbinds events and model bindings.
  */
 AutoMan.ui.components.AbstractComponent.prototype.disposeInternal = function() {

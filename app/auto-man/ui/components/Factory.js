@@ -60,7 +60,7 @@ AutoMan.ui.components.Factory.prototype.create = function(itemId, content) {
 
   if(this.isIdRegistered(itemId)) {
     item = goog.base(this, 'create', itemId, content);
-  } if(this.isGenericRegistered()) {
+  } else if(this.isGenericRegistered()) {
     item = goog.base(this, 'create', this.GenericContentType, content);
   }
 

@@ -45,7 +45,7 @@ AutoMan.common.Factory.prototype.register = function(item) {
   var event = new goog.events.Event(item);
 
   if(this.isRegistered(item)) {
-    this.dispatchEvent(this.Events.RegistrationError, event); 
+    this.dispatchEvent(this.Events.RegistrationError, event);
 
     return false;
   }
@@ -111,7 +111,7 @@ AutoMan.common.Factory.prototype.create = function(itemId) {
 
   newItem = Object.create(item.prototype);
 
-  item.apply(newItem, itemArguments)
+  item.apply(newItem, itemArguments);
 
   this.dispatchEvent(this.Events.Created, new goog.events.Event(newItem));
 
