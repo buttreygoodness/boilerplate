@@ -38,7 +38,7 @@ AutoMan.common.Factory.Events = {
 /**
  * Registers an item if not registered.
  * 
- * @param  {!Object} item
+ * @param  {!AutoMan.common.FactoryItemInterface} item
  * @return {!Boolean} success
  */
 AutoMan.common.Factory.prototype.register = function(item) {
@@ -60,7 +60,7 @@ AutoMan.common.Factory.prototype.register = function(item) {
 /**
  * Trys to unregister item.
  * 
- * @param  {!Object} item
+ * @param  {!AutoMan.common.FactoryItemInterface} item
  * @return {!Boolean} success
  */
 AutoMan.common.Factory.prototype.unregister = function(item) {
@@ -94,7 +94,7 @@ AutoMan.common.Factory.prototype.unregisterId = function(itemId) {
  * 
  * @param  {!String} itemId
  * @param {...*} Any extra arguments to pass.
- * @return {?Object}
+ * @return {?AutoMan.common.FactoryItemInterface}
  */
 AutoMan.common.Factory.prototype.create = function(itemId) {
   if(!this.isIdRegistered(itemId)) {
@@ -121,7 +121,7 @@ AutoMan.common.Factory.prototype.create = function(itemId) {
 /**
  * Determines if an item is registered,
  * 
- * @param  {!Object}  item
+ * @param  {!AutoMan.common.FactoryItemInterface}  item
  * @return {Boolean}
  */
 AutoMan.common.Factory.prototype.isRegistered = function(item) {
