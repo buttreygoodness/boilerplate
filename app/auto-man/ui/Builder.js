@@ -39,7 +39,7 @@ AutoMan.ui.Builder = function(content, factory) {
    * Parsed components.
    *
    * @private
-   * @type {AutoMan.ui.content.AbstractComponent}
+   * @type {AutoMan.ui.components.AbstractComponent}
    */
   this.components_ = {};
 
@@ -47,7 +47,7 @@ AutoMan.ui.Builder = function(content, factory) {
    * Look up table that contains a map of content IDs to Components.
    *
    * @private
-   * @type {Object<String, AutoMan.ui.content.AbstractComponent}
+   * @type {Object<String, AutoMan.ui.components.AbstractComponent>}
    */
   this.contentMap_ = {};
 };
@@ -60,9 +60,9 @@ goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
  * @enum {String}
  */
 AutoMan.ui.Builder.Events = {
-  'BuildComplete' : 'Build.Complete', /** fires on build complete **/
-  'BuildError'    : 'Build.Error', /** fires on build fail **/
-  'BuildStart'    : 'Build.Start' /** fires on build start **/
+  'BuildComplete' : 'Build.Complete' /** fires on build complete **/,
+  'BuildError'    : 'Build.Error' /** fires on build fail **/,
+  'BuildStart'    : 'Build.Start' /** fires on build start **/,
 };
 
 /**
@@ -84,9 +84,9 @@ AutoMan.ui.Builder.prototype.build = function() {
 };
 
 /**
- * Returns Buildd component.
+ * Returns built component.
  * 
- * @return {?AutoMan.ui.components.Abstractcomponent}
+ * @return {?AutoMan.ui.components.AbstractComponent}
  */
 AutoMan.ui.Builder.prototype.getComponents = function() {
   return this.components_;

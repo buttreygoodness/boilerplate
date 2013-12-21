@@ -36,14 +36,14 @@ goog.inherits(AutoMan.common.AbstractFactory, goog.events.EventTarget);
 /**
  * Events supported by factory.
  * 
- * @enum
+ * @enum {String}
  */
 AutoMan.common.AbstractFactory.Events = {
-  'Registered'          : 'Registration.Success', /** on registration of a new item **/
-  'RegistrationError'   : 'Registration.Error', /** on failure to register new item **/
-  'Unregisted'          : 'Unregistration.Success', /** on unregistration of an item **/
-  'UnregistrationError' : 'Unregistration.Error', /** on failure to unregister an item **/
-  'Created'             : 'Creation.Success', /** on creation of new item **/
+  'Registered'          : 'Registration.Success' /** on registration of a new item **/,
+  'RegistrationError'   : 'Registration.Error' /** on failure to register new item **/,
+  'Unregisted'          : 'Unregistration.Success' /** on unregistration of an item **/,
+  'UnregistrationError' : 'Unregistration.Error' /** on failure to unregister an item **/,
+  'Created'             : 'Creation.Success' /** on creation of new item **/,
   'CreationError'       : 'Creation.Error' /** on creation error **/
 };
 
@@ -52,7 +52,7 @@ AutoMan.common.AbstractFactory.Events = {
  *
  * @abstract
  * @protected
- * @param {!T<>} item    
+ * @param {!constructor} item    
  * @return {!String}
  */
 AutoMan.common.AbstractFactory.prototype.getItemId_ = goog.abstractMethod;
@@ -60,7 +60,7 @@ AutoMan.common.AbstractFactory.prototype.getItemId_ = goog.abstractMethod;
 /**
  * Registers an item if not registered.
  * 
- * @param  {!T<>} item
+ * @param  {!constructor} item
  * @return {!Boolean} success
  */
 AutoMan.common.AbstractFactory.prototype.register = function(item) {
@@ -82,7 +82,7 @@ AutoMan.common.AbstractFactory.prototype.register = function(item) {
 /**
  * Trys to unregister item.
  * 
- * @param  {!T<>} item
+ * @param  {!constructor} item
  * @return {!Boolean} success
  */
 AutoMan.common.AbstractFactory.prototype.unregister = function(item) {
@@ -116,7 +116,7 @@ AutoMan.common.AbstractFactory.prototype.unregisterId = function(itemId) {
  * 
  * @param  {!String} itemId
  * @param {...*} Any extra arguments to pass.
- * @return {?T<>}
+ * @return {?constructor}
  */
 AutoMan.common.AbstractFactory.prototype.create = function(itemId) {
   if(!this.isIdRegistered(itemId)) {
@@ -143,7 +143,7 @@ AutoMan.common.AbstractFactory.prototype.create = function(itemId) {
 /**
  * Determines if an item is registered,
  * 
- * @param  {!T<>}  item
+ * @param  {!constructor}  item
  * @return {!Boolean}
  */
 AutoMan.common.AbstractFactory.prototype.isRegistered = function(item) {

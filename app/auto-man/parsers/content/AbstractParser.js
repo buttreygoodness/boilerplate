@@ -45,7 +45,7 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
  * @enum {String}
  */
 AutoMan.parsers.content.AbstractParser.Errors = {
-  'AssertFailed': 'Assert.Failed'
+  'AssertFailed': 'Assert.Failed' /** thrown on assertion failure **/
 };
 
 /**
@@ -59,7 +59,11 @@ AutoMan.parsers.content.AbstractParser.getType = goog.abstractMethod;
 /**
  * Parses content and pushes results into callback.
  *
- * @param  {Function(!AutoMan.collections.Content, ?AutoMan.parsers.Error)} callback
+ * @callback callback
+ * @param {!AutoMan.collections.Content} content
+ * @param {?AutoMan.parsers.Error} error
+ *
+ * @param {?callback} callback
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
   var callback_ = callback || function() {};
