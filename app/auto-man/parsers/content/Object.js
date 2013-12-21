@@ -1,8 +1,5 @@
 goog.provide('AutoMan.parsers.content.Object');
 
-goog.require('goog.array');
-goog.require('goog.object');
-
 goog.require('AutoMan.parsers.Error');
 goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.Json');
@@ -10,7 +7,7 @@ goog.require('AutoMan.parsers.content.Json');
 /**
  * @class Handles parsing of Object type content fragments.
  * 
- * @augments {AutoMan.parsers.content.Json}
+ * @extends {AutoMan.parsers.content.Json}
  * 
  * @param {!String} parsable
  * @param {options=} options
@@ -22,6 +19,26 @@ AutoMan.parsers.content.Object = function(parsable, options) {
 goog.inherits(AutoMan.parsers.content.Object, AutoMan.parsers.content.Json);
 
 /**
+ * Implements {AutoMan.parsers.content.AbstractParser#getType}
+ * 
+ * @return {!String}
+ */
+AutoMan.parsers.content.Html.getType = function() {
+  return 'object';
+};
+
+/**
+ * Check to make sure parsable_ is an object. If so, passes through.
+ *
+ * @private
+ */
+AutoMan.parsers.content.Object.prototype.decode_ = function() {
+  if (goog.isObject(this.parsable_)){
+    this.parsableObject_ = this.parsable;
+  }
+};
+
+/**
  * Internal parse.
  * 
  * @private
@@ -29,20 +46,4 @@ goog.inherits(AutoMan.parsers.content.Object, AutoMan.parsers.content.Json);
  */
 AutoMan.parsers.content.Object.prototype.parse_ = function () {
   return goog.base(this, 'parse_');
-};
-
-/**
- * Check to make sure parsable_ is an object. If so, passes through.
- *
- * @private
- * @return {!Boolean}
- */
-AutoMan.parsers.content.Object.prototype.decode_ = function() {
-  if (!goog.isObject(this.parsable_)){
-    return false;
-  }
-  
-  this.json_ = this.parsable_;
-  
-  return true;
 };

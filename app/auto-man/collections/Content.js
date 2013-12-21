@@ -10,19 +10,22 @@ goog.require('AutoMan.common.util');
  * @class Content node class that allows for tree like handling of content.
  * 
  * @extends {goog.structs.TreeNode}
- * 
- * @param {?*} key_Node Key, if one is not provided a guid for this object is used instead.
- * @param {!Object} data Node data.
+ *
+ * @param {?Object} content
  */
 AutoMan.collections.Content = function(content) {
-  var id = AutoMan.common.util.generateUUID();
+  var content_ = content || {};
 
-  if(content && goog.isDefAndNotNull(content.id)) {
-    id = content.id;
-  }
+  var id_ = content_.id || AutoMan.common.util.generateUUID();
 
-  goog.base(this, id, content || {});
+  goog.base(this, id_, content_);
 
+  /**
+   * Event target bound to content.
+   *
+   * @private
+   * @type {goog.events.EventTarget}
+   */
   this.eventTarget_ = new goog.events.EventTarget();
 
   this.updateData(this.getData(), true);

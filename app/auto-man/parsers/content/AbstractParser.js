@@ -6,19 +6,37 @@ goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.Error');
 
 /**
- * @class Base Parser.
+ * @class Base parser all parsers should implement.
  * 
+ * @abstract
  * @param {!*} parsable 
- * @param {Options=} options
+ * @param {Options<String, *>=} options
  */
 AutoMan.parsers.content.AbstractParser = function(parsable, options) {
+  
+  /**
+   * Preparsed context
+   * 
+   * @protected
+   * @type {*}
+   */
   this.parsable_ = parsable;
 
+  /**
+   * Any options applied to parser.
+   *
+   * @protected
+   * @type {Object<String, *>}
+   */
   this.options_ = options || {};
 
-  this.content_ = undefined;
-
-  this.parseFail_ = false;
+  /**
+   * Parsed content
+   * 
+   * @protected
+   * @type {?AutoMan.collections.Content}
+   */
+  this.content_ = null;
 };
 
 /**
@@ -31,31 +49,36 @@ AutoMan.parsers.content.AbstractParser.Errors = {
 };
 
 /**
+ * Returns type supported by parser.
+ * 
+ * @abstract
+ * @return {!String} 
+ */
+AutoMan.parsers.content.AbstractParser.getType = goog.abstractMethod;
+
+/**
  * Parses content and pushes results into callback.
  *
- *  
  * @param  {Function(!AutoMan.collections.Content, ?AutoMan.parsers.Error)} callback
  */
 AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
   var callback_ = callback || function() {};
 
-  if(!this.isCached_()) {
-    var content, error;
-
-    try {
-      content = this.parse_();
-    } catch (e) {
-      error = e;
-    }
-    
-    this.content_ = content || new AutoMan.collections.Content();
-
-    this.parseFail_ = error ? true : false;
-
-    callback_(this.getContent(), error);
-  } else {
-    callback_(this.getContent());
+  if(this.isCached_()) {
+    return callback_(this.getContent);
   }
+
+  var content, error;
+
+  try {
+    content = this.parse_();
+  } catch (e) {
+    error = e;
+  }
+  
+  this.content_ = content || new AutoMan.collections.Content();
+
+  callback_(this.getContent(), error);
 };
 
 /**

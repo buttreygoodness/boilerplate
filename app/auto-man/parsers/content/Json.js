@@ -10,31 +10,54 @@ goog.require('AutoMan.parsers.content.AbstractParser');
 /**
  * @class Handles parsing of Json type content fragments.
  * 
- * @augments {AutoMan.parsers.content.AbstractParser}
+ * @implements {AutoMan.parsers.content.AbstractParser}
  * 
  * @param {!String} parsable
  * @param {options=} options
  */
 AutoMan.parsers.content.Json = function(parsable, options) {
   goog.base(this, parsable, options);
+
+  /**
+   * Decoded parsing context.
+   *
+   * @protected
+   * @type {?Object}
+   */
+  this.parsableObject_ = null;
 };
 
 goog.inherits(AutoMan.parsers.content.Json, AutoMan.parsers.content.AbstractParser);
 
 /**
- * Determines if parsable can be decoded. if so parse.
+ * Error support.
+ * 
+ * @type {Object}
+ */
+AutoMan.parsers.content.Json.Errors = {
+  'Unparsable' : 'Content.Unparsable',
+  'NoContent'  : 'Content.NoContent'
+};
+
+/**
+ * Implements {AutoMan.parsers.content.AbstractParser#getType}
+ * 
+ * @return {!String}
+ */
+AutoMan.parsers.content.Html.getType = function() {
+  return 'json';
+};
+
+/**
+ * Trys to decode parsable.
  *
  * @private
  * @return {!Boolean} Could we decode the json?
  */
 AutoMan.parsers.content.Json.prototype.decode_ = function() {
   try {
-    this.json_ = JSON.parse(this.parsable_);
-  } catch (e) {
-    return false;
-  }
-
-  return true;
+    this.parsableObject_ = JSON.parse(this.parsable_);
+  } catch (e) {}
 };
 
 /**
@@ -46,11 +69,13 @@ AutoMan.parsers.content.Json.prototype.decode_ = function() {
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Json.prototype.parse_ = function() {
-  this
-    .assert_(this.decode_(), AutoMan.parsers.content.Json.Errors.Unparsable)
-    .assert_(this.json_.content, AutoMan.parsers.content.Json.Errors.NoContent);
+  this.decode_();
+
+  this.assert_(this.parsableObject_, this.Errors.Unparsable);
+  
+  this.assert_(this.parsableObject_.content, this.Errors.NoContent);
     
-  return this.recursiveParse_(this.json_.content) || new AutoMan.collections.Content();
+  return this.recursiveParse_(this.parsableObject_.content);
 };
 
 /**
@@ -61,37 +86,36 @@ AutoMan.parsers.content.Json.prototype.parse_ = function() {
  * @return {?AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Json.prototype.recursiveParse_ = function(jsonNode, contentNode) {
-  var self = this;
-
-  if(jsonNode) {
-    var children = jsonNode.children || [];
-
-    var nodeValue = goog.object.filter(jsonNode, function(value, key) {
-      return key !== 'children';
-    });
-
-    var node = new AutoMan.collections.Content(nodeValue);
-
-    if(contentNode) {
-      contentNode.addChild(node);
-    } else {
-      contentNode = node;
-    }
-
-    goog.array.forEach(children, function(child) {
-      self.recursiveParse_.bind(self)(child, node);
-    });
+  if(!jsonNode) {
+    return contentNode;
   }
+
+  var children, nodeValue, node;
+
+  children = jsonNode.children || [];
+
+  nodeValue = goog.object.filter(jsonNode, function(value, key) {
+    return key !== 'children';
+  });
+
+  node = new AutoMan.collections.Content(nodeValue);
+
+  if(contentNode) {
+    contentNode.addChild(node);
+  } else {
+    contentNode = node;
+  }
+
+  goog.array.forEach(children, function(child) {
+    this.recursiveParse_.bind(this)(child, node);
+  }.bind(this));
 
   return contentNode;
 };
 
 /**
- * Error support.
+ * This access to errors.
  * 
- * @type {Object}
+ * @alias AutoMan.parsers.content.Json.Errors
  */
-AutoMan.parsers.content.Json.Errors = {
-  'Unparsable' : 'Content.Unparsable',
-  'NoContent'  : 'Content.NoContent'
-};
+AutoMan.parsers.content.Json.prototype.Errors = AutoMan.parsers.content.Json.Errors;

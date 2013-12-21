@@ -17,18 +17,27 @@ AutoMan.ui.components.Generic = function(content, domHelper) {
 goog.inherits(AutoMan.ui.components.Generic, AutoMan.ui.components.AbstractComponent);
 
 /**
- * Should return wilcard.
+ * returns wilcard.
  *
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Generic.getItemId = function() {
+AutoMan.ui.components.Generic.supportedContent = function() {
   return '*';
 };
 
 /**
+ * Returns a wild card
+ *
+ * @static
+ * @return {!String}
+ */
+AutoMan.ui.components.Generic.tag = AutoMan.ui.components.Generic.supportedContent;
+
+/**
  * Determines tag by content type.
- * 
+ *
+ * @static
  * @return {!String}
  */
 AutoMan.ui.components.Generic.prototype.tag = function() {

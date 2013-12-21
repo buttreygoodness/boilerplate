@@ -21,7 +21,7 @@ goog.inherits(AutoMan.ui.components.Image, AutoMan.ui.components.AbstractCompone
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Image.getItemId = function() {
+AutoMan.ui.components.Image.supportedContent = function() {
   return 'image';
 };
 
@@ -31,7 +31,7 @@ AutoMan.ui.components.Image.getItemId = function() {
  * @static
  * @return {!String}
  */
-AutoMan.ui.components.Image.prototype.tag = function() {
+AutoMan.ui.components.Image.tag = function() {
   return 'img';
 };
 

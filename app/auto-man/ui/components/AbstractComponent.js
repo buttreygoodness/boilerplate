@@ -16,27 +16,46 @@ goog.require('AutoMan.collections.Content');
 AutoMan.ui.components.AbstractComponent = function(content, domHelper) {
   goog.base(this, domHelper);
 
-  this.setModel(this.content_);
+  this.setModel(content);
 };
 
 goog.inherits(AutoMan.ui.components.AbstractComponent, goog.ui.Control);
 
 /**
- * Implements {AutoMan.common.FactoryItemIterface#getItemId}
+ * Determines supported content type. 
  *
  * @static
  * @abstract
  * @return {!String}
  */
-AutoMan.ui.components.AbstractComponent.getItemId = goog.abstractMethod;
+AutoMan.ui.components.AbstractComponent.supportedContent = goog.abstractMethod;
 
 /**
- * Returns element tag type that will be decorated.
+ * Determines tag type this component will use as its container.
  *
+ * @static
  * @abstract
+ * @return {!String}
+ */
+AutoMan.ui.components.AbstractComponent.tag = goog.abstractMethod;
+
+/**
+ * Returns content types supported by this component.
+ *
+ * @return {!String}
+ */
+AutoMan.ui.components.AbstractComponent.prototype.supportedContent = function() {
+  return this.constructor.supportedContent();
+};
+
+/**
+ * Returns element tag type that will be decorated. Should be same as static
+ *
  * @type {!String}
  */
-AutoMan.ui.components.AbstractComponent.prototype.tag = goog.abstractMethod;
+AutoMan.ui.components.AbstractComponent.prototype.tag = function() {
+  return this.constructor.tag();
+};
 
 /**
  * Unbinds events and model bindings.

@@ -1,4 +1,4 @@
-goog.provide('AutoMan.common.Factory');
+goog.provide('AutoMan.common.AbstractFactory');
 
 goog.require('goog.object');
 goog.require('goog.events.Event');
@@ -8,25 +8,37 @@ goog.require('goog.events.EventTarget');
  * @class Provides base factory functionality.
  *
  * @extends {goog.events.EventTarget}
- *
- * @param {?Object} options
+ * 
+ * @abstract
+ * @param {?Object<string, *>} options
  */
-AutoMan.common.Factory = function(options) {
+AutoMan.common.AbstractFactory = function(options) {
   goog.base(this);
 
+  /**
+   * Any options assigned.
+   *
+   * @protected
+   * @type {Oject<string, *>}
+   */
   this.options_ = options || {};
 
+  /**
+   * Contains all registered elements.
+   * 
+   * @type {Object<string, *>}
+   */
   this.registry_ = {};
 };
 
-goog.inherits(AutoMan.common.Factory, goog.events.EventTarget);
+goog.inherits(AutoMan.common.AbstractFactory, goog.events.EventTarget);
 
 /**
  * Events supported by factory.
  * 
  * @enum
  */
-AutoMan.common.Factory.Events = {
+AutoMan.common.AbstractFactory.Events = {
   'Registered'          : 'Registration.Success', /** on registration of a new item **/
   'RegistrationError'   : 'Registration.Error', /** on failure to register new item **/
   'Unregisted'          : 'Unregistration.Success', /** on unregistration of an item **/
@@ -36,12 +48,22 @@ AutoMan.common.Factory.Events = {
 };
 
 /**
+ * Determines how this item should be resolved as a unique key.
+ *
+ * @abstract
+ * @protected
+ * @param {!T<>} item    
+ * @return {!String}
+ */
+AutoMan.common.AbstractFactory.prototype.getItemId_ = goog.abstractMethod;
+
+/**
  * Registers an item if not registered.
  * 
- * @param  {!AutoMan.common.FactoryItemInterface} item
+ * @param  {!T<>} item
  * @return {!Boolean} success
  */
-AutoMan.common.Factory.prototype.register = function(item) {
+AutoMan.common.AbstractFactory.prototype.register = function(item) {
   var event = new goog.events.Event(item);
 
   if(this.isRegistered(item)) {
@@ -50,7 +72,7 @@ AutoMan.common.Factory.prototype.register = function(item) {
     return false;
   }
 
-  this.registry_[item.getItemId()] = item;
+  this.registry_[this.getItemId_(item)] = item;
 
   this.dispatchEvent(this.Events.Registered, event);
 
@@ -60,11 +82,11 @@ AutoMan.common.Factory.prototype.register = function(item) {
 /**
  * Trys to unregister item.
  * 
- * @param  {!AutoMan.common.FactoryItemInterface} item
+ * @param  {!T<>} item
  * @return {!Boolean} success
  */
-AutoMan.common.Factory.prototype.unregister = function(item) {
-  return this.unregisterId(item.getItemId());
+AutoMan.common.AbstractFactory.prototype.unregister = function(item) {
+  return this.unregisterId(this.getItemId_(item));
 };
 
 /**
@@ -73,7 +95,7 @@ AutoMan.common.Factory.prototype.unregister = function(item) {
  * @param  {!String} itemId
  * @return {!Boolean} success
  */
-AutoMan.common.Factory.prototype.unregisterId = function(itemId) {
+AutoMan.common.AbstractFactory.prototype.unregisterId = function(itemId) {
   var event = new goog.events.Event(itemId);
 
   if(!this.isIdRegistered(itemId)) {
@@ -94,9 +116,9 @@ AutoMan.common.Factory.prototype.unregisterId = function(itemId) {
  * 
  * @param  {!String} itemId
  * @param {...*} Any extra arguments to pass.
- * @return {?AutoMan.common.FactoryItemInterface}
+ * @return {?T<>}
  */
-AutoMan.common.Factory.prototype.create = function(itemId) {
+AutoMan.common.AbstractFactory.prototype.create = function(itemId) {
   if(!this.isIdRegistered(itemId)) {
     this.dispatchEvent(this.Events.CreationError, new goog.events.Event(itemId));
 
@@ -121,20 +143,20 @@ AutoMan.common.Factory.prototype.create = function(itemId) {
 /**
  * Determines if an item is registered,
  * 
- * @param  {!AutoMan.common.FactoryItemInterface}  item
- * @return {Boolean}
+ * @param  {!T<>}  item
+ * @return {!Boolean}
  */
-AutoMan.common.Factory.prototype.isRegistered = function(item) {
-  return this.isIdRegistered(item.getItemId(item));
+AutoMan.common.AbstractFactory.prototype.isRegistered = function(item) {
+  return this.isIdRegistered(this.getItemId_(item));
 };
 
 /**
  * Determined if an items id has been registered.
  * 
  * @param  {!String}  itemId
- * @return {Boolean}
+ * @return {!Boolean}
  */
-AutoMan.common.Factory.prototype.isIdRegistered = function(itemId) {
+AutoMan.common.AbstractFactory.prototype.isIdRegistered = function(itemId) {
   return goog.isDefAndNotNull(this.registry_[itemId]);
 };
 
@@ -143,7 +165,7 @@ AutoMan.common.Factory.prototype.isIdRegistered = function(itemId) {
  * 
  * @return {!Array<String>}
  */
-AutoMan.common.Factory.prototype.getRegisteredItems = function() {
+AutoMan.common.AbstractFactory.prototype.getRegisteredItems = function() {
   return goog.object.getkeys(this.registry_);
 };
 
@@ -152,4 +174,4 @@ AutoMan.common.Factory.prototype.getRegisteredItems = function() {
  * 
  * @type {Object}
  */
-AutoMan.common.Factory.prototype.Events = AutoMan.common.Factory.Events;
+AutoMan.common.AbstractFactory.prototype.Events = AutoMan.common.AbstractFactory.Events;

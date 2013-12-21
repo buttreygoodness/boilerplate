@@ -4,13 +4,13 @@ goog.require('AutoMan.test.fixtures.ui.components');
 goog.require('AutoMan.test.fixtures.collections.Content');
 
 describe('AutoMan.ui.Builder', function () {
-  var badContentFixture = {};
+  var badContentFixture, Component, factory, builder;
 
-  var Component = AutoMan.test.fixtures.ui.components.Component;
+  badContentFixture = {};
 
-  var factory = AutoMan.test.fixtures.ui.components.factory;
+  Component = AutoMan.test.fixtures.ui.components.Component;
 
-  var builder;
+  factory = AutoMan.test.fixtures.ui.components.factory;
 
   beforeEach(function() {
     builder = new AutoMan.ui.Builder(new AutoMan.test.fixtures.collections.Content(), factory);

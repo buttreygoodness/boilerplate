@@ -19,14 +19,36 @@ goog.require('AutoMan.common.Error');
 AutoMan.ui.Builder = function(content, factory) {
   goog.base(this);
 
+  /**
+   * Instance Factory
+   *
+   * @private
+   * @type {AutoMan.ui.components.Factory}
+   */
   this.factory_ = factory;
 
+  /**
+   * Builder content to parse.
+   *
+   * @private
+   * @type {AutoMan.collections.Content}
+   */
   this.content_ = content;
 
-  this.building_ = false;
+  /**
+   * Parsed components.
+   *
+   * @private
+   * @type {AutoMan.ui.content.AbstractComponent}
+   */
+  this.components_ = {};
 
-  this.components_ = [];
-
+  /**
+   * Look up table that contains a map of content IDs to Components.
+   *
+   * @private
+   * @type {Object<String, AutoMan.ui.content.AbstractComponent}
+   */
   this.contentMap_ = {};
 };
 
@@ -38,9 +60,9 @@ goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
  * @enum {String}
  */
 AutoMan.ui.Builder.Events = {
-  'BuildComplete' : 'Build.Complete',
-  'BuildError'    : 'Build.Error',
-  'BuildStart'    : 'Build.Start'
+  'BuildComplete' : 'Build.Complete', /** fires on build complete **/
+  'BuildError'    : 'Build.Error', /** fires on build fail **/
+  'BuildStart'    : 'Build.Start' /** fires on build start **/
 };
 
 /**
@@ -56,13 +78,9 @@ AutoMan.ui.Builder.Errors = {
  * Async Build Content
  */
 AutoMan.ui.Builder.prototype.build = function() {
-  if(!this.building_) {
-    this.building_ = true;
+  this.bindBuildEvents_();
 
-    this.bindBuildEvents_();
-
-    this.build_();
-  }
+  this.build_();
 };
 
 /**
@@ -109,10 +127,10 @@ AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) 
 
   this.bindContentEvents_(content);
 
-  if(!node) {
-    node = elementNode;
-  } else {
+  if(node) {
     node.addChild(elementNode, true);
+  } else {
+    node = elementNode;
   }
 
   content.forEachChild(function(child) {
@@ -137,18 +155,14 @@ AutoMan.ui.Builder.prototype.bindBuildEvents_ = function() {
  *
  * @private
  */
-AutoMan.ui.Builder.prototype.handleBuildComplete_ = function() {
-  this.building_ = false;
-};
+AutoMan.ui.Builder.prototype.handleBuildComplete_ = function() {};
 
 /**
  * Handels Build error. Unlocks Build.
  *
  * @private
  */
-AutoMan.ui.Builder.prototype.handleBuildError_ = function() {
-  this.building_ = false;
-};
+AutoMan.ui.Builder.prototype.handleBuildError_ = function() {};
 
 
 /**
@@ -206,13 +220,13 @@ AutoMan.ui.Builder.prototype.handleContentRemove_ = function(e) {
 /**
  * Allows easier 'this' access to error Enum.
  *
- * @type {Object}
+ * @alias AutoMan.ui.Builder.Errors
  */
 AutoMan.ui.Builder.prototype.Errors = AutoMan.ui.Builder.Errors;
 
 /**
  * Allows easier 'this' access to event Enum.
  *
- * @type {Object}
+ * @alias AutoMan.ui.Builder.Events
  */
 AutoMan.ui.Builder.prototype.Events = AutoMan.ui.Builder.Events;

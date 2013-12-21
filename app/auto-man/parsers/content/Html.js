@@ -12,7 +12,7 @@ goog.require('AutoMan.parsers.content.AbstractParser');
 /**
  * @class Handles parsing of HTML content fragments.
  * 
- * @augments {AutoMan.parsers.content.AbstractParser}
+ * @implements {AutoMan.parsers.content.AbstractParser}
  * 
  * @param {!String} parsable
  * @param {options=} options
@@ -31,6 +31,15 @@ goog.inherits(AutoMan.parsers.content.Html, AutoMan.parsers.content.AbstractPars
 AutoMan.parsers.content.Html.Errors = {
   'Unparsable' : 'Content.Unparsable',
   'NoContent'  : 'Content.NoContent'
+};
+
+/**
+ * Implements {AutoMan.parsers.content.AbstractParser#getType}
+ * 
+ * @return {!String}
+ */
+AutoMan.parsers.content.Html.getType = function() {
+  return 'html';
 };
 
 /**

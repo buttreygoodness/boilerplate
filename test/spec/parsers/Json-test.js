@@ -1,11 +1,13 @@
 goog.require('AutoMan.parsers.content.Json');
 
 describe('AutoMan.parsers.content.Json', function() {
-  var noContent = JSON.stringify({});
+  var noContent, badContent, goodContent;
 
-  var badContent = 'bad-content';
+  noContent = JSON.stringify({});
 
-  var goodContent = JSON.stringify({
+  badContent = 'bad-content';
+
+  goodContent = JSON.stringify({
     'content' : {
       'type': 'a',
       'data': {
@@ -58,27 +60,28 @@ describe('AutoMan.parsers.content.Json', function() {
 
       parser.parse(function(content, error) {
         error.should.exist;
-        error.getCode().should.equal(AutoMan.parsers.content.Json.Errors.NoContent);
+        error.getCode().should.equal(parser.Errors.NoContent);
 
         done();
       });
     });
 
     it('Should return a AutoMan.parsers.content.Json.Errors.Unparsable on unparsable content.', function(done) {
-      var parsers = new AutoMan.parsers.content.Json(badContent);
+      var parser = new AutoMan.parsers.content.Json(badContent);
 
-      parsers.parse(function(content, error) {
+      parser.parse(function(content, error) {
         error.should.exist;
-        error.getCode().should.equal(AutoMan.parsers.content.Json.Errors.Unparsable);
+        console.log(error.constructor);
+        error.getCode().should.equal(parser.Errors.Unparsable);
 
         done();
       });
     });
 
     it('Should not return errors on correct parse.', function(done) {
-      var parsers = new AutoMan.parsers.content.Json(goodContent);
+      var parser = new AutoMan.parsers.content.Json(goodContent);
 
-      parsers.parse(function(content, error) {
+      parser.parse(function(content, error) {
         should.not.exist(error);
 
         done();
@@ -86,9 +89,9 @@ describe('AutoMan.parsers.content.Json', function() {
     });
 
     it('Should parse valid data and return a proper AutoMan.collections.content.', function(done) {
-      var parsers = new AutoMan.parsers.content.Json(goodContent);
+      var parser = new AutoMan.parsers.content.Json(goodContent);
 
-      parsers.parse(function(content) {
+      parser.parse(function(content) {
         content.getValue().type.should.equal('a');
         content.getValue().data.attributes.id.should.equal('root');
         content.getChildCount().should.equal(2);
