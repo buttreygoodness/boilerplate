@@ -13,7 +13,7 @@ AutoMan.common.util.generateUUID = function() {
   var uuid = AutoMan.common.util.generateUUID.template.replace(/[xy]/g, function(character) {
     var value = (Math.random() * 16) | 0;
 
-    if(character == 'y') {
+    if(character === 'y') {
       value = value & 0x03 | 0x08;
     }
 

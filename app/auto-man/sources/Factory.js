@@ -5,7 +5,7 @@ goog.require('AutoMan.common.Factory');
 /**
  * @class Manages sources.
  *
- * @extends {@AutoMan.common.Factory}
+ * @extends {AutoMan.common.Factory}
  * 
  * @param {Object=} options
  */
