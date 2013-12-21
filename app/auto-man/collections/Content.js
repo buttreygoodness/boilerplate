@@ -4,6 +4,8 @@ goog.require('goog.structs.TreeNode');
 goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 
+goog.require('AutoMan.common.util');
+
 /**
  * @class Content node class that allows for tree like handling of content.
  * 
@@ -13,7 +15,7 @@ goog.require('goog.events.EventTarget');
  * @param {!Object} data Node data.
  */
 AutoMan.collections.Content = function(content) {
-  var id = goog.getUid(this);
+  var id = AutoMan.common.util.generateUUID();
 
   if(content && goog.isDefAndNotNull(content.id)) {
     id = content.id;
@@ -133,6 +135,7 @@ AutoMan.collections.Content.prototype.isOrphan = function() {
 /**
  * Convienence method that just saves on typing.
  *
+ * @protected
  * @param  {!goog.events.Event} event
  */
 AutoMan.collections.Content.prototype.dispatchEvent_ = function(event) {
