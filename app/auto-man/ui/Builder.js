@@ -2,11 +2,9 @@ goog.provide('AutoMan.ui.Builder');
 
 goog.require('goog.array');
 goog.require('goog.asserts');
-goog.require('goog.structs.Map');
-goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 
-goog.require('AutoMan.common.Error');
+goog.require('AutoMan.common');
 
 /**
  * @class Handles content to component building and its lifecycle.
@@ -98,14 +96,14 @@ AutoMan.ui.Builder.prototype.getComponents = function() {
  * @private
  */
 AutoMan.ui.Builder.prototype.build_ = function() {
-  this.dispatchEvent(new goog.events.Event(this.Events.BuildStart, this));
+  this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildStart, this));
 
   try {
     this.components_ = this.buildRecursive_(this.content_, this.factory_);
 
-    this.dispatchEvent(new goog.events.Event(this.Events.BuildComplete, this));
+    this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildComplete, this));
   } catch (e) {
-    this.dispatchEvent(new goog.events.Event(this.Events.BuildError, this));
+    this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildError, this));
   }
 };
 
@@ -181,17 +179,19 @@ AutoMan.ui.Builder.prototype.bindContentEvents_ = function(content) {
  * Handles any added content nodes by rebuilding node.
  *
  * @private
- * @param  {!goog.events.Event} e
+ * @param  {!AutoMan.common.Event} e
  */
 AutoMan.ui.Builder.prototype.handleContentAdd_ = function(e) {
-  this.buildRecursive_(e.target, this.factory_, this.contentMap_[e.target.getParent().getId()]);
+  var childAdded = e.target.getData().child;
+
+  this.buildRecursive_(childAdded, this.factory_, this.contentMap_[childAdded.getParent().getId()]);
 };
 
 /**
  * Handles content relocation.
  *
  * @private
- * @param  {!goog.events.Event} e
+ * @param  {!AutoMan.common.Event} e
  */
 AutoMan.ui.Builder.prototype.handleContentMove_ = function(e) {
   this.handleContentRemove_(e);
@@ -203,7 +203,7 @@ AutoMan.ui.Builder.prototype.handleContentMove_ = function(e) {
  * Handles any removed content by disposing of the component.
  *
  * @private
- * @param  {!goog.events.Event} e
+ * @param  {!AutoMan.common.Event} e
  */
 AutoMan.ui.Builder.prototype.handleContentRemove_ = function(e) {
   var id = e.target.getId();

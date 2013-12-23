@@ -1,18 +1,25 @@
-goog.require('AutoMan.test.fixtures.parsers.content.TestParser');
+goog.require('AutoMan.test.fixtures.parser.content.TestParser');
 
-describe('AutoMan.parsers.content.AbstractParser', function() {
+describe('AutoMan.parser.content.AbstractParser', function() {
   var parser;
 
   beforeEach(function() {
-    parser = new AutoMan.test.fixtures.parsers.content.TestParser('', {pass: true});
+    parser = new AutoMan.test.fixtures.parser.content.TestParser('', {pass: true});
   });
 
   describe('#parse', function() {
-    it('Should return AutoMan.collections.Content in callback with no AutoMan.parser.Error.', function(done) {
+    it('Should return AutoMan.collections.Content on success.', function(done) {
       parser.parse(function(content, error) {
         content.should.exist;
         content.should.be.instanceOf(AutoMan.collections.Content);
         
+        done();
+      });
+    });
+
+    it('Should not return error on success.', function(done) {
+      parser.parse(function(content, error) {
+        console.log(error);
         should.not.exist(error);
         
         done();
@@ -20,7 +27,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
     });
 
     it('Should return empty AutoMan.collections.Content and a AutoMan.parser.Error in callback on fail.', function(done){
-      parser = new AutoMan.test.fixtures.parsers.content.TestParser('', {pass: false});
+      parser = new AutoMan.test.fixtures.parser.content.TestParser('', {pass: false});
 
       parser.parse(function(content, error) {
         content.should.exst;
@@ -28,7 +35,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
         content.getChildCount().should.be.equal(0);
 
         error.should.exist;
-        error.should.be.an.instanceOf(AutoMan.parsers.Error);
+        error.should.be.an.instanceOf(AutoMan.parser.Error);
 
         done();
       });

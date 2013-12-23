@@ -1,19 +1,24 @@
-goog.provide('AutoMan.parsers.content.AbstractParser');
-
-goog.require('goog.functions');
+goog.provide('AutoMan.parser.content.AbstractParser');
 
 goog.require('AutoMan.collections.Content');
-goog.require('AutoMan.parsers.Error');
+goog.require('AutoMan.parser.Error');
 
 /**
- * @class Base parser all parsers should implement.
+ * @class Base parser all parser should implement.
  * 
  * @abstract
  * @param {!*} parsable 
- * @param {Options<String, *>=} options
+ * @param {?Object<String, *>} options
  */
-AutoMan.parsers.content.AbstractParser = function(parsable, options) {
+AutoMan.parser.content.AbstractParser = function(parsable, options) {
   
+  /**
+   * Instance options.
+   * 
+   * @type {Object<String, *>}
+   */
+  this.options_ = options || {};
+
   /**
    * Preparsed context
    * 
@@ -23,20 +28,12 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
   this.parsable_ = parsable;
 
   /**
-   * Any options applied to parser.
-   *
-   * @protected
-   * @type {Object<String, *>}
-   */
-  this.options_ = options || {};
-
-  /**
    * Parsed content
    * 
    * @protected
    * @type {?AutoMan.collections.Content}
    */
-  this.content_ = null;
+  this.parsed_ = null;
 };
 
 /**
@@ -44,43 +41,52 @@ AutoMan.parsers.content.AbstractParser = function(parsable, options) {
  *
  * @enum {String}
  */
-AutoMan.parsers.content.AbstractParser.Errors = {
+AutoMan.parser.content.AbstractParser.Errors = {
   'AssertFailed': 'Assert.Failed' /** thrown on assertion failure **/
 };
 
 /**
- * Returns type supported by parser.
- * 
+ * Internal parse.
+ *
  * @abstract
- * @return {!String} 
+ * @protected
+ * @return {?AutoMan.collections.Content}
  */
-AutoMan.parsers.content.AbstractParser.getType = goog.abstractMethod;
+AutoMan.parser.content.AbstractParser.prototype.parse_ = goog.abstractMethod;
+
+/**
+ * Returns type of parser so it can be bound to factory.
+ *
+ * @absract
+ * @type {!String}
+ */
+AutoMan.parser.content.AbstractParser.getType = goog.abstractMethod;
 
 /**
  * Parses content and pushes results into callback.
  *
  * @callback callback
  * @param {!AutoMan.collections.Content} content
- * @param {?AutoMan.parsers.Error} error
+ * @param {?AutoMan.parser.Error} error
  *
  * @param {?callback} callback
  */
-AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
+AutoMan.parser.content.AbstractParser.prototype.parse = function(callback) {
   var callback_ = callback || function() {};
 
   if(this.isCached_()) {
-    return callback_(this.getContent);
+    return callback_(this.getContent());
   }
 
-  var content, error;
+  var parsed, error;
 
   try {
-    content = this.parse_();
+    parsed = this.parse_();
   } catch (e) {
     error = e;
   }
   
-  this.content_ = content || new AutoMan.collections.Content();
+  this.parsed_ = parsed || new AutoMan.collections.Content();
 
   callback_(this.getContent(), error);
 };
@@ -90,18 +96,18 @@ AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
  *
  * @return {!AutoMan.collections.Content}
  */
-AutoMan.parsers.content.AbstractParser.prototype.getContent = function() {
-  return this.content_;
+AutoMan.parser.content.AbstractParser.prototype.getContent = function() {
+  return this.parsed_;
 };
 
 /**
- * Determines if content is cached.
+ * Determines if results are cached so we dont need to parse them again.
  *
  * @private
- * @return {!Boolean}
+ * @return {Boolean}
  */
-AutoMan.parsers.content.AbstractParser.prototype.isCached_ = function() {
-  return this.content_ instanceof AutoMan.collections.Content;
+AutoMan.parser.content.AbstractParser.prototype.isCached_ = function() {
+  return this.parsed_ instanceof AutoMan.collections.Content;
 };
 
 /**
@@ -112,26 +118,17 @@ AutoMan.parsers.content.AbstractParser.prototype.isCached_ = function() {
  * @param  {String=} error
  * @return {self}
  */
-AutoMan.parsers.content.AbstractParser.prototype.assert_ = function(condition, error) {
+AutoMan.parser.content.AbstractParser.prototype.assert_ = function(condition, error) {
   if(!condition) {
-    throw new AutoMan.parsers.Error(error || this.Errors.AssertFailed);
+    throw new AutoMan.parser.Error(error || this.Errors.AssertFailed);
   }
 
   return this;
 };
 
 /**
- * Internal parse. Subclasses need to implement.
- *
- * @abstract
- * @protected
- * @return {!AutoMan.collections.Content}
- */
-AutoMan.parsers.content.AbstractParser.prototype.parse_ = goog.abstractMethod;
-
-/**
  * Easy 'this' access to Errors.
  *
  * @type {Object}
  */
-AutoMan.parsers.content.AbstractParser.prototype.Errors = AutoMan.parsers.content.AbstractParser.Errors;
+AutoMan.parser.content.AbstractParser.prototype.Errors = AutoMan.parser.content.AbstractParser.Errors;

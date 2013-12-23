@@ -1,4 +1,4 @@
-goog.provide('AutoMan.parsers.Error');
+goog.provide('AutoMan.parser.Error');
 
 goog.require('AutoMan.common.Error');
 
@@ -9,8 +9,8 @@ goog.require('AutoMan.common.Error');
  * 
  * @param {Object | String} options
  */
-AutoMan.parsers.Error = function(options) {
+AutoMan.parser.Error = function(options) {
   goog.base(this, options);
 };
 
-goog.inherits(AutoMan.parsers.Error, AutoMan.common.Error);
+goog.inherits(AutoMan.parser.Error, AutoMan.common.Error);

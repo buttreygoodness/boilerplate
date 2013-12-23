@@ -2,12 +2,12 @@ goog.provide('AutoMan.ui.components.Factory');
 
 goog.require('goog.events.Event');
 
-goog.require('AutoMan.common.AbstractFactory');
+goog.require('AutoMan.common.patterns.AbstractFactory');
 
 /**
  * @class Managages UI components.
  * 
- * @extends {AutoMan.common.AbstractFactory}
+ * @extends {AutoMan.common.patterns.AbstractFactory}
  * 
  * @param {?Options} options
  */
@@ -17,7 +17,7 @@ AutoMan.ui.components.Factory = function(options) {
   this.genericContentType_ = this.options_.genericContentType || AutoMan.ui.components.Factory.GenericContentType;
 };
 
-goog.inherits(AutoMan.ui.components.Factory, AutoMan.common.AbstractFactory);
+goog.inherits(AutoMan.ui.components.Factory, AutoMan.common.patterns.AbstractFactory);
 
 /**
  * Content type that should be treated as a generic type.
@@ -28,7 +28,7 @@ goog.inherits(AutoMan.ui.components.Factory, AutoMan.common.AbstractFactory);
 AutoMan.ui.components.Factory.GenericContentType = '*';
 
 /**
- * Implements {AutoMan.common.AbstractFactory#getItemId_}
+ * Implements {AutoMan.common.patterns.AbstractFactory#getItemId_}
  *
  * @protected
  * @param {!AutoMan.ui.components.AbstractComponent} item

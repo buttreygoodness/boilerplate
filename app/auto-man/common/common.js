@@ -1,9 +1,14 @@
+/**
+ * @namespace AutoMan.common
+ */
+
 goog.provide('AutoMan.common');
 
 goog.require('goog.object');
 
 goog.require('AutoMan.common.Error');
-goog.require('AutoMan.common.AbstractFactory');
+goog.require('AutoMan.common.Event');
+goog.require('AutoMan.common.patterns.AbstractFactory');
 
 /**
  * Generates a UUID.

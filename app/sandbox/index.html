@@ -23,9 +23,9 @@
 
   <script>
     goog.require('AutoMan');
-    goog.require('AutoMan.parsers.content.Html');
-    goog.require('AutoMan.parsers.content.Json');
-    goog.require('AutoMan.parsers.content.Object');
+    goog.require('AutoMan.parser.content.Html');
+    goog.require('AutoMan.parser.content.Json');
+    goog.require('AutoMan.parser.content.Object');
   </script>
 
   <script>
@@ -37,7 +37,7 @@
 
       $('#content').remove();
 
-      var htmlParser = new AutoMan.parsers.content.Html(contentText);
+      var htmlParser = new AutoMan.parser.content.Html(contentText);
 
       htmlParser.parse(function(content) {
 
@@ -60,7 +60,7 @@
      */
     // jQuery(document).ready(function () {
     //   jQuery.getJSON( "/app/auto-man/index.json", function(data) {
-    //     var jsonParser = new AutoMan.parsers.content.Object(data);
+    //     var jsonParser = new AutoMan.parser.content.Object(data);
 
     //     jsonParser.parse(function (data) {
     //       var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
@@ -88,7 +88,7 @@
 
     //   $('#content').remove();
 
-    //   var jsonParser = new AutoMan.parsers.content.Json(contentText);
+    //   var jsonParser = new AutoMan.parser.content.Json(contentText);
       
     //   jsonParser.parse(function(content) {
     //     var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);

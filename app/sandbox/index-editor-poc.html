@@ -24,7 +24,7 @@
 
   <script>
     goog.require('AutoMan');
-    goog.require('AutoMan.parsers.content.Object');
+    goog.require('AutoMan.parser.content.Object');
   </script>
 
   <script>
@@ -152,7 +152,7 @@
      */
     jQuery(document).ready(function () {
       jQuery.getJSON( "/app/sandbox/index.json", function(data) {
-        var objectParser = new AutoMan.parsers.content.Object(data);
+        var objectParser = new AutoMan.parser.content.Object(data);
 
         objectParser.parse(function (data, error) {
           if(error) {
@@ -198,7 +198,7 @@
 
     //   $('#content').remove();
 
-    //   var jsonParser = new AutoMan.parsers.content.Json(contentText);
+    //   var jsonParser = new AutoMan.parser.content.Json(contentText);
 
     //   jsonParser.parse(function(content) {
     //     var builder = new AutoMan.ui.Builder(content, AutoMan.ui.components.factory);

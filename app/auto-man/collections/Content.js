@@ -1,7 +1,6 @@
 goog.provide('AutoMan.collections.Content');
 
 goog.require('goog.structs.TreeNode');
-goog.require('goog.events.Event');
 goog.require('goog.events.EventTarget');
 
 goog.require('AutoMan.common');
@@ -96,7 +95,7 @@ AutoMan.collections.Content.prototype.updateData = function(data, fire) {
 
   this.value_.data = data;
 
-  this.dispatchEvent_(new goog.events.Event(this.Events.ContentChange, this));
+  this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentChange, this));
 };
 
 /**
@@ -108,7 +107,7 @@ AutoMan.collections.Content.prototype.updateData = function(data, fire) {
 AutoMan.collections.Content.prototype.addChildAt = function(child, index) {
   goog.base(this, 'addChildAt', child, index);
 
-  this.dispatchEvent_(new goog.events.Event(this.Events.ContentAdded, child));
+  this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentAdded, this, {child: child}));
 };
 
 /**
@@ -120,9 +119,9 @@ AutoMan.collections.Content.prototype.setParent = function(parent) {
   goog.base(this, 'setParent', parent);
 
   if(this.isOrphan()) {
-    this.dispatchEvent_(new goog.events.Event(this.Events.ContentRemoved, this));
+    this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentRemoved, this));
   } else {
-    this.dispatchEvent_(new goog.events.Event(this.Events.ContentMoved, this));
+    this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentMoved, this));
   }
 };
 
