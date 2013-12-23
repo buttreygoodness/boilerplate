@@ -65,11 +65,7 @@ AutoMan.parser.content.AbstractParser.getType = goog.abstractMethod;
 /**
  * Parses content and pushes results into callback.
  *
- * @callback callback
- * @param {!AutoMan.collections.Content} content
- * @param {?AutoMan.parser.Error} error
- *
- * @param {?callback} callback
+ * @param {?Function(!AutoMan.collections.Content, ?AutoMan.parser.Error)} callback
  */
 AutoMan.parser.content.AbstractParser.prototype.parse = function(callback) {
   var callback_ = callback || function() {};

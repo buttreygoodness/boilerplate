@@ -19,7 +19,6 @@ describe('AutoMan.parser.content.AbstractParser', function() {
 
     it('Should not return error on success.', function(done) {
       parser.parse(function(content, error) {
-        console.log(error);
         should.not.exist(error);
         
         done();
