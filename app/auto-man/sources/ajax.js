@@ -51,7 +51,7 @@ AutoMan.sources.Ajax.getType = function() {
 AutoMan.sources.Ajax.prototype.fetch = function(resource, callback) {
   goog.net.XhrIo.send(resource, function(event) {
     if(event.target.isSuccess()) {
-      return callback(event.target.getResponseText())
+      return callback(event.target.getResponseText());
     }
 
     callback(null);
