@@ -34,7 +34,7 @@ AutoMan.parsers.content.Object.getType = function() {
  */
 AutoMan.parsers.content.Object.prototype.decode_ = function() {
   if (goog.isObject(this.parsable_)){
-    this.parsableObject_ = this.parsable;
+    this.parsableObject_ = this.parsable_;
   }
 };
 

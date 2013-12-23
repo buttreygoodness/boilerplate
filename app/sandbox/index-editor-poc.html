@@ -152,9 +152,13 @@
      */
     jQuery(document).ready(function () {
       jQuery.getJSON( "/app/sandbox/index.json", function(data) {
-        var jsonParser = new AutoMan.parsers.content.Object(data);
+        var objectParser = new AutoMan.parsers.content.Object(data);
 
-        jsonParser.parse(function (data) {
+        objectParser.parse(function (data, error) {
+          if(error) {
+            throw(error);
+          }
+          
           var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
 
           builder.addEventListener('Build.Complete', function (e) {
