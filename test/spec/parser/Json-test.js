@@ -1,6 +1,6 @@
-goog.require('AutoMan.parser.content.Json');
+goog.require('AutoMan.parsers.content.Json');
 
-describe('AutoMan.parser.content.Json', function() {
+describe('AutoMan.parsers.content.Json', function() {
   var noContent, badContent, goodContent;
 
   noContent = JSON.stringify({});
@@ -55,8 +55,8 @@ describe('AutoMan.parser.content.Json', function() {
   });
 
   describe('#parse', function() {
-    it('Should return an AutoMan.parser.content.Json.Errors.NoContent on no content nodes.', function(done) {
-      var parser = new AutoMan.parser.content.Json(noContent);
+    it('Should return an AutoMan.parsers.content.Json.Errors.NoContent on no content nodes.', function(done) {
+      var parser = new AutoMan.parsers.content.Json(noContent);
 
       parser.parse(function(content, error) {
         error.should.exist;
@@ -66,8 +66,8 @@ describe('AutoMan.parser.content.Json', function() {
       });
     });
 
-    it('Should return a AutoMan.parser.content.Json.Errors.Unparsable on unparsable content.', function(done) {
-      var parser = new AutoMan.parser.content.Json(badContent);
+    it('Should return a AutoMan.parsers.content.Json.Errors.Unparsable on unparsable content.', function(done) {
+      var parser = new AutoMan.parsers.content.Json(badContent);
 
       parser.parse(function(content, error) {
         error.should.exist;
@@ -79,7 +79,7 @@ describe('AutoMan.parser.content.Json', function() {
     });
 
     it('Should not return errors on correct parse.', function(done) {
-      var parser = new AutoMan.parser.content.Json(goodContent);
+      var parser = new AutoMan.parsers.content.Json(goodContent);
 
       parser.parse(function(content, error) {
         should.not.exist(error);
@@ -89,7 +89,7 @@ describe('AutoMan.parser.content.Json', function() {
     });
 
     it('Should parse valid data and return a proper AutoMan.collections.content.', function(done) {
-      var parser = new AutoMan.parser.content.Json(goodContent);
+      var parser = new AutoMan.parsers.content.Json(goodContent);
 
       parser.parse(function(content) {
         content.getValue().type.should.equal('a');

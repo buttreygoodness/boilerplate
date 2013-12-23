@@ -1,18 +1,18 @@
 /**
- * @namespace AutoMan.parser.content
+ * @namespace AutoMan.parsers.content
  */
 
-goog.provide('AutoMan.parser.content');
-goog.provide('AutoMan.parser.content.factory');
+goog.provide('AutoMan.parsers.content');
+goog.provide('AutoMan.parsers.content.factory');
 
-goog.require('AutoMan.parser.Factory');
+goog.require('AutoMan.parsers.Factory');
 
-goog.require('AutoMan.parser.content.Html');
-goog.require('AutoMan.parser.content.Json');
-goog.require('AutoMan.parser.content.Object');
+goog.require('AutoMan.parsers.content.Html');
+goog.require('AutoMan.parsers.content.Json');
+goog.require('AutoMan.parsers.content.Object');
 
-AutoMan.parser.content.factory = new AutoMan.parser.Factory();
+AutoMan.parsers.content.factory = new AutoMan.parsers.Factory();
 
-AutoMan.parser.content.factory.register(AutoMan.parser.content.Html);
-AutoMan.parser.content.factory.register(AutoMan.parser.content.Json);
-AutoMan.parser.content.factory.register(AutoMan.parser.content.Object);
+AutoMan.parsers.content.factory.register(AutoMan.parsers.content.Html);
+AutoMan.parsers.content.factory.register(AutoMan.parsers.content.Json);
+AutoMan.parsers.content.factory.register(AutoMan.parsers.content.Object);

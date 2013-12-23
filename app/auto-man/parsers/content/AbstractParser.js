@@ -1,7 +1,7 @@
-goog.provide('AutoMan.parser.content.AbstractParser');
+goog.provide('AutoMan.parsers.content.AbstractParser');
 
 goog.require('AutoMan.collections.Content');
-goog.require('AutoMan.parser.Error');
+goog.require('AutoMan.parsers.Error');
 
 /**
  * @class Base parser all parser should implement.
@@ -10,7 +10,7 @@ goog.require('AutoMan.parser.Error');
  * @param {!*} parsable 
  * @param {?Object<String, *>} options
  */
-AutoMan.parser.content.AbstractParser = function(parsable, options) {
+AutoMan.parsers.content.AbstractParser = function(parsable, options) {
   
   /**
    * Instance options.
@@ -41,7 +41,7 @@ AutoMan.parser.content.AbstractParser = function(parsable, options) {
  *
  * @enum {String}
  */
-AutoMan.parser.content.AbstractParser.Errors = {
+AutoMan.parsers.content.AbstractParser.Errors = {
   'AssertFailed': 'Assert.Failed' /** thrown on assertion failure **/
 };
 
@@ -52,7 +52,7 @@ AutoMan.parser.content.AbstractParser.Errors = {
  * @protected
  * @return {?AutoMan.collections.Content}
  */
-AutoMan.parser.content.AbstractParser.prototype.parse_ = goog.abstractMethod;
+AutoMan.parsers.content.AbstractParser.prototype.parse_ = goog.abstractMethod;
 
 /**
  * Returns type of parser so it can be bound to factory.
@@ -60,14 +60,14 @@ AutoMan.parser.content.AbstractParser.prototype.parse_ = goog.abstractMethod;
  * @absract
  * @type {!String}
  */
-AutoMan.parser.content.AbstractParser.getType = goog.abstractMethod;
+AutoMan.parsers.content.AbstractParser.getType = goog.abstractMethod;
 
 /**
  * Parses content and pushes results into callback.
  *
- * @param {?Function(!AutoMan.collections.Content, ?AutoMan.parser.Error)} callback
+ * @param {?Function(!AutoMan.collections.Content, ?AutoMan.parsers.Error)} callback
  */
-AutoMan.parser.content.AbstractParser.prototype.parse = function(callback) {
+AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
   var callback_ = callback || function() {};
 
   if(this.isCached_()) {
@@ -92,7 +92,7 @@ AutoMan.parser.content.AbstractParser.prototype.parse = function(callback) {
  *
  * @return {!AutoMan.collections.Content}
  */
-AutoMan.parser.content.AbstractParser.prototype.getContent = function() {
+AutoMan.parsers.content.AbstractParser.prototype.getContent = function() {
   return this.parsed_;
 };
 
@@ -102,7 +102,7 @@ AutoMan.parser.content.AbstractParser.prototype.getContent = function() {
  * @private
  * @return {Boolean}
  */
-AutoMan.parser.content.AbstractParser.prototype.isCached_ = function() {
+AutoMan.parsers.content.AbstractParser.prototype.isCached_ = function() {
   return this.parsed_ instanceof AutoMan.collections.Content;
 };
 
@@ -114,9 +114,9 @@ AutoMan.parser.content.AbstractParser.prototype.isCached_ = function() {
  * @param  {String=} error
  * @return {self}
  */
-AutoMan.parser.content.AbstractParser.prototype.assert_ = function(condition, error) {
+AutoMan.parsers.content.AbstractParser.prototype.assert_ = function(condition, error) {
   if(!condition) {
-    throw new AutoMan.parser.Error(error || this.Errors.AssertFailed);
+    throw new AutoMan.parsers.Error(error || this.Errors.AssertFailed);
   }
 
   return this;
@@ -127,4 +127,4 @@ AutoMan.parser.content.AbstractParser.prototype.assert_ = function(condition, er
  *
  * @type {Object}
  */
-AutoMan.parser.content.AbstractParser.prototype.Errors = AutoMan.parser.content.AbstractParser.Errors;
+AutoMan.parsers.content.AbstractParser.prototype.Errors = AutoMan.parsers.content.AbstractParser.Errors;

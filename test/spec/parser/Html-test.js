@@ -1,6 +1,6 @@
-goog.require('AutoMan.parser.content.Html');
+goog.require('AutoMan.parsers.content.Html');
 
-describe('AutoMan.parser.content.Html', function () {
+describe('AutoMan.parsers.content.Html', function () {
 
   var noContent = '<div></div>';
 
@@ -9,8 +9,8 @@ describe('AutoMan.parser.content.Html', function () {
   var goodContent = '<div class="content anotherClass" data-test="test"><a href="#" id="id1">anchor</a><div id="id2" class="fake"></div></div>';
 
   describe('#parse', function () {
-    it('Should return an AutoMan.parser.content.Html.Errors.NoContent on no content nodes.', function (done) {
-      var parser = new AutoMan.parser.content.Html(noContent);
+    it('Should return an AutoMan.parsers.content.Html.Errors.NoContent on no content nodes.', function (done) {
+      var parser = new AutoMan.parsers.content.Html(noContent);
 
       parser.parse(function(content, error) {
         error.getCode().should.equal(parser.Errors.NoContent);
@@ -19,8 +19,8 @@ describe('AutoMan.parser.content.Html', function () {
       });
     });
 
-    it('Should return an AutoMan.parser.content.Html.Errors.Unparsable on bad content nodes.', function (done) {
-      var parser = new AutoMan.parser.content.Html(badContent);
+    it('Should return an AutoMan.parsers.content.Html.Errors.Unparsable on bad content nodes.', function (done) {
+      var parser = new AutoMan.parsers.content.Html(badContent);
 
       parser.parse(function (content, error) {
         error.should.exist;
@@ -31,7 +31,7 @@ describe('AutoMan.parser.content.Html', function () {
     });
 
     it('Should parse valid data and return a proper AutoMan.collections.content.', function (done) {
-      var parser = new AutoMan.parser.content.Html(goodContent);
+      var parser = new AutoMan.parsers.content.Html(goodContent);
 
       parser.parse(function (htmlContent) {
 

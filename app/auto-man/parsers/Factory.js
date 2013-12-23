@@ -1,4 +1,4 @@
-goog.provide('AutoMan.parser.Factory');
+goog.provide('AutoMan.parsers.Factory');
 
 goog.require('AutoMan.commmon.AbstractFactory');
 
@@ -9,18 +9,18 @@ goog.require('AutoMan.commmon.AbstractFactory');
  * 
  * @param {Object=} options
  */
-AutoMan.parser.Factory = function(options) {
+AutoMan.parsers.Factory = function(options) {
   goog.base(this, options);
 };
 
-goog.inherits(AutoMan.parser.Factory, AutoMan.commmon.AbstractFactory);
+goog.inherits(AutoMan.parsers.Factory, AutoMan.commmon.AbstractFactory);
 
 /**
  * Implements {AutoMan.common.patterns.AbstractFactory#getItemId_}
  * 
- * @param  {!AutoMan.parser.content.AbstractParser} item
+ * @param  {!AutoMan.parsers.content.AbstractParser} item
  * @return {!String}
  */
-AutoMan.parser.Factory.prototype.getItemId_ = function(item) {
+AutoMan.parsers.Factory.prototype.getItemId_ = function(item) {
   return item.getType();
 };
