@@ -46,7 +46,7 @@ AutoMan.common.Error.prototype.toString = function() {
   var stringBuilder = ['Code:', this.getCode()];
   
   if(this.getMessage()) {
-    stringBuilder.concat(['Message:', this.getMessage()]);
+    stringBuilder = stringBuilder.concat(['Message:', this.getMessage()]);
   }
 
   return stringBuilder.join(' ');
