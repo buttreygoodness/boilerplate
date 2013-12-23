@@ -49,5 +49,5 @@ AutoMan.common.addImplementation = function(constructor, interface) {
  * @throws {Error} If this method isnt overriden in implementing class.
  */
 AutoMan.common.interfaceMethod = function() {
-  throw Error('unimplemented interface method');
+  throw new Error('unimplemented interface method');
 };
