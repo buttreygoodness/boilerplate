@@ -166,7 +166,7 @@ AutoMan.common.AbstractFactory.prototype.isIdRegistered = function(itemId) {
  * @return {!Array<String>}
  */
 AutoMan.common.AbstractFactory.prototype.getRegisteredItems = function() {
-  return goog.object.getkeys(this.registry_);
+  return goog.object.getKeys(this.registry_);
 };
 
 /**
