@@ -134,6 +134,8 @@ AutoMan.ui.components.AbstractComponent.prototype.decorateInternalAttributes_ = 
   goog.object.forEach(attributes, goog.bind(function(value, key) {
     this.getElement().setAttribute(key, value);
   }, this));
+
+  this.getElement().setAttribute('id', attributes.id || this.getModel().getId());
 };
 
 /**
