@@ -7,6 +7,9 @@
   </head>
   <body>
     <div id="mocha" style="display:none;"></div>
+    <div id="fixtures" style="display:none;"><div>
+    
+    <script src="/app/lib/jquery/jquery.min.js"></script>
 
     <script src="/app/lib/mocha/mocha.js"></script>
     <script src="/app/lib/chai/chai.js"></script>

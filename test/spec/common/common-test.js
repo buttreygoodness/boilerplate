@@ -34,7 +34,7 @@ describe('AutoMan.common', function() {
     });
   });
 
-  describe('#addImplementation', function() {
+  describe('#implementInterface', function() {
     var AnimalInterface = function() {};
 
     AnimalInterface.prototype.say = function() { throw Error(); }
@@ -43,7 +43,7 @@ describe('AutoMan.common', function() {
 
     var Cat = function() {};
 
-    AutoMan.common.addImplementation(Cat, AnimalInterface);
+    AutoMan.common.implementInterface(Cat, AnimalInterface);
 
     it('Should add interface prototype methods to constructor.', function() {
       Cat.prototype.should.contain.key('say');

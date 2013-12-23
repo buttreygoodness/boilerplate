@@ -8,7 +8,7 @@ goog.require('goog.object');
 
 goog.require('AutoMan.common.Error');
 goog.require('AutoMan.common.Event');
-goog.require('AutoMan.common.patterns.AbstractFactory');
+goog.require('AutoMan.common.patterns.Factory');
 
 /**
  * Generates a UUID.
@@ -43,7 +43,7 @@ AutoMan.common.generateUUID.template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
  * @param {!Function} constructor
  * @param {!Function} interface
  */
-AutoMan.common.addImplementation = function(constructor, interface) {
+AutoMan.common.implementInterface = function(constructor, interface) {
   goog.object.extend(constructor, goog.object.filter(interface, goog.isFunction));
   goog.object.extend(constructor.prototype, goog.object.filter(interface.prototype, goog.isFunction));
 };
