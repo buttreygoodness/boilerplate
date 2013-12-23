@@ -44,7 +44,7 @@ AutoMan.parsers.content.Json.Errors = {
  * 
  * @return {!String}
  */
-AutoMan.parsers.content.Html.getType = function() {
+AutoMan.parsers.content.Json.getType = function() {
   return 'json';
 };
 

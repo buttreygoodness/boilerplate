@@ -23,7 +23,7 @@ goog.inherits(AutoMan.parsers.content.Object, AutoMan.parsers.content.Json);
  * 
  * @return {!String}
  */
-AutoMan.parsers.content.Html.getType = function() {
+AutoMan.parsers.content.Object.getType = function() {
   return 'object';
 };
 
