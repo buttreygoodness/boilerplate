@@ -13,6 +13,8 @@ AutoMan.sources.Factory = function(options) {
   goog.base(this, options);
 };
 
+goog.inherits(AutoMan.sources.Factory, AutoMan.common.patterns.Factory);
+
 /**
  * Returns an id based of type.
  *
@@ -25,5 +27,3 @@ AutoMan.sources.Factory = function(options) {
 AutoMan.sources.Factory.prototype.getItemId_ = function(item) {
   return item.getType();
 };
-
-goog.inherits(AutoMan.sources.Factory, AutoMan.common.patterns.Factory);

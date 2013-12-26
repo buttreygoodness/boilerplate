@@ -12,6 +12,12 @@ goog.require('AutoMan.ui.components.Root');
 goog.require('AutoMan.ui.components.Image');
 goog.require('AutoMan.ui.components.Carousel');
 
+/**
+ * Engine specific components.
+ *
+ * @static
+ * @type {AutoMan.ui.components.Factory}
+ */
 AutoMan.ui.components.factory = new AutoMan.ui.components.Factory();
 
 AutoMan.ui.components.factory.register(AutoMan.ui.components.Generic);
