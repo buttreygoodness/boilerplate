@@ -19,8 +19,8 @@ AutoMan.sources.Factory = function(options) {
  * @implements {AutoMan.common.patterns.Factory}
  *
  * @private
- * @param  {!AutoMan.sources.SourceFactoryItemInterface} item
- * @return {?AutoMan.sources.SourceFactoryItemInterface}
+ * @param  {!AutoMan.sources.abstract.SourceFactoryItemInterface} item
+ * @return {?AutoMan.sources.abstract.SourceFactoryItemInterface}
  */
 AutoMan.sources.Factory.prototype.getItemId_ = function(item) {
   return item.getType();

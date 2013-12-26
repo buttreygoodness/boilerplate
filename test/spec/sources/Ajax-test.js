@@ -1,9 +1,9 @@
-goog.require('AutoMan.sources.Ajax');
+goog.require('AutoMan.sources.types.Ajax');
 
-describe('AutoMan.sources.Ajax', function() {
+describe('AutoMan.sources.types.Ajax', function() {
   describe('#getType', function() {
     it('Should return "ajax"', function() {
-      AutoMan.sources.Ajax.getType().should.equal('ajax');
+      AutoMan.sources.types.Ajax.getType().should.equal('ajax');
     });
   });
 
@@ -11,11 +11,15 @@ describe('AutoMan.sources.Ajax', function() {
     var ajaxSource;
 
     beforeEach(function() {
-      ajaxSource = new AutoMan.sources.Ajax();
+      ajaxSource = new AutoMan.sources.types.Ajax();
     });
 
     it('Should return text content from a resource, if exists.', function(done) {
-      ajaxSource.fetch('../fixtures/sources/test-content.txt', function(content) {
+      var resource = {
+        'location': '../fixtures/sources/test-content.txt'
+      };
+
+      ajaxSource.fetch(resource, function(content) {
         should.exist(content);
         content.should.equal('im a test');
 
@@ -24,7 +28,11 @@ describe('AutoMan.sources.Ajax', function() {
     });
 
     it('Should return nothing from a Ajax id, if it doesnt exist.', function(done) {
-      ajaxSource.fetch('../fixtures/sources/doesnt-exist.txt', function(content) {
+      var resource = {
+        'location': '../fixtures/sources/doesnt-exist.txt'
+      };
+
+      ajaxSource.fetch(resource, function(content) {
         should.not.exist(content);
 
         done();

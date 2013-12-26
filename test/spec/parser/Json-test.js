@@ -71,7 +71,6 @@ describe('AutoMan.parsers.content.Json', function() {
 
       parser.parse(function(content, error) {
         error.should.exist;
-        console.log(error.constructor);
         error.getCode().should.equal(parser.Errors.Unparsable);
 
         done();

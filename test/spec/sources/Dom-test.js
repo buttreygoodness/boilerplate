@@ -1,9 +1,9 @@
-goog.require('AutoMan.sources.Dom');
+goog.require('AutoMan.sources.types.Dom');
 
-describe('AutoMan.sources.Dom', function() {
+describe('AutoMan.sources.types.Dom', function() {
   describe('#getType', function() {
     it('Should return "dom"', function() {
-      AutoMan.sources.Dom.getType().should.equal('dom');
+      AutoMan.sources.types.Dom.getType().should.equal('dom');
     });
   });
 
@@ -11,7 +11,7 @@ describe('AutoMan.sources.Dom', function() {
     var domSource;
 
     beforeEach(function() {
-      domSource = new AutoMan.sources.Dom();
+      domSource = new AutoMan.sources.types.Dom();
 
       $('<div id="test-content">im a test</div>').appendTo($('#fixtures'));
     });
@@ -21,7 +21,11 @@ describe('AutoMan.sources.Dom', function() {
     });
 
     it('Should return text content from a dom id, if exists.', function(done) {
-      domSource.fetch('test-content', function(content) {
+      var resource = {
+        'location': 'test-content'
+      };
+
+      domSource.fetch(resource, function(content) {
         should.exist(content);
         content.should.equal('im a test');
 
@@ -30,7 +34,11 @@ describe('AutoMan.sources.Dom', function() {
     });
 
     it('Should return nothing from a dom id, if it doesnt exist.', function(done) {
-      domSource.fetch('doesnt-exist', function(content) {
+      var resource = {
+        'location': 'doesnt-exist'
+      };
+
+      domSource.fetch(resource, function(content) {
         should.not.exist(content);
 
         done();
