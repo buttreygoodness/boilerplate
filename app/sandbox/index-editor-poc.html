@@ -158,11 +158,7 @@
       }).then(function(content) {
         var jsonParser = new AutoMan.parsers.content.Json(content);
 
-        jsonParser.parse(function (data, error) {
-          if(error) {
-            throw(error);
-          }
-          
+        jsonParser.parse().then(function(data) {
           var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
 
           builder.addEventListener('Build.Complete', function (e) {
@@ -185,6 +181,8 @@
           });
 
           builder.build();
+        }).thenCatch(function(error) {
+          alert(error);
         });      
       });
 
