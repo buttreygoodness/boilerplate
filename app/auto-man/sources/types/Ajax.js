@@ -1,7 +1,9 @@
 goog.provide('AutoMan.sources.types.Ajax');
 
 goog.require('goog.net.XhrIo');
+goog.require('goog.labs.Promise');
 
+goog.require('AutoMan.common');
 goog.require('AutoMan.sources.abstract.SourceStrategyInterface');
 goog.require('AutoMan.sources.abstract.SourceFactoryItemInterface');
 
@@ -29,6 +31,15 @@ AutoMan.common.implementInterface(AutoMan.sources.types.Ajax, AutoMan.sources.ab
 AutoMan.common.implementInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceFactoryItemInterface);
 
 /**
+ * Errors supported by dom source.
+ * 
+ * @enum {String}
+ */
+AutoMan.sources.types.Ajax.Errors = {
+  'ResourceNotFound': 'Unable to locate resource.'
+};
+
+/**
  * Returns 'Ajax'.
  *
  * @implements {SourceFactoryItemInterface}
@@ -46,14 +57,23 @@ AutoMan.sources.types.Ajax.getType = function() {
  * @implements {SourceStrategyInterface}
  * 
  * @param  {!Object}   resource
- * @param  {Function(?String)} callback
+ * @returns {!goog.labs.Promise}
  */
-AutoMan.sources.types.Ajax.prototype.fetch = function(resource, callback) {
-  goog.net.XhrIo.send(resource.location, function(event) {
-    if(event.target.isSuccess()) {
-      return callback(event.target.getResponseText());
-    }
+AutoMan.sources.types.Ajax.prototype.fetch = function(resource) {
+  return new goog.labs.Promise(function(fulfilled, rejected) {
+    goog.net.XhrIo.send(resource.location, function(event) {
+      if(!event.target.isSuccess()) {
+        return rejected(new AutoMan.common.Error(this.Errors.ResourceNotFound));
+      }
 
-    callback(null);
-  });
+      fulfilled(event.target.getResponseText());
+    }.bind(this));
+  }, this);
 };
+
+/**
+ * Easy 'this' access to errros.
+ * 
+ * @alias AutoMan.sources.types.Ajax.Errors
+ */
+AutoMan.sources.types.Ajax.prototype.Errors = AutoMan.sources.types.Ajax.Errors;

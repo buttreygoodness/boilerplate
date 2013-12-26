@@ -19,7 +19,7 @@ describe('AutoMan.sources.types.Ajax', function() {
         'location': '../fixtures/sources/test-content.txt'
       };
 
-      ajaxSource.fetch(resource, function(content) {
+      ajaxSource.fetch(resource).then(function(content) {
         should.exist(content);
         content.should.equal('im a test');
 
@@ -27,14 +27,16 @@ describe('AutoMan.sources.types.Ajax', function() {
       });
     });
 
-    it('Should return nothing from a Ajax id, if it doesnt exist.', function(done) {
+    it('Should return AutoMan.common.Error with AutoMan.sources.types.Ajax.Errors.ResourceNotFound on resource not found.', function(done) {
       var resource = {
         'location': '../fixtures/sources/doesnt-exist.txt'
       };
 
-      ajaxSource.fetch(resource, function(content) {
-        should.not.exist(content);
+      ajaxSource.fetch(resource).then(function(){}, function(error) {
+        should.exist(error);
 
+        error.should.be.instanceOf(AutoMan.common.Error);
+        error.getCode().should.equal(AutoMan.sources.types.Ajax.Errors.ResourceNotFound);
         done();
       });
     });

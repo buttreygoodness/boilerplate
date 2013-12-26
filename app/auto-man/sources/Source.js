@@ -1,5 +1,7 @@
 goog.provide('AutoMan.sources.Source');
 
+goog.require('goog.labs.Promise');
+
 goog.require('AutoMan.common');
 goog.require('AutoMan.sources.abstract.SourceStrategyInterface');
 goog.require('AutoMan.sources.abstract.SourceFactoryItemInterface');
@@ -62,24 +64,22 @@ AutoMan.sources.Source.getType = function() {
  * Fetches an item.
  *
  * @implements {SourceStrategyInterface}
- *
- * @throws {AutoMan.sources.Source.Errors.NoResourceType} If a resource type is not provided.
- * @throws {AutoMan.sources.Source.Errors.NoResourceLocation} If a resource path/location is not provided.
- * @throws {AutoMan.sources.Source.Errors.ResourceTypeNotSupported} If a unregistered resource is attempted to be created.
  * 
  * @param  {!Object<String, String>}   item
- * @param  {Function(?String)} callback
+ * @returns {!goog.labs.Promise}
  */
-AutoMan.sources.Source.prototype.fetch = function(item, callback) {
-  try {
-    AutoMan.common.assert(item.type, this.Errors.NoResourceType);
-    AutoMan.common.assert(item.location, this.Errors.NoResourceLocation);
-    AutoMan.common.assert(this.factory_.isIdRegistered(item.type), this.Errors.ResourceTypeNotSupported);
-  } catch (error) {
-    return callback(null, error);
-  }
+AutoMan.sources.Source.prototype.fetch = function(item) {
+  return new goog.labs.Promise(function(fulfilled, rejected) {
+    try {
+      AutoMan.common.assert(item.type, this.Errors.NoResourceType);
+      AutoMan.common.assert(item.location, this.Errors.NoResourceLocation);
+      AutoMan.common.assert(this.factory_.isIdRegistered(item.type), this.Errors.ResourceTypeNotSupported);
+    } catch (failedAssertion) {
+      rejected(failedAssertion);
+    }
 
-  this.factory_.create(item.type).fetch(item, callback);
+    this.factory_.create(item.type).fetch(item).then(fulfilled, rejected);
+  }, this);  
 };
 
 /**

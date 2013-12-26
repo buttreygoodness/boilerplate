@@ -36,7 +36,7 @@
       AutoMan.sources.source.fetch({
         location: '/app/sandbox/index.json',
         type: 'ajax'
-      }, function(content, error) {
+      }).then(function(content) {
         var jsonParser = new AutoMan.parsers.content.Json(content);
 
         jsonParser.parse(function (data) {

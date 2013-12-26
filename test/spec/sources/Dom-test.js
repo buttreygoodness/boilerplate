@@ -25,7 +25,7 @@ describe('AutoMan.sources.types.Dom', function() {
         'location': 'test-content'
       };
 
-      domSource.fetch(resource, function(content) {
+      domSource.fetch(resource).then(function(content) {
         should.exist(content);
         content.should.equal('im a test');
 
@@ -33,14 +33,16 @@ describe('AutoMan.sources.types.Dom', function() {
       });
     });
 
-    it('Should return nothing from a dom id, if it doesnt exist.', function(done) {
+    it('Should return AutoMan.common.Error with AutoMan.sources.types.Dom.Errors.ResourceNotFound on resource not found.', function(done) {
       var resource = {
         'location': 'doesnt-exist'
       };
 
-      domSource.fetch(resource, function(content) {
-        should.not.exist(content);
+      domSource.fetch(resource).then(function() {}, function(error) {
+        should.exist(error);
 
+        error.should.be.instanceOf(AutoMan.common.Error);
+        error.getCode().should.equal(AutoMan.sources.types.Dom.Errors.ResourceNotFound);
         done();
       });
     });
