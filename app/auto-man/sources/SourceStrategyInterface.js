@@ -10,9 +10,9 @@ goog.require('AutoMan.common');
 AutoMan.sources.SourceStrategyInterface = function() {};
 
 /**
- * fetches an item.
+ * Trys to resolve query.
  * 
- * @param {!String} item
- * @param {!Function(item)} callback
+ * @param {!Object} item
+ * @param {!Function(?item)} callback
  */
 AutoMan.sources.SourceStrategyInterface.prototype.fetch = AutoMan.common.interfaceMethod;

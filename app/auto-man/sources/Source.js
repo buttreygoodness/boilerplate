@@ -35,6 +35,10 @@ AutoMan.sources.Source = function(factory, options) {
 AutoMan.common.implementInterface(AutoMan.sources.Source, AutoMan.sources.SourceStrategyInterface);
 AutoMan.common.implementInterface(AutoMan.sources.Source, AutoMan.sources.SourceFactoryItemInterface);
 
+AutoMan.sources.Source.Errors = {
+  'NoResource': 'NoResourceProvided'
+};
+
 /**
  * Returns '*' wildcard.
  *
@@ -55,4 +59,6 @@ AutoMan.sources.Source.getType = function() {
  * @param  {!String}   item
  * @param  {Function(?String)} callback
  */
-AutoMan.sources.Source.prototype.fetch = function(item, callback) {};
+AutoMan.sources.Source.prototype.fetch = function(item, callback) {
+
+};

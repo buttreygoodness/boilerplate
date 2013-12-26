@@ -3,7 +3,7 @@ goog.provide('AutoMan.parsers.content.Json');
 goog.require('goog.array');
 goog.require('goog.object');
 
-goog.require('AutoMan.parsers.Error');
+goog.require('AutoMan.common');
 goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.AbstractParser');
 
@@ -71,9 +71,9 @@ AutoMan.parsers.content.Json.prototype.decode_ = function() {
 AutoMan.parsers.content.Json.prototype.parse_ = function() {
   this.decode_();
 
-  this.assert_(this.parsableObject_, this.Errors.Unparsable);
+  AutoMan.common.assert(this.parsableObject_, this.Errors.Unparsable);
   
-  this.assert_(this.parsableObject_.content, this.Errors.NoContent);
+  AutoMan.common.assert(this.parsableObject_.content, this.Errors.NoContent);
     
   return this.recursiveParse_(this.parsableObject_.content);
 };

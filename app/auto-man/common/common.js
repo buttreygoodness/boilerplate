@@ -11,6 +11,15 @@ goog.require('AutoMan.common.Event');
 goog.require('AutoMan.common.patterns.Factory');
 
 /**
+ * Common errors used through out application.
+ *
+ * @enum {String}
+ */
+AutoMan.common.Errors = {
+  'AssertionError': 'Assert failed.'
+};
+
+/**
  * Generates a UUID.
  *
  * @return {!String}
@@ -55,4 +64,16 @@ AutoMan.common.implementInterface = function(constructor, interface) {
  */
 AutoMan.common.interfaceMethod = function() {
   throw new Error('unimplemented interface method');
+};
+
+/**
+ * Asserts a condition or throws.
+ * 
+ * @param  {?*} condition
+ * @param  {*=} error
+ */
+AutoMan.common.assert = function(condition, error) {
+  if(!condition) {
+    throw new AutoMan.common.Error(error || AutoMan.common.Errors.AssertionError);
+  }
 };

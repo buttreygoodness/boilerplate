@@ -1,7 +1,6 @@
 goog.provide('AutoMan.ui.Builder');
 
 goog.require('goog.array');
-goog.require('goog.asserts');
 goog.require('goog.events.EventTarget');
 
 goog.require('AutoMan.common');
@@ -119,7 +118,7 @@ AutoMan.ui.Builder.prototype.build_ = function() {
 AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) {
   var elementNode = factory.create(content.getType(), content);
 
-  goog.asserts.assert(elementNode, this.Errors.ElementNodeError);
+  AutoMan.common.assert(elementNode, this.Errors.ElementNodeError);
 
   this.contentMap_[content.getId()] = elementNode;
 

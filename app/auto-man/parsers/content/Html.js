@@ -5,7 +5,7 @@ goog.require('goog.object');
 goog.require('goog.string');
 goog.require('goog.dom.DomHelper');
 
-goog.require('AutoMan.parsers.Error');
+goog.require('AutoMan.common');
 goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.AbstractParser');
 
@@ -86,8 +86,8 @@ AutoMan.parsers.content.Html.prototype.hasContent_ = function () {
  * @return {!AutoMan.collections.Content}
  */
 AutoMan.parsers.content.Html.prototype.parse_ = function() {
-  this.assert_(this.decode_(), this.Errors.Unparsable);
-  this.assert_(this.hasContent_(), this.Errors.NoContent);
+  AutoMan.common.assert(this.decode_(), this.Errors.Unparsable);
+  AutoMan.common.assert(this.hasContent_(), this.Errors.NoContent);
 
   return this.recursiveParse_(this.html_) || new AutoMan.collections.Content();
 };

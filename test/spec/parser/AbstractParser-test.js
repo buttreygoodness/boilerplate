@@ -25,7 +25,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
       });
     });
 
-    it('Should return empty AutoMan.collections.Content and a AutoMan.parsers.Error in callback on fail.', function(done){
+    it('Should return empty AutoMan.collections.Content and a AutoMan.common.Error in callback on fail.', function(done){
       parser = new AutoMan.test.fixtures.parsers.content.TestParser('', {pass: false});
 
       parser.parse(function(content, error) {
@@ -34,7 +34,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
         content.getChildCount().should.be.equal(0);
 
         error.should.exist;
-        error.should.be.an.instanceOf(AutoMan.parsers.Error);
+        error.should.be.an.instanceOf(AutoMan.common.Error);
 
         done();
       });

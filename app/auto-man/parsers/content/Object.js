@@ -1,6 +1,5 @@
 goog.provide('AutoMan.parsers.content.Object');
 
-goog.require('AutoMan.parsers.Error');
 goog.require('AutoMan.collections.Content');
 goog.require('AutoMan.parsers.content.Json');
 
