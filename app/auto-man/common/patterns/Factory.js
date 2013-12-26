@@ -1,19 +1,14 @@
 goog.provide('AutoMan.common.patterns.Factory');
 
 goog.require('goog.object');
-goog.require('goog.events.Event');
-goog.require('goog.events.EventTarget');
 
 /**
  * @class Provides base factory functionality.
- *
- * @extends {goog.events.EventTarget}
  * 
  * @abstract
  * @param {?Object<string, *>} options
  */
 AutoMan.common.patterns.Factory = function(options) {
-  goog.base(this);
 
   /**
    * Any options assigned.
@@ -29,22 +24,6 @@ AutoMan.common.patterns.Factory = function(options) {
    * @type {Object<string, *>}
    */
   this.registry_ = {};
-};
-
-goog.inherits(AutoMan.common.patterns.Factory, goog.events.EventTarget);
-
-/**
- * Events supported by factory.
- * 
- * @enum {String}
- */
-AutoMan.common.patterns.Factory.Events = {
-  'Registered'          : 'Registration.Success' /** on registration of a new item **/,
-  'RegistrationError'   : 'Registration.Error' /** on failure to register new item **/,
-  'Unregisted'          : 'Unregistration.Success' /** on unregistration of an item **/,
-  'UnregistrationError' : 'Unregistration.Error' /** on failure to unregister an item **/,
-  'Created'             : 'Creation.Success' /** on creation of new item **/,
-  'CreationError'       : 'Creation.Error' /** on creation error **/
 };
 
 /**
@@ -64,17 +43,11 @@ AutoMan.common.patterns.Factory.prototype.getItemId_ = goog.abstractMethod;
  * @return {!Boolean} success
  */
 AutoMan.common.patterns.Factory.prototype.register = function(item) {
-  var event = new goog.events.Event(item);
-
   if(this.isRegistered(item)) {
-    this.dispatchEvent(this.Events.RegistrationError, event);
-
     return false;
   }
 
   this.registry_[this.getItemId_(item)] = item;
-
-  this.dispatchEvent(this.Events.Registered, event);
 
   return true;
 };
@@ -96,17 +69,11 @@ AutoMan.common.patterns.Factory.prototype.unregister = function(item) {
  * @return {!Boolean} success
  */
 AutoMan.common.patterns.Factory.prototype.unregisterId = function(itemId) {
-  var event = new goog.events.Event(itemId);
-
   if(!this.isIdRegistered(itemId)) {
-    this.dispatchEvent(this.Events.UnregistrationError, event);
-
     return false;
   }
 
   delete this.registry_[itemId];
-
-  this.dispatchEvent(this.Events.Unregisted, event);
 
   return true;
 };
@@ -120,8 +87,6 @@ AutoMan.common.patterns.Factory.prototype.unregisterId = function(itemId) {
  */
 AutoMan.common.patterns.Factory.prototype.create = function(itemId) {
   if(!this.isIdRegistered(itemId)) {
-    this.dispatchEvent(this.Events.CreationError, new goog.events.Event(itemId));
-
     return;
   }
 
@@ -134,8 +99,6 @@ AutoMan.common.patterns.Factory.prototype.create = function(itemId) {
   newItem = Object.create(item.prototype);
 
   item.apply(newItem, itemArguments);
-
-  this.dispatchEvent(this.Events.Created, new goog.events.Event(newItem));
 
   return newItem;
 };
@@ -168,10 +131,3 @@ AutoMan.common.patterns.Factory.prototype.isIdRegistered = function(itemId) {
 AutoMan.common.patterns.Factory.prototype.getRegisteredItems = function() {
   return goog.object.getKeys(this.registry_);
 };
-
-/**
- * Easy 'this' access to events.
- * 
- * @type {Object}
- */
-AutoMan.common.patterns.Factory.prototype.Events = AutoMan.common.patterns.Factory.Events;

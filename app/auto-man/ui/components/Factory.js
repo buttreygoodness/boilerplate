@@ -66,21 +66,11 @@ AutoMan.ui.components.Factory.prototype.isGenericRegistered = function() {
  * @return {?AutoMan.collections.Content}
  */
 AutoMan.ui.components.Factory.prototype.create = function(itemId, content) {
-  var item, event, eventType;
-
   if(this.isIdRegistered(itemId)) {
-    item = goog.base(this, 'create', itemId, content);
+    return goog.base(this, 'create', itemId, content);
   } else if(this.isGenericRegistered()) {
-    item = goog.base(this, 'create', this.GenericContentType, content);
+    return goog.base(this, 'create', this.GenericContentType, content);
   }
-
-  eventType = item ? this.Events.Created : this.Events.CreationError;
-
-  event = item ? new goog.events.Event(item) :  new goog.events.Event(itemId);
-  
-  this.dispatchEvent(eventType, event);
-
-  return item;
 };
 
 /**
