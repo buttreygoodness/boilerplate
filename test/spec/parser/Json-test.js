@@ -58,7 +58,7 @@ describe('AutoMan.parsers.content.Json', function() {
     it('Should return an AutoMan.parsers.content.Json.Errors.NoContent on no content nodes.', function(done) {
       var parser = new AutoMan.parsers.content.Json(noContent);
 
-      parser.parse(function(content, error) {
+      parser.parse().thenCatch(function(error) {
         error.should.exist;
         error.getCode().should.equal(parser.Errors.NoContent);
 
@@ -69,7 +69,7 @@ describe('AutoMan.parsers.content.Json', function() {
     it('Should return a AutoMan.parsers.content.Json.Errors.Unparsable on unparsable content.', function(done) {
       var parser = new AutoMan.parsers.content.Json(badContent);
 
-      parser.parse(function(content, error) {
+      parser.parse().thenCatch(function(error) {
         error.should.exist;
         error.getCode().should.equal(parser.Errors.Unparsable);
 
@@ -80,8 +80,8 @@ describe('AutoMan.parsers.content.Json', function() {
     it('Should not return errors on correct parse.', function(done) {
       var parser = new AutoMan.parsers.content.Json(goodContent);
 
-      parser.parse(function(content, error) {
-        should.not.exist(error);
+      parser.parse().then(function(content) {
+        should.exist(content);
 
         done();
       });
@@ -90,7 +90,7 @@ describe('AutoMan.parsers.content.Json', function() {
     it('Should parse valid data and return a proper AutoMan.collections.content.', function(done) {
       var parser = new AutoMan.parsers.content.Json(goodContent);
 
-      parser.parse(function(content) {
+      parser.parse().then(function(content) {
         content.getValue().type.should.equal('a');
         content.getValue().data.attributes.id.should.equal('root');
         content.getChildCount().should.equal(2);

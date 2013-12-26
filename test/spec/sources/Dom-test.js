@@ -38,7 +38,7 @@ describe('AutoMan.sources.types.Dom', function() {
         'location': 'doesnt-exist'
       };
 
-      domSource.fetch(resource).then(function() {}, function(error) {
+      domSource.fetch(resource).thenCatch(function(error) {
         should.exist(error);
 
         error.should.be.instanceOf(AutoMan.common.Error);

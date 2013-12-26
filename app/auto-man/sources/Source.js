@@ -79,7 +79,7 @@ AutoMan.sources.Source.prototype.fetch = function(item) {
     }
 
     this.factory_.create(item.type).fetch(item).then(fulfilled, rejected);
-  }, this);  
+  }, this);
 };
 
 /**

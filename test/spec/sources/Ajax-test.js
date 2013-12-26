@@ -32,7 +32,7 @@ describe('AutoMan.sources.types.Ajax', function() {
         'location': '../fixtures/sources/doesnt-exist.txt'
       };
 
-      ajaxSource.fetch(resource).then(function(){}, function(error) {
+      ajaxSource.fetch(resource).thenCatch(function(error) {
         should.exist(error);
 
         error.should.be.instanceOf(AutoMan.common.Error);

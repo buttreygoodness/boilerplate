@@ -12,7 +12,7 @@ describe('AutoMan.parsers.content.Html', function () {
     it('Should return an AutoMan.parsers.content.Html.Errors.NoContent on no content nodes.', function (done) {
       var parser = new AutoMan.parsers.content.Html(noContent);
 
-      parser.parse(function(content, error) {
+      parser.parse().thenCatch(function(error) {
         error.getCode().should.equal(parser.Errors.NoContent);
 
         done();
@@ -22,7 +22,7 @@ describe('AutoMan.parsers.content.Html', function () {
     it('Should return an AutoMan.parsers.content.Html.Errors.Unparsable on bad content nodes.', function (done) {
       var parser = new AutoMan.parsers.content.Html(badContent);
 
-      parser.parse(function (content, error) {
+      parser.parse().thenCatch(function (error) {
         error.should.exist;
         error.getCode().should.equal(parser.Errors.Unparsable);
         
@@ -33,7 +33,7 @@ describe('AutoMan.parsers.content.Html', function () {
     it('Should parse valid data and return a proper AutoMan.collections.content.', function (done) {
       var parser = new AutoMan.parsers.content.Html(goodContent);
 
-      parser.parse(function (htmlContent) {
+      parser.parse().then(function (htmlContent) {
 
         // It wrapped wrapped in a 'root' div node...
         htmlContent.getValue().type.should.equal('div');

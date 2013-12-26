@@ -9,7 +9,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
 
   describe('#parse', function() {
     it('Should return AutoMan.collections.Content on success.', function(done) {
-      parser.parse(function(content, error) {
+      parser.parse().then(function(content) {
         content.should.exist;
         content.should.be.instanceOf(AutoMan.collections.Content);
         
@@ -17,22 +17,10 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
       });
     });
 
-    it('Should not return error on success.', function(done) {
-      parser.parse(function(content, error) {
-        should.not.exist(error);
-        
-        done();
-      });
-    });
-
-    it('Should return empty AutoMan.collections.Content and a AutoMan.common.Error in callback on fail.', function(done){
+    it('Should return error on failure.', function(done){
       parser = new AutoMan.test.fixtures.parsers.content.TestParser('', {pass: false});
 
-      parser.parse(function(content, error) {
-        content.should.exst;
-        content.should.be.an.instanceOf(AutoMan.collections.Content);
-        content.getChildCount().should.be.equal(0);
-
+      parser.parse().thenCatch(function(error) {
         error.should.exist;
         error.should.be.an.instanceOf(AutoMan.common.Error);
 
@@ -47,7 +35,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
     });
 
     it('Should return content after parse.', function(done) {
-      parser.parse(function() {
+      parser.parse().then(function(content) {
         parser.getContent().should.exist;
 
         done();
@@ -55,7 +43,7 @@ describe('AutoMan.parsers.content.AbstractParser', function() {
     });
 
     it('Should return content equal to callback value.', function(done) {
-      parser.parse(function(content) {
+      parser.parse().then(function(content) {
         parser.getContent().should.be.equal(content);
 
         done();

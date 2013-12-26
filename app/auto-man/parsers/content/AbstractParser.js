@@ -1,5 +1,7 @@
 goog.provide('AutoMan.parsers.content.AbstractParser');
 
+goog.require('goog.labs.Promise');
+
 goog.require('AutoMan.collections.Content');
 
 /**
@@ -55,26 +57,22 @@ AutoMan.parsers.content.AbstractParser.getType = goog.abstractMethod;
 /**
  * Parses content and pushes results into callback.
  *
- * @param {?Function(!AutoMan.collections.Content, ?AutoMan.common.Error)} callback
+ * @returns {!goog.labs.Promise}
  */
-AutoMan.parsers.content.AbstractParser.prototype.parse = function(callback) {
-  var callback_ = callback || function() {};
+AutoMan.parsers.content.AbstractParser.prototype.parse = function() {
+  return new goog.labs.Promise(function(fulfilled, rejected) {
+    if(this.isCached_()) {
+      return fulfilled(this.getContent());
+    }
 
-  if(this.isCached_()) {
-    return callback_(this.getContent());
-  }
+    try {
+      this.parsed_ = this.parse_();
+    } catch (assertionFailed) {
+      return rejected(assertionFailed);
+    }
 
-  var parsed, error;
-
-  try {
-    parsed = this.parse_();
-  } catch (e) {
-    error = e;
-  }
-  
-  this.parsed_ = parsed || new AutoMan.collections.Content();
-
-  callback_(this.getContent(), error);
+    fulfilled(this.getContent());
+  }, this);
 };
 
 /**

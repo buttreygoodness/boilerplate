@@ -59,7 +59,7 @@ describe('AutoMan.sources.Source', function() {
       });
     });
 
-    it('Should deligate fetch.', function(done) {
+    it('Should proxy fetch.', function(done) {
       source.fetch({
         type: 'registered',
         location: 'space'
