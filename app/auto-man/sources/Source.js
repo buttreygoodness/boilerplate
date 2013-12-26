@@ -76,7 +76,7 @@ AutoMan.sources.Source.prototype.fetch = function(item, callback) {
     AutoMan.common.assert(item.location, this.Errors.NoResourceLocation);
     AutoMan.common.assert(this.factory_.isIdRegistered(item.type), this.Errors.ResourceTypeNotSupported);
   } catch (error) {
-    callback(null, error);
+    return callback(null, error);
   }
 
   this.factory_.create(item.type).fetch(item, callback);

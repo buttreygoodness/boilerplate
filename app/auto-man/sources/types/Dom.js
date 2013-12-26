@@ -59,8 +59,8 @@ AutoMan.sources.types.Dom.getType = function() {
 AutoMan.sources.types.Dom.prototype.fetch = function(resource, callback) {
   var element = this.dom_.$(resource.location);
 
-  if(!resource.location) {
-    callback();
+  if(!element) {
+    return callback();
   }
 
   callback(this.dom_.getTextContent(element));
