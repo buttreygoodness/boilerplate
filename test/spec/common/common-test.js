@@ -63,4 +63,52 @@ describe('AutoMan.common', function() {
       AutoMan.common.interfaceMethod.should.throw();
     });
   });
+
+  describe('#assert', function() {
+    it('Should throw on falsey statments.' , function() {
+      var throwMe = function() {
+        AutoMan.common.assert(false);
+      };
+
+      throwMe.should.throw();
+    });
+
+    it('Should not throw on truthy statments.', function() {
+      var dontThrowMe = function() {
+        AutoMan.common.assert(true);
+      };
+
+      dontThrowMe.should.not.throw();
+    });
+
+    it('Should wrap and throw error provided as AutoMan.common.Error.', function() {
+      var exception;
+
+      try {
+        AutoMan.common.assert(false, 'ERROR');
+      } catch(e) {
+        exception = e;
+      }
+
+      should.exist(exception);
+
+      exception.should.be.instanceOf(AutoMan.common.Error);
+      exception.getCode().should.equal('ERROR');
+    });
+
+    it('Should wrap and throw generic error as AutoMan.common.Error.', function() {
+      var exception;
+
+      try {
+        AutoMan.common.assert(false);
+      } catch(e) {
+        exception = e;
+      }
+
+      should.exist(exception);
+
+      exception.should.be.instanceOf(AutoMan.common.Error);
+      exception.getCode().should.equal(AutoMan.common.Errors.AssertionError);
+    });
+  });
 });
