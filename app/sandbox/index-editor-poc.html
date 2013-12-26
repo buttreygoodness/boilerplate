@@ -141,7 +141,10 @@
           var data = model.getChildAt(0).getData(),
               html = $('#navigation-content').html(),
               menu = $('#navigation-menu'),
-              template = html.replace(/{{content-text}}/g, data.text).replace(/{{content-type}}/g, type);
+              template = html
+                          .replace(/{{content-text}}/g, data.text)
+                          .replace(/{{content-type}}/g, type)
+                          .replace(/{{content-reference}}/g, model.getId());
 
           menu.append(template);
         }
@@ -201,7 +204,7 @@
 
   <template id="navigation-content">
     <li class="navitem">
-      <a tabindex="-1" href="#" data-type="{{content-type}}">{{content-text}}</a>
+      <a tabindex="-1" href="#{{content-reference}}" data-type="{{content-type}}">{{content-text}}</a>
     </li>
   </template>
 
