@@ -52,9 +52,19 @@ AutoMan.common.generateUUID.template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
  * @param {!Function} constructor
  * @param {!Function} classInterface
  */
-AutoMan.common.implementInterface = function(constructor, classInterface) {
-  goog.object.extend(constructor, goog.object.filter(classInterface, goog.isFunction));
-  goog.object.extend(constructor.prototype, goog.object.filter(classInterface.prototype, goog.isFunction));
+AutoMan.common.implementsInterface = function(constructor, classInterface) {
+  goog.object.extend(constructor, goog.object.filter(classInterface, AutoMan.common.isInterfaceMethod));
+  goog.object.extend(constructor.prototype, goog.object.filter(classInterface.prototype, AutoMan.common.isInterfaceMethod));
+};
+
+/**
+ * Determines if a method is an interface method.
+ * 
+ * @param  {!Function}  method
+ * @return {!Boolean}
+ */
+AutoMan.common.isInterfaceMethod = function(method) {
+  return method === AutoMan.common.interfaceMethod;
 };
 
 /**

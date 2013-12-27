@@ -34,27 +34,31 @@ describe('AutoMan.common', function() {
     });
   });
 
-  describe('#implementInterface', function() {
+  describe('#implementsInterface', function() {
     var AnimalInterface = function() {};
 
-    AnimalInterface.prototype.say = function() { throw Error(); }
+    AnimalInterface.prototype.say =  AutoMan.common.interfaceMethod;
 
-    AnimalInterface.animal = function() { throw Error(); }
+    AnimalInterface.animal = AutoMan.common.interfaceMethod;
+
+    AnimalInterface.concrete = function() {};
 
     var Cat = function() {};
 
-    AutoMan.common.implementInterface(Cat, AnimalInterface);
+    AutoMan.common.implementsInterface(Cat, AnimalInterface);
 
     it('Should add interface prototype methods to constructor.', function() {
       Cat.prototype.should.contain.key('say');
-      Cat.prototype.say.should.be.a.function;
-      Cat.prototype.say.should.throw;
+      Cat.prototype.say.should.equal(AutoMan.common.interfaceMethod);
     });
 
     it('Should add static methods from interface to constructor.', function() {
       Cat.should.contain.key('animal');
-      Cat.animal.should.be.a.function;
-      Cat.animal.should.throw;
+      Cat.animal.should.equal(AutoMan.common.interfaceMethod);
+    });
+
+    it('Should not add any non AutoMan.common.interfaceMethod to constructor.', function() {
+      Cat.should.not.contain.key('concrete');
     });
   });
 

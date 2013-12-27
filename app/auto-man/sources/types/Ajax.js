@@ -27,9 +27,9 @@ AutoMan.sources.types.Ajax = function(options) {
   this.options_ = options || {};
 };
 
-AutoMan.common.implementInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceStrategyInterface);
+AutoMan.common.implementsInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceStrategyInterface);
 
-AutoMan.common.implementInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceFactoryItemInterface);
+AutoMan.common.implementsInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceFactoryItemInterface);
 
 /**
  * Errors supported by dom source.
