@@ -50,11 +50,11 @@ AutoMan.common.generateUUID.template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
  * Adds an interface implementation to an object constructor prototype.
  * 
  * @param {!Function} constructor
- * @param {!Function} interface
+ * @param {!Function} classInterface
  */
-AutoMan.common.implementInterface = function(constructor, interface) {
-  goog.object.extend(constructor, goog.object.filter(interface, goog.isFunction));
-  goog.object.extend(constructor.prototype, goog.object.filter(interface.prototype, goog.isFunction));
+AutoMan.common.implementInterface = function(constructor, classInterface) {
+  goog.object.extend(constructor, goog.object.filter(classInterface, goog.isFunction));
+  goog.object.extend(constructor.prototype, goog.object.filter(classInterface.prototype, goog.isFunction));
 };
 
 /**

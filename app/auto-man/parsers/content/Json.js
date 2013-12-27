@@ -72,7 +72,6 @@ AutoMan.parsers.content.Json.prototype.parse_ = function() {
   this.decode_();
 
   AutoMan.common.assert(this.parsableObject_, this.Errors.Unparsable);
-  
   AutoMan.common.assert(this.parsableObject_.content, this.Errors.NoContent);
     
   return this.recursiveParse_(this.parsableObject_.content);
