@@ -1,6 +1,6 @@
 goog.provide('AutoMan.parsers.Factory');
 
-goog.require('AutoMan.commmon.AbstractFactory');
+goog.require('AutoMan.common.patterns.Factory');
 
 /**
  * Parser factory.
@@ -13,7 +13,7 @@ AutoMan.parsers.Factory = function(options) {
   goog.base(this, options);
 };
 
-goog.inherits(AutoMan.parsers.Factory, AutoMan.commmon.AbstractFactory);
+goog.inherits(AutoMan.parsers.Factory, AutoMan.common.patterns.Factory);
 
 /**
  * Implements {AutoMan.common.patterns.Factory#getItemId_}
