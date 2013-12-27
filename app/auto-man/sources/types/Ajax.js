@@ -28,6 +28,7 @@ AutoMan.sources.types.Ajax = function(options) {
 };
 
 AutoMan.common.implementInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceStrategyInterface);
+
 AutoMan.common.implementInterface(AutoMan.sources.types.Ajax, AutoMan.sources.abstract.SourceFactoryItemInterface);
 
 /**

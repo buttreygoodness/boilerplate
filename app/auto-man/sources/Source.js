@@ -35,6 +35,7 @@ AutoMan.sources.Source = function(factory, options) {
 };
 
 AutoMan.common.implementInterface(AutoMan.sources.Source, AutoMan.sources.abstract.SourceStrategyInterface);
+
 AutoMan.common.implementInterface(AutoMan.sources.Source, AutoMan.sources.abstract.SourceFactoryItemInterface);
 
 /**

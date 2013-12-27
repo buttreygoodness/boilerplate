@@ -36,6 +36,7 @@ AutoMan.sources.types.Dom = function(options) {
 };
 
 AutoMan.common.implementInterface(AutoMan.sources.types.Dom, AutoMan.sources.abstract.SourceStrategyInterface);
+
 AutoMan.common.implementInterface(AutoMan.sources.types.Dom, AutoMan.sources.abstract.SourceFactoryItemInterface);
 
 /**

@@ -36,22 +36,20 @@
       AutoMan.sources.source.fetch({
         location: '/app/sandbox/index.json',
         type: 'ajax'
-      }).then(function(content) {
+      }).then(function (content) {
         var jsonParser = new AutoMan.parsers.content.Json(content);
 
-        jsonParser.parse().then(function (data) {
-          var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
+        return jsonParser.parse();
+      }).then(function (data) {
+        var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
 
-          builder.build().then(function (components) {
-            var div = document.createElement('div');
+        return builder.build();
+      }).then(function (components) {
+        var div = document.createElement('div');
 
-            components.render(div);
+        components.render(div);
 
-            jQuery('body').append(div);
-          });
-
-          builder.build();
-        });      
+        jQuery('body').append(div);
       });
     });
   </script>

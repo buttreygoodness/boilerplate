@@ -158,35 +158,29 @@
       AutoMan.sources.source.fetch({
         location: "/app/sandbox/index.json",
         type: 'ajax'
-      }).then(function(content) {
+      }).then(function (content) {
         var jsonParser = new AutoMan.parsers.content.Json(content);
 
-        jsonParser.parse().then(function(data) {
-          var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
+        return jsonParser.parse();
+      }).then(function (data) {
+        var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
 
-          builder.build().then(function (components) {
-            window.builder = components;
-            var div = document.createElement('div');
-            div.className = 'mainElement container';
+        return builder.build();
+      }).then(function (components) {
 
-            components.render(div);
+        var div = document.createElement('div');
+        div.className = 'mainElement container';
 
-            window.components = components;
+        components.render(div);
 
-            jQuery('body').append(div);
+        jQuery('body').append(div);
 
-            var editor = new Editor({
-              factory: AutoMan.ui.components.factory,
-              components: components
-            });
+        var editor = new Editor({
+          factory: AutoMan.ui.components.factory,
+          components: components
+        });
 
-            editor.run();
-          });
-
-          builder.build();
-        }).thenCatch(function(error) {
-          alert(error);
-        });      
+        editor.run();
       });
 
       $("#menu-toggle, #menu-close").click(function(e) {
