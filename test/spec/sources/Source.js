@@ -19,14 +19,14 @@ describe('AutoMan.sources.Source', function() {
       source = new AutoMan.sources.Source(AutoMan.test.fixtures.sources.factory);
     });
 
-    it('Should only return an AutoMan.sources.Source.Errors.NoResourceLocation error on no resource provided.', function(done) {
+    it('Should only return an AutoMan.sources.Source.Errors.NoResourceresource error on no resource provided.', function(done) {
       source.fetch({
         type: 'registered'
       }).then(function(){}, function(error) {
         should.exist(error);
 
         error.should.be.instanceOf(AutoMan.common.Error);
-        error.getCode().should.equal(source.Errors.NoResourceLocation);
+        error.getCode().should.equal(source.Errors.NoResourceresource);
 
         done();
       });
@@ -34,7 +34,7 @@ describe('AutoMan.sources.Source', function() {
 
     it('Should only return an AutoMan.sources.Source.Errors.NoResourceType on no type provided.', function(done) {
       source.fetch({
-        location: 'space'
+        resource: 'space'
       }).then(function() {}, function(error) {
         should.exist(error);
 
@@ -47,7 +47,7 @@ describe('AutoMan.sources.Source', function() {
 
     it('Should only return AutoMan.sources.Source.Errors.ResourceTypeNotSupported on none suported types.', function(done) {
       source.fetch({
-        location: 'space',
+        resource: 'space',
         type    :  'icecream'
       }).then(function(){}, function(error) {
         should.exist(error);
@@ -62,7 +62,7 @@ describe('AutoMan.sources.Source', function() {
     it('Should proxy fetch.', function(done) {
       source.fetch({
         type: 'registered',
-        location: 'space'
+        resource: 'space'
       }).then(function(body) {
         should.exist(body);
         body.should.equal('deligate');

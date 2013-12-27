@@ -62,7 +62,7 @@ AutoMan.sources.types.Ajax.getType = function() {
  */
 AutoMan.sources.types.Ajax.prototype.fetch = function(resource) {
   return new goog.labs.Promise(function(fulfilled, rejected) {
-    goog.net.XhrIo.send(resource.location, function(event) {
+    goog.net.XhrIo.send(resource.resource, function(event) {
       if(!event.target.isSuccess()) {
         return rejected(new AutoMan.common.Error(this.Errors.ResourceNotFound));
       }

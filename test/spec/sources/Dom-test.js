@@ -22,7 +22,7 @@ describe('AutoMan.sources.types.Dom', function() {
 
     it('Should return text content from a dom id, if exists.', function(done) {
       var resource = {
-        'location': 'test-content'
+        'resource': 'test-content'
       };
 
       domSource.fetch(resource).then(function(content) {
@@ -35,7 +35,7 @@ describe('AutoMan.sources.types.Dom', function() {
 
     it('Should return AutoMan.common.Error with AutoMan.sources.types.Dom.Errors.ResourceNotFound on resource not found.', function(done) {
       var resource = {
-        'location': 'doesnt-exist'
+        'resource': 'doesnt-exist'
       };
 
       domSource.fetch(resource).thenCatch(function(error) {

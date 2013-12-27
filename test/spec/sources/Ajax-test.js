@@ -16,7 +16,7 @@ describe('AutoMan.sources.types.Ajax', function() {
 
     it('Should return text content from a resource, if exists.', function(done) {
       var resource = {
-        'location': '../fixtures/sources/test-content.txt'
+        'resource': '../fixtures/sources/test-content.txt'
       };
 
       ajaxSource.fetch(resource).then(function(content) {
@@ -29,7 +29,7 @@ describe('AutoMan.sources.types.Ajax', function() {
 
     it('Should return AutoMan.common.Error with AutoMan.sources.types.Ajax.Errors.ResourceNotFound on resource not found.', function(done) {
       var resource = {
-        'location': '../fixtures/sources/doesnt-exist.txt'
+        'resource': '../fixtures/sources/doesnt-exist.txt'
       };
 
       ajaxSource.fetch(resource).thenCatch(function(error) {

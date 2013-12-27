@@ -44,7 +44,7 @@ AutoMan.common.implementInterface(AutoMan.sources.Source, AutoMan.sources.abstra
  * @enum {String}
  */
 AutoMan.sources.Source.Errors = {
-  'NoResourceLocation'        : 'No resource location provided.',
+  'NoResourceresource'        : 'No resource resource provided.',
   'ResourceTypeNotSupported'  : 'Requested source type is not supported.',
   'NoResourceType'            : 'A resource type was not provided.'
 };
@@ -73,7 +73,7 @@ AutoMan.sources.Source.prototype.fetch = function(item) {
   return new goog.labs.Promise(function(fulfilled, rejected) {
     try {
       AutoMan.common.assert(item.type, this.Errors.NoResourceType);
-      AutoMan.common.assert(item.location, this.Errors.NoResourceLocation);
+      AutoMan.common.assert(item.resource, this.Errors.NoResourceresource);
       AutoMan.common.assert(this.factory_.isIdRegistered(item.type), this.Errors.ResourceTypeNotSupported);
     } catch (failedAssertion) {
       rejected(failedAssertion);

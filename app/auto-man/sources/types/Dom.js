@@ -70,7 +70,7 @@ AutoMan.sources.types.Dom.getType = function() {
  */
 AutoMan.sources.types.Dom.prototype.fetch = function(resource) {
   return new goog.labs.Promise(function(fulfilled, rejected) {
-    var element = this.dom_.$(resource.location);
+    var element = this.dom_.$(resource.resource);
 
     if(!element) {
       return rejected(new AutoMan.common.Error(this.Errors.ResourceNotFound));
