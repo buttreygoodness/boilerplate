@@ -39,17 +39,15 @@
       }).then(function(content) {
         var jsonParser = new AutoMan.parsers.content.Json(content);
 
-        jsonParser.parse(function (data) {
+        jsonParser.parse().then(function (data) {
           var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
 
-          builder.addEventListener('Build.Complete', function (e) {
+          builder.build().then(function (components) {
             var div = document.createElement('div');
 
-            e.target.getComponents().render(div);
+            components.render(div);
 
             jQuery('body').append(div);
-
-            window.components = e.target.getComponents();
           });
 
           builder.build();

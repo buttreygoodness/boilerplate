@@ -1,6 +1,7 @@
 goog.provide('AutoMan.ui.Builder');
 
 goog.require('goog.array');
+goog.require('goog.labs.Promise');
 goog.require('goog.events.EventTarget');
 
 goog.require('AutoMan.common');
@@ -33,14 +34,6 @@ AutoMan.ui.Builder = function(content, factory) {
   this.content_ = content;
 
   /**
-   * Parsed components.
-   *
-   * @private
-   * @type {AutoMan.ui.components.AbstractComponent}
-   */
-  this.components_ = {};
-
-  /**
    * Look up table that contains a map of content IDs to Components.
    *
    * @private
@@ -57,53 +50,26 @@ goog.inherits(AutoMan.ui.Builder, goog.events.EventTarget);
  * @enum {String}
  */
 AutoMan.ui.Builder.Events = {
-  'BuildComplete' : 'Build.Complete' /** fires on build complete **/,
   'BuildError'    : 'Build.Error' /** fires on build fail **/,
-  'BuildStart'    : 'Build.Start' /** fires on build start **/,
-};
-
-/**
- * Error types.
- *
- * @enum {String}
- */
-AutoMan.ui.Builder.Errors = {
-  'ElementNodeError' : 'ElementNodeError'
 };
 
 /**
  * Async Build Content
  */
 AutoMan.ui.Builder.prototype.build = function() {
-  this.bindBuildEvents_();
+  var components;
 
-  this.build_();
-};
+  return new goog.labs.Promise(function(fulfilled, rejected) {
+    try {
+      components = this.build_(this.content_, this.factory_);
+    } catch (buildFailed) {
+      this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildError, this));
 
-/**
- * Returns built component.
- * 
- * @return {?AutoMan.ui.components.AbstractComponent}
- */
-AutoMan.ui.Builder.prototype.getComponents = function() {
-  return this.components_;
-};
+      return rejected(buildFailed);
+    }
 
-/**
- * Emits events and starts Build.
- *
- * @private
- */
-AutoMan.ui.Builder.prototype.build_ = function() {
-  this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildStart, this));
-
-  try {
-    this.components_ = this.buildRecursive_(this.content_, this.factory_);
-
-    this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildComplete, this));
-  } catch (e) {
-    this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildError, this));
-  }
+    fulfilled(components);
+  }, this);
 };
 
 /**
@@ -113,12 +79,9 @@ AutoMan.ui.Builder.prototype.build_ = function() {
  * @param  {!AutoMan.collections.Content} content
  * @param  {!AutoMan.ui.components.Factory} factory
  * @param  {?AutoMan.ui.components.AbstractComponent} node
- * @return {!AutoMan.ui.components.AbstractComponent}
  */
-AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) {
+AutoMan.ui.Builder.prototype.build_ = function(content, factory, node) {
   var elementNode = factory.create(content.getType(), content);
-
-  AutoMan.common.assert(elementNode, this.Errors.ElementNodeError);
 
   this.contentMap_[content.getId()] = elementNode;
 
@@ -131,36 +94,11 @@ AutoMan.ui.Builder.prototype.buildRecursive_ = function(content, factory, node) 
   }
 
   content.forEachChild(function(child) {
-    this.buildRecursive_(child, factory, elementNode);
+    this.build_(child, factory, elementNode);
   }.bind(this));
 
   return node;
 };
-
-/**
- * Binds internal events.
- *
- * @private
- */
-AutoMan.ui.Builder.prototype.bindBuildEvents_ = function() {
-  this.listenOnce(this.Events.BuildComplete, goog.bind(this.handleBuildComplete_, this));
-  this.listenOnce(this.Events.BuildError, goog.bind(this.handleBuildError_, this));
-};
-
-/**
- * Handels Build complete. Unlocks Build.
- *
- * @private
- */
-AutoMan.ui.Builder.prototype.handleBuildComplete_ = function() {};
-
-/**
- * Handels Build error. Unlocks Build.
- *
- * @private
- */
-AutoMan.ui.Builder.prototype.handleBuildError_ = function() {};
-
 
 /**
  * Binds all content model based events.
@@ -178,50 +116,57 @@ AutoMan.ui.Builder.prototype.bindContentEvents_ = function(content) {
  * Handles any added content nodes by rebuilding node.
  *
  * @private
- * @param  {!AutoMan.common.Event} e
+ * @param  {!AutoMan.common.Event} event
  */
-AutoMan.ui.Builder.prototype.handleContentAdd_ = function(e) {
-  var childAdded = e.target.getData().child;
+AutoMan.ui.Builder.prototype.handleContentAdd_ = function(event) {
+  var target, child;
 
-  this.buildRecursive_(childAdded, this.factory_, this.contentMap_[childAdded.getParent().getId()]);
+  target = event.target;
+
+  child = event.getData().child;
+  
+  try {
+    this.build_(child, this.factory_, this.contentMap_[child.getParent().getId()]);
+  } catch (buildError) {
+    this.dispatchEvent(new AutoMan.common.Event(this.Events.BuildError, this, {
+      Error: buildError
+    }));
+  }
 };
 
 /**
  * Handles content relocation.
  *
  * @private
- * @param  {!AutoMan.common.Event} e
+ * @param  {!AutoMan.common.Event} event
  */
-AutoMan.ui.Builder.prototype.handleContentMove_ = function(e) {
-  this.handleContentRemove_(e);
+AutoMan.ui.Builder.prototype.handleContentMove_ = function(event) {
+  this.handleContentRemove_(event);
 
-  this.handleContentAdd_(e);
+  this.handleContentAdd_(event);
 };
 
 /**
  * Handles any removed content by disposing of the component.
  *
  * @private
- * @param  {!AutoMan.common.Event} e
+ * @param  {!AutoMan.common.Event} event
  */
-AutoMan.ui.Builder.prototype.handleContentRemove_ = function(e) {
-  var id = e.target.getId();
+AutoMan.ui.Builder.prototype.handleContentRemove_ = function(event) {
+  var target, component;
 
-  if(!this.contentMap_[id]) {
+  target = event.target;
+
+  component = this.contentMap_[target.getId()];
+  
+  if(!component) {
     return;
   }
 
-  this.contentMap_[id].dispose();
+  component.getParent().removeChild(component);
 
-  delete(this.contentMap_[id]);
+  delete(this.contentMap_[target.getId()]);
 };
-
-/**
- * Allows easier 'this' access to error Enum.
- *
- * @alias AutoMan.ui.Builder.Errors
- */
-AutoMan.ui.Builder.prototype.Errors = AutoMan.ui.Builder.Errors;
 
 /**
  * Allows easier 'this' access to event Enum.

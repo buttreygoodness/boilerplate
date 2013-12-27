@@ -164,20 +164,20 @@
         jsonParser.parse().then(function(data) {
           var builder = new AutoMan.ui.Builder(data, AutoMan.ui.components.factory);
 
-          builder.addEventListener('Build.Complete', function (e) {
-            window.builder = e.target;
+          builder.build().then(function (components) {
+            window.builder = components;
             var div = document.createElement('div');
             div.className = 'mainElement container';
 
-            e.target.getComponents().render(div);
+            components.render(div);
 
-            window.components = e.target.getComponents();
+            window.components = components;
 
             jQuery('body').append(div);
 
             var editor = new Editor({
               factory: AutoMan.ui.components.factory,
-              components: e.target.getComponents()
+              components: components
             });
 
             editor.run();

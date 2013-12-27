@@ -1,7 +1,6 @@
 goog.provide('AutoMan.ui.components.Factory');
 
-goog.require('goog.events.Event');
-
+goog.require('AutoMan.common.Error');
 goog.require('AutoMan.common.patterns.Factory');
 
 /**
@@ -18,6 +17,15 @@ AutoMan.ui.components.Factory = function(options) {
 };
 
 goog.inherits(AutoMan.ui.components.Factory, AutoMan.common.patterns.Factory);
+
+/**
+ * Errors that can be thrown by factory.
+ * 
+ * @enum {String}
+ */
+AutoMan.ui.components.Factory.Errors = {
+  'UnsupportedType': 'Requested component is unsupported.'
+};
 
 /**
  * Content type that should be treated as a generic type.
@@ -71,11 +79,20 @@ AutoMan.ui.components.Factory.prototype.create = function(itemId, content) {
   } else if(this.isGenericRegistered()) {
     return goog.base(this, 'create', this.GenericContentType, content);
   }
+
+  throw new AutoMan.common.Errors(this.Errors.UnsupportedType);
 };
 
 /**
  * Easy 'this' access to generic content type.
  * 
- * @type {String}
+ * @alias AutoMan.ui.components.Factory.GenericContentType
  */
 AutoMan.ui.components.Factory.prototype.GenericContentType = AutoMan.ui.components.Factory.GenericContentType;
+
+/**
+ * Easy 'this' access to Errors.
+ * 
+ * @alias AutoMan.ui.components.Factory.Errors
+ */
+AutoMan.ui.components.Factory.prototype.Errors = AutoMan.ui.components.Factory.Errors;

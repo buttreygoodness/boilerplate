@@ -4,7 +4,7 @@ goog.require('AutoMan.test.fixtures.ui.components');
 goog.require('AutoMan.test.fixtures.collections.Content');
 
 describe('AutoMan.ui.Builder', function () {
-  var badContentFixture, Component, factory, builder;
+  var badContentFixture, Component, factory, builder, content;
 
   badContentFixture = {};
 
@@ -13,7 +13,8 @@ describe('AutoMan.ui.Builder', function () {
   factory = AutoMan.test.fixtures.ui.components.factory;
 
   beforeEach(function() {
-    builder = new AutoMan.ui.Builder(new AutoMan.test.fixtures.collections.Content(), factory);
+    content = new AutoMan.test.fixtures.collections.Content();
+    builder = new AutoMan.ui.Builder(content, factory);
   });
 
   afterEach(function() {
@@ -21,14 +22,6 @@ describe('AutoMan.ui.Builder', function () {
   });
 
   describe('#build', function() {
-    it('Should dispatch a BuildStart event on start.', function(done) {
-      builder.addEventListener(builder.Events.BuildStart, function() {
-        done();
-      });
-
-      builder.build();
-    });
-
     it('Should dispatch a BuildError event on error.', function(done) {
       var builder = new AutoMan.ui.Builder(badContentFixture, factory);
 
@@ -36,61 +29,31 @@ describe('AutoMan.ui.Builder', function () {
         done();
       });
 
-      builder.build();
+      builder.build().thenCatch(function() {});
     });
 
-    it('Should dispatch a BuildComplete event on complete.', function(done) {
-      builder.addEventListener(builder.Events.BuildComplete, function() {
-        done();
-      });
-
-      builder.build();
-    });
-  });
-
-  describe('#getComponents', function() {
-    it('Should return no components before build but should be an array.', function() {
-      builder.getComponents().should.be.an.array;
-
-      builder.getComponents().should.be.empty;
-    });
-
-    it('Should return no components on failed build.', function(done) {
+    it('Should return any errors that happen in build.', function(done) {
       var builder = new AutoMan.ui.Builder(badContentFixture, factory);
-
-      builder.addEventListener(builder.Events.BuildError, function(e) {
-        e.target.getComponents().should.be.empty;
+      
+      builder.build().thenCatch(function(error) {
+        should.exist(error);
 
         done();
       });
-
-      builder.build();
     });
 
-    it('Should return components on build complete.', function(done) {
-      builder.addEventListener(builder.Events.BuildComplete, function(e) {
-        e.target.getComponents().should.not.be.empty;
+    it('Should return components on successful build.', function(done) {
+      builder.build().then(function(components) {
+        should.exist(components);
+
+        components.should.be.instanceOf(Component);
 
         done();
       });
-
-      builder.build();
-    });
-
-    it('Should return a proper type.', function(done) {
-      builder.addEventListener(builder.Events.BuildComplete, function(e) {
-        e.target.getComponents().should.be.instanceOf(Component);
-
-        done();
-      });
-
-      builder.build();
     });
 
     it('Should return components in proper hierarchy.', function(done) {
-      builder.addEventListener(builder.Events.BuildComplete, function(e) {
-        components = e.target.getComponents();
-
+      builder.build().then(function(components) {
         components.getChildCount().should.equal(2);
 
         components.getChildAt(0).should.be.instanceOf(Component);
@@ -111,8 +74,45 @@ describe('AutoMan.ui.Builder', function () {
 
         done();
       });
+    });
 
-      builder.build();
+    it('Should detect when components are removed.', function(done) {
+      builder.build().then(function(components) {
+        content.removeChildAt(0);
+
+        components.getChildCount().should.equal(1);
+
+        components.getChildAt(0).getElement().id.should.equal('has-children');
+
+        done();
+      });
+    });
+
+    it('Should detect when components are added.', function(done) {
+      builder.build().then(function(components) {
+        content.addChild(new AutoMan.collections.Content({
+          id: 'new-child',
+          type: 'div'
+        }));
+
+        components.getChildCount().should.equal(3);
+
+        components.should.be.instanceOf(Component);
+        components.getChildAt(2).getElement().id.should.equal('new-child');
+      });
+    });
+
+    it('Should detect when components are moved.', function(done) {
+      builder.build().then(function(components) {
+        content.getChildAt(0).setParent(content.getChildAt(1));
+        
+        components.getChildCount().should.equal(1);
+        
+        components.getChildAt(0).getChildCount().should.equal(3);
+        components.getChildAt(0).getChildAt(2).getElement().id.should.equal('no-child');
+
+        done();
+      });
     });
   });
 });
