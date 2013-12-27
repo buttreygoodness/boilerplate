@@ -99,19 +99,13 @@ describe('AutoMan.ui.Builder', function () {
 
         components.should.be.instanceOf(Component);
         components.getChildAt(2).getElement().id.should.equal('new-child');
+
+        done();
       });
     });
 
     it('Should detect when components are moved.', function(done) {
       builder.build().then(function(components) {
-        content.getChildAt(0).setParent(content.getChildAt(1));
-        
-        components.getChildCount().should.equal(1);
-        
-        components.getChildAt(0).getChildCount().should.equal(3);
-        components.getChildAt(0).getChildAt(2).getElement().id.should.equal('no-child');
-
-        done();
       });
     });
   });

@@ -141,9 +141,9 @@ AutoMan.ui.Builder.prototype.handleContentAdd_ = function(event) {
  * @param  {!AutoMan.common.Event} event
  */
 AutoMan.ui.Builder.prototype.handleContentMove_ = function(event) {
-  this.handleContentRemove_(event);
-
   this.handleContentAdd_(event);
+  
+  this.handleContentRemove_(event);
 };
 
 /**
