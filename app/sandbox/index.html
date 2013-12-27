@@ -34,7 +34,7 @@
      */
     jQuery(document).ready(function () {
       AutoMan.sources.source.fetch({
-        location: '/app/sandbox/index.json',
+        resource: '/app/sandbox/index.json',
         type: 'ajax'
       }).then(function (content) {
         var jsonParser = new AutoMan.parsers.content.Json(content);
