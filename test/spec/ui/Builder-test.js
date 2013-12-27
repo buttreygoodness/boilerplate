@@ -103,10 +103,5 @@ describe('AutoMan.ui.Builder', function () {
         done();
       });
     });
-
-    it('Should detect when components are moved.', function(done) {
-      builder.build().then(function(components) {
-      });
-    });
   });
 });

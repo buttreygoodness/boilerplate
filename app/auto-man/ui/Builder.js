@@ -108,7 +108,6 @@ AutoMan.ui.Builder.prototype.build_ = function(content, factory, node) {
  */
 AutoMan.ui.Builder.prototype.bindContentEvents_ = function(content) {
   content.getEventTarget().addEventListener(content.Events.ContentAdded, this.handleContentAdd_.bind(this));
-  content.getEventTarget().addEventListener(content.Events.ContentMoved, this.handleContentMove_.bind(this));
   content.getEventTarget().addEventListener(content.Events.ContentRemoved, this.handleContentRemove_.bind(this));
 };
 
@@ -132,18 +131,6 @@ AutoMan.ui.Builder.prototype.handleContentAdd_ = function(event) {
       Error: buildError
     }));
   }
-};
-
-/**
- * Handles content relocation.
- *
- * @private
- * @param  {!AutoMan.common.Event} event
- */
-AutoMan.ui.Builder.prototype.handleContentMove_ = function(event) {
-  this.handleContentAdd_(event);
-  
-  this.handleContentRemove_(event);
 };
 
 /**

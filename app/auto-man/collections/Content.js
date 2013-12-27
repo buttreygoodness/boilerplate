@@ -27,7 +27,7 @@ AutoMan.collections.Content = function(content) {
    */
   this.eventTarget_ = new goog.events.EventTarget();
 
-  this.updateData(this.getData(), true);
+  this.updateData(this.getData());
 };
 
 goog.inherits(AutoMan.collections.Content, goog.structs.TreeNode);
@@ -40,8 +40,7 @@ goog.inherits(AutoMan.collections.Content, goog.structs.TreeNode);
 AutoMan.collections.Content.Events = {
   'ContentChange'   : 'Content.Change',
   'ContentAdded'    : 'Content.Added',
-  'ContentRemoved'  : 'Content.Removed',
-  'ContentMoved'    : 'Content.Moved'
+  'ContentRemoved'  : 'Content.Removed'
 };
 
 /**
@@ -84,15 +83,8 @@ AutoMan.collections.Content.prototype.getEventTarget = function() {
  * Updates internal data.
  *
  * @param  {!Object} data
- * @param  {?Boolean} fire Should we fire change events even when data is equivalent?
  */
-AutoMan.collections.Content.prototype.updateData = function(data, fire) {
-  if(!data) {
-    return;
-  } else if(data === this.getData() && !fire) {
-    return;
-  }
-
+AutoMan.collections.Content.prototype.updateData = function(data) {
   this.value_.data = data;
 
   this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentChange, this));
@@ -116,12 +108,20 @@ AutoMan.collections.Content.prototype.addChildAt = function(child, index) {
  * @param {!AutoMan.collections.Content} parent
  */
 AutoMan.collections.Content.prototype.setParent = function(parent) {
+  var wasOrphan, oldParent;
+
+  wasOrphan = this.isOrphan();
+
+  oldParent = this.getParent();
+
   goog.base(this, 'setParent', parent);
 
   if(this.isOrphan()) {
-    this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentRemoved, this));
-  } else {
-    this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentMoved, this));
+    return this.dispatchEvent_(new AutoMan.common.Event(this.Events.ContentRemoved, this));
+  } else if(!wasOrphan) {
+    oldParent.removeChild(this);
+
+    parent.addChild(this);
   }
 };
 
@@ -145,8 +145,16 @@ AutoMan.collections.Content.prototype.dispatchEvent_ = function(event) {
 };
 
 /**
+ * Allows 'this' access to super prototype.
+ *
+ * @private
+ * @alias AutoMan.collections.Content.superClass_
+ */
+AutoMan.collections.Content.prototype.super_ = AutoMan.collections.Content.superClass_;
+
+/**
  * Allows 'this' access of Events.
  *
- * @type {Object}
+ * @alias AutoMan.collections.Content.Events
  */
 AutoMan.collections.Content.prototype.Events = AutoMan.collections.Content.Events;
