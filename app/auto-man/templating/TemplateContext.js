@@ -51,6 +51,6 @@ AutoMan.templating.TemplateContext.prototype.getViewTemplate = function() {
  * 
  * @return {!Object<String, *>}
  */
-AutoMan.templating.TemplateContext.prototype.getView = function() {
+AutoMan.templating.TemplateContext.prototype.getViewData = function() {
   return this.view_;
 };

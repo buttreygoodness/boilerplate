@@ -12,6 +12,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <script type="text/javascript" src="/app/lib/jquery/jquery.js"></script>
     <script type="text/javascript" src="/app/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/app/lib/mustache/mustache.js"></script>
     <link rel="stylesheet" type="text/css" href="/app/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/app/sandbox/css/auto-man.css">
 
@@ -24,16 +25,33 @@
   <script>
     goog.require('AutoMan');
     goog.require('AutoMan.sources');
+    goog.require('AutoMan.templating');
+    goog.require('AutoMan.models.Template');
     goog.require('AutoMan.parsers.content.Json');
   </script>
 
   <script>
+    var mustacheTemplateEngine = new AutoMan.templating.adapters.Mustache(Mustache);
+
+    var template = new AutoMan.models.Template({
+      type: 'ajax',
+      resource: '/app/sandbox/template.html'
+    }, AutoMan.sources.composite, mustacheTemplateEngine);
+
+    var view = new AutoMan.templating.TemplateContext('', {
+      name: 'auto-man'
+    });
+
+    template.render(view).then(function(content) {
+      console.log(content);
+    });
 
     /*
      * Trying out bringing in data remotely...
      */
     jQuery(document).ready(function () {
-      AutoMan.sources.source.fetch({
+
+      AutoMan.sources.composite.fetch({
         resource: '/app/sandbox/index.json',
         type: 'ajax'
       }).then(function (content) {

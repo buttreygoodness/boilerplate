@@ -33,7 +33,7 @@ AutoMan.models.Template = function(item, source, templateEngine) {
   this.item_ = item;
 
   /**
-   * Engine used to evaluate template.
+   * Engine used to render template.
    *
    * @protected
    * @type {AutoMan.templating.abstract.TemplateEngineInterface}
@@ -41,31 +41,22 @@ AutoMan.models.Template = function(item, source, templateEngine) {
   this.templateEngine_ = templateEngine;
 };
 
-AutoMan.common.implementsInteface(AutoMan.models.Template, AutoMan.templating.abstract.TemplateEngineInterface);
+AutoMan.common.implementsInterface(AutoMan.models.Template, AutoMan.templating.abstract.TemplateEngineInterface);
 
 /**
- * lazy loads template and evaluates.
+ * lazy loads template and renders.
  * 
  * @implements {AutoMan.templating.abstract.TemplateEngineInterface}
  * 
  * @param  {!AutoMan.templating.abstract.TemplateContextInterface} view
  * @return {!goo.labs.Promise};
  */
-AutoMan.models.Template.prototype.evaluate = function(view) {
+AutoMan.models.Template.prototype.render = function(view) {
   return new goog.labs.Promise(function(fulfilled, rejected) {
     this.source_.fetch(this.item_).then(function(template) {
-      var templateContext, evaluated;
+      var templateContext = new AutoMan.templating.TemplateContext(template, view.getViewData());
 
-      templateContext = new AutoMan.templateContext(template, view.getViewData());
-
-      try {
-        evaluated = this.templateEngine_.evaluate(templateContext);
-      } catch (templateError) {
-        rejected(templateError);
-      }
-
-      fulfilled(evaluated);
-
-    }, rejected);
+      this.templateEngine_.render(templateContext).then(fulfilled, rejected);
+    }.bind(this), rejected);
   }, this);
 };

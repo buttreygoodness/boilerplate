@@ -6,3 +6,4 @@ goog.provide('AutoMan.sources.types');
 
 goog.require('AutoMan.sources.types.Dom');
 goog.require('AutoMan.sources.types.Ajax');
+goog.require('AutoMan.sources.types.Composite');

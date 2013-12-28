@@ -4,7 +4,6 @@
 
 goog.provide('AutoMan.sources');
 
-goog.require('AutoMan.sources.Source');
 goog.require('AutoMan.sources.Factory');
 goog.require('AutoMan.sources.types');
 
@@ -24,4 +23,4 @@ AutoMan.sources.factory.register(AutoMan.sources.types.Ajax);
  * 
  * @type {AutoMan.sources.Source}
  */
-AutoMan.sources.source = new AutoMan.sources.Source(AutoMan.sources.factory);
+AutoMan.sources.composite = new AutoMan.sources.types.Composite(AutoMan.sources.factory);

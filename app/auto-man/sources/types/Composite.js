@@ -1,4 +1,4 @@
-goog.provide('AutoMan.sources.Source');
+goog.provide('AutoMan.sources.types.Composite');
 
 goog.require('goog.labs.Promise');
 
@@ -13,9 +13,8 @@ goog.require('AutoMan.sources.abstract.SourceFactoryItemInterface');
  * @implements {AutoMan.sources.abstract.SourceFactoryItemInterface}
  * 
  * @param {!AutoMan.common.patterns.Factory} factory
- * @param {?Object<String, *>} options
  */
-AutoMan.sources.Source = function(factory, options) {
+AutoMan.sources.types.Composite = function(factory) {
 
   /**
    * instance factory.
@@ -24,26 +23,18 @@ AutoMan.sources.Source = function(factory, options) {
    * @type {AutoMan.common.patterns.Factory}
    */
   this.factory_ = factory;
-
-  /**
-   * instance options.
-   *
-   * @protected
-   * @type {Object<String, *>}
-   */
-  this.options_ = options || {};
 };
 
-AutoMan.common.implementsInterface(AutoMan.sources.Source, AutoMan.sources.abstract.SourceStrategyInterface);
+AutoMan.common.implementsInterface(AutoMan.sources.types.Composite, AutoMan.sources.abstract.SourceStrategyInterface);
 
-AutoMan.common.implementsInterface(AutoMan.sources.Source, AutoMan.sources.abstract.SourceFactoryItemInterface);
+AutoMan.common.implementsInterface(AutoMan.sources.types.Composite, AutoMan.sources.abstract.SourceFactoryItemInterface);
 
 /**
  * Source Errors
  * 
  * @enum {String}
  */
-AutoMan.sources.Source.Errors = {
+AutoMan.sources.types.Composite.Errors = {
   'NoResourceresource'        : 'No resource resource provided.',
   'ResourceTypeNotSupported'  : 'Requested source type is not supported.',
   'NoResourceType'            : 'A resource type was not provided.'
@@ -57,7 +48,7 @@ AutoMan.sources.Source.Errors = {
  * @static
  * @return {!String}
  */
-AutoMan.sources.Source.getType = function() {
+AutoMan.sources.types.Composite.getType = function() {
   return '*';
 };
 
@@ -69,7 +60,7 @@ AutoMan.sources.Source.getType = function() {
  * @param  {!Object<String, String>}   item
  * @returns {!goog.labs.Promise}
  */
-AutoMan.sources.Source.prototype.fetch = function(item) {
+AutoMan.sources.types.Composite.prototype.fetch = function(item) {
   return new goog.labs.Promise(function(fulfilled, rejected) {
     try {
       AutoMan.common.assert(item.type, this.Errors.NoResourceType);
@@ -86,6 +77,6 @@ AutoMan.sources.Source.prototype.fetch = function(item) {
 /**
  * Easy 'this' access to Errors.
  *
- * @alias AutoMan.sources.Source.Errors
+ * @alias AutoMan.sources.types.Composite.Errors
  */
-AutoMan.sources.Source.prototype.Errors = AutoMan.sources.Source.Errors;
+AutoMan.sources.types.Composite.prototype.Errors = AutoMan.sources.types.Composite.Errors;

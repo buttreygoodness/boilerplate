@@ -12,7 +12,8 @@
     "jquery": "~2.0.3",
     "mocha": "1.12.1",
     "chai": "~1.8.1",
-    "blanket": "~1.1.5"
+    "blanket": "~1.1.5",
+    "mustache": "~0.8.0"
   },
   "dependencies": {
     "bootstrap": "~3.0.0"
