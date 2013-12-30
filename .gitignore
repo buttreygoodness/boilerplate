@@ -7,4 +7,3 @@ test/coverage/*
 .grunt
 **/_SpecRunner.html
 .sass-cache
-app/sandbox/css/*
